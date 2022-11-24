@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Projet Final 1st</string>
+    <string name="login_text">Connectez-vous à votre compte</string>
 </resources>
