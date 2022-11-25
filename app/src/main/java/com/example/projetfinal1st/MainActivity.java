@@ -20,24 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SaveData saveData = new SaveData();
 
-        /**
-        * Button to change background from dark mode to white mode / white mode to dark mode
-        *///TODO
-        Button button = findViewById(R.id.colorButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            public void onClick(View view) { // this doesnt work **
-                if (saveData.getIsDarkModeOn()) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    saveData.setIsDarkModeOn(false);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    saveData.setIsDarkModeOn(true);
-                }
-            }
-        });
 
     }
 
