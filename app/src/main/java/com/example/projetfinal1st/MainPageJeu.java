@@ -28,16 +28,16 @@ public class MainPageJeu extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.menu_about:
-                //ce que va faire about
+                //TODO ce que va faire about
                 break;
             case R.id.menu_disconnect:
-                //deconnecter
+                //TODO deconnecter
                 break;
             case R.id.menu_setting:
-                //parametre du jeu
+                //TODO parametre du jeu
                 break;
             case R.id.menu_quit:
-                //fermer lapp
+                //TODO fermer lapp
                 break;
         }
         return super.onOptionsItemSelected(item);
