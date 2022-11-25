@@ -8,4 +8,8 @@
     <string name="main_login_password_hint">Mot de passe</string>
     <string name="button_signup">Enregistrez-vous ici</string>
     <string name="button_login">Connectez-vous ici</string>
+    <string name="menu_about">A propos</string>
+    <string name="menu_setting">Paramètres</string>
+    <string name="menu_disconnect">déconnection</string>
+    <string name="menu_quit">Fermer</string>
 </resources>
