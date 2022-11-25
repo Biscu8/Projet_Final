@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/loginLayoutVertical"
-        android:layout_width="297dp"
-        android:layout_height="wrap_content"
+        android:layout_width="301dp"
+        android:layout_height="273dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/loginTextTitle"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="68dp"
             android:gravity="bottom|center_horizontal"
             android:text="@string/main_login_text_title"
             android:textColor="@color/text"
