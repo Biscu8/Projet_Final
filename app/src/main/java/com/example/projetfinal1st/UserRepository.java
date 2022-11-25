@@ -34,7 +34,7 @@ public class UserRepository {
      * Function to insert saves in the database
      * @param save Save object
      */
-    public void inset(Save save) {
+    public void insert(Save save) {
         Executors.newSingleThreadExecutor().execute(() -> {
             userDao.insert(save);
         });
@@ -60,4 +60,9 @@ public class UserRepository {
         });
     }
 
+    public Boolean userNameExist(String username) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            userDao.getUsername(username);
+        });
+    }
 }

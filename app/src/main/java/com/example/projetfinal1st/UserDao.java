@@ -12,6 +12,14 @@ import androidx.room.Query;
 public interface UserDao {
 
     /**
+     * Query to get usernames from database
+     * @param username String of username
+     * @return String of username
+     */
+    @Query("SELECT username FROM 'User' WHERE username = :username ")
+    String getUsername(String username);
+
+    /**
      * Add a user to the database
      * @param users User to insert in database
      */
