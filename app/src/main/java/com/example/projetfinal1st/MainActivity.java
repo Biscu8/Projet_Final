@@ -1,8 +1,10 @@
 package com.example.projetfinal1st;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,21 +20,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SaveData saveData = new SaveData();
+
         /**
         * Button to change background from dark mode to white mode / white mode to dark mode
         *///TODO
         Button button = findViewById(R.id.colorButton);
-        int i = 0;
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             public void onClick(View view) { // this doesnt work **
-                RelativeLayout layout = findViewById(R.id.relativeLayout);
-                if (i ==    0) {
-                    layout.setBackgroundColor(R.color.main_color_black);
-                    i = 1;
+                if (saveData.getIsDarkModeOn()) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    saveData.setIsDarkModeOn(false);
                 } else {
-                    layout.setBackgroundColor(R.color.main_color_white);
-                    i = 0;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    saveData.setIsDarkModeOn(true);
                 }
             }
         });
