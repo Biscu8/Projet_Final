@@ -18,10 +18,20 @@ public interface UserDao {
     @Insert
     void insert(User... users);
 
+    @Insert
+    void insert(Save... saves);
+
     /**
      * Remove a user from the database
      * @param user User to remove from database
      */
     @Delete
     void delete(User user);
+
+    /**
+     * Remove a save from the database
+     * @param save Save to remove from database
+     */
+    @Delete
+    void delete(Save save);
 }

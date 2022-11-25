@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 /**
  * Database of usernames and passwords
  */
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class, Save.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     private static UserDatabase instance;

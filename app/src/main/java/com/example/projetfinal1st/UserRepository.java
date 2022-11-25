@@ -21,7 +21,7 @@ public class UserRepository {
     }
 
     /**
-     * Function to insert data in database
+     * Function to insert users in the database
      * @param user User object
      */
     public void insert(User user) {
@@ -31,12 +31,32 @@ public class UserRepository {
     }
 
     /**
-     * Function to delete data from the database
+     * Function to insert saves in the database
+     * @param save Save object
+     */
+    public void inset(Save save) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            userDao.insert(save);
+        });
+    }
+
+    /**
+     * Function to delete users from the database
      * @param user User object
      */
     public void delete(User user) {
         Executors.newSingleThreadExecutor().execute(() -> {
             userDao.delete(user);
+        });
+    }
+
+    /**
+     * Function to delete saves from the database
+     * @param save Save object
+     */
+    public void delete(Save save) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            userDao.delete(save);
         });
     }
 
