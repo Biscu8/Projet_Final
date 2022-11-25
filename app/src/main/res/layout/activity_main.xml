@@ -4,74 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=""
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/loginLayoutVertical"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:gravity="center_vertical"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/main_color_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/loginTextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:gravity="bottom|center_horizontal"
-            android:text="@string/main_login_text_title"
-            android:textSize="22sp" />
-
-        <EditText
-            android:id="@+id/editTextUsername"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/loginLayoutVertical"
+            android:layout_width="297dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="bottom"
-            android:hint="@string/main_login_username_hint"
-            android:inputType="textPersonName"
-            android:textSize="22sp" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="240dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/main_login_password_hint"
-            android:inputType="textPassword"
-            android:textSize="22sp" />
+            <TextView
+                android:id="@+id/loginTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:gravity="bottom|center_horizontal"
+                android:text="@string/main_login_text_title"
+                android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/loginTextSignup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom|center_horizontal"
-            android:text="@string/main_login_text_signup"
-            android:textSize="15sp" />
+            <EditText
+                android:id="@+id/editTextUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="bottom"
+                android:hint="@string/main_login_username_hint"
+                android:inputType="textPersonName"
+                android:textSize="22sp" />
 
-        <Button
-            android:id="@+id/signupButton"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:text="@string/button_signup"
-            android:textSize="12sp"
-            tools:ignore="TouchTargetSizeCheck" />
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/main_login_password_hint"
+                android:inputType="textPassword"
+                android:textSize="22sp" />
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:text="@string/button_login"
-            android:textSize="22sp" />
+            <TextView
+                android:id="@+id/loginTextSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom|center_horizontal"
+                android:text="@string/main_login_text_signup"
+                android:textSize="15sp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:text="@string/button_signup"
+                android:textSize="12sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_login"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/colorButton"
@@ -79,7 +92,7 @@
         android:layout_height="34dp"
         android:text="@string/button_white_mode"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/loginLayoutVertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
