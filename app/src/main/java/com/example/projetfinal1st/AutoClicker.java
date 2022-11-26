@@ -14,13 +14,22 @@ public class AutoClicker {
     private Activity activity;
     private Score score;
 
+    /**
+     * Constructor for an auto clicker
+     * @param timer Int in ms, rate at which the clicker adds 1 to the score
+     * @param activity Activity
+     * @param score Score
+     */
     public AutoClicker(int timer, Activity activity, Score score) {
         this.timer = timer;
         this.activity = activity;
         this.score = score;
     }
 
-    public void start(Score score) {
+    /**
+     * Function to start the timer after creating an auto clicker
+     */
+    public void start() {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -33,6 +42,7 @@ public class AutoClicker {
                 });
             }
         };
+        timer.scheduleAtFixedRate(timerTask, 0, this.timer);
     }
 
 }

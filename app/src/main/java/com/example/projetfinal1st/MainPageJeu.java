@@ -16,15 +16,20 @@ public class MainPageJeu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_jeu);
 
+        // Initiate the score of the user
         Score score = new Score();
-        score.incrementScore();
+
+        // Normal, hand clicker
         findViewById(R.id.button).setOnClickListener(view -> {
             score.incrementScore();
             score.updateScore(this);
         });
 
+        // How to implement autoclickers
+        // TODO delete before sending this shit
         findViewById(R.id.button2).setOnClickListener(view -> {
             AutoClicker autoClicker = new AutoClicker(1000, this, score);
+            autoClicker.start();
         });
 
     }
