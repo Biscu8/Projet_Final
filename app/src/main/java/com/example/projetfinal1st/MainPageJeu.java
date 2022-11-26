@@ -38,6 +38,7 @@ public class MainPageJeu extends AppCompatActivity {
                 break;
             case R.id.menu_quit:
                 //TODO menu Quit
+                System.exit(0);
                 break;
         }
         return super.onOptionsItemSelected(item);
