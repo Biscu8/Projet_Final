@@ -14,4 +14,7 @@
     <string name="menu_setting">Paramètres</string>
     <string name="menu_disconnect">Déconnection</string>
     <string name="menu_quit">Fermer</string>
+    <string name="setting">Paramètres</string>
+    <string name="Musique">Musique</string>
+    <string name="BasseQualite">Basse qualité</string>
 </resources>
