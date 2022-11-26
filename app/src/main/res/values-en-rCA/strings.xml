@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Elon Musk Simulator</string>
+    <string name="button_dark_mode">Dark Mode</string>
+    <string name="button_white_mode">White Mode</string>
+    <string name="main_login_text_title">Connect your account</string>
+    <string name="main_login_username_hint">Username</string>
+    <string name="main_login_text_signup">No Account?</string>
+    <string name="main_login_password_hint">password</string>
+    <string name="button_signup">Register here</string>
+    <string name="button_login">Connect here</string>
+    <string name="main_login_incorrect_credentials_text">Your username or password is incorrect</string>
+    <string name="main_login_account_already_exists">this username was already choosen</string>
+    <string name="menu_about">About</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_disconnect">Disconnect</string>
+    <string name="menu_quit">Close</string>
+    <string name="setting">Setting</string>
+    <string name="Musique">Music</string>
+    <string name="BasseQualite">Low quality</string>
+    <string name="Jeu">game</string>
+    <string name="difficulte">Difficulty</string>
+    <string name="bouttonFacile">Easy</string>
+    <string name="bouttonMedium">Medium</string>
+    <string name="bouttonDifficile">Hard</string>
+    <string name="darkMode">Dark Mode</string>
+    <string name="langue">Language</string>
+    <string name="Anglais">English</string>
+    <string name="francais">French</string>
+    <string name="Politique">Private policy</string>
+    <string name="Conditions">Terms of uses</string>
+    <string name="Credit">Credits</string>
+    <string name="DevMod">Developper mode</string>
+</resources>

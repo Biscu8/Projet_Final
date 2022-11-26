@@ -80,6 +80,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/Audio"
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -87,20 +88,36 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Audio"
                     android:textSize="20sp" />
 
                 <Switch
                     android:id="@+id/Musique"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:text="@string/Musique" />
+
+                <TextView
+                    android:id="@+id/Volume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Volume"
+                    android:textSize="20sp" />
+
+                <SeekBar
+                    android:id="@+id/VolumeBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="130dp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/Video"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right"
@@ -119,9 +136,74 @@
                     android:layout_height="wrap_content"
                     android:text="@string/BasseQualite" />
 
+                <Switch
+                    android:id="@+id/DarkMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/darkMode" />
+
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/langue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center|top"
+            android:text="@string/langue" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="157dp"
+            android:gravity="center|top"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/anglais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:capitalize="none"
+                android:gravity="left|center_vertical"
+                android:text="@string/Anglais"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/francais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/francais"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Politique"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Politique"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/Conditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Conditions"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/Credit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Credit"
+            android:textAllCaps="false" />
+
+        <Switch
+            android:id="@+id/devMod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/DevMod" />
 
     </LinearLayout>
 

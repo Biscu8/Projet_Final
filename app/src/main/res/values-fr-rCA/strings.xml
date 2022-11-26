@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Elon Musk Simulator</string>
     <string name="button_dark_mode">Mode Sombre</string>
     <string name="button_white_mode">Mode claire</string>
     <string name="main_login_text_title">Connectez-vous à votre compte</string>
-    <string name="main_login_username_hint">Nom dutilisateur</string>
+    <string name="main_login_username_hint">Nom d\'utilisateur</string>
     <string name="main_login_text_signup">Vous n\'avez pas de compte?</string>
     <string name="main_login_password_hint">Mot de passe</string>
     <string name="button_signup">Enregistrez-vous ici</string>
