@@ -17,4 +17,9 @@
     <string name="setting">Paramètres</string>
     <string name="Musique">Musique</string>
     <string name="BasseQualite">Basse qualité</string>
+    <string name="Jeu">Jeu</string>
+    <string name="difficulte">Difficulté</string>
+    <string name="bouttonFacile">Facile</string>
+    <string name="bouttonMedium">Normal</string>
+    <string name="bouttonDifficile">Difficile</string>
 </resources>

@@ -36,7 +36,8 @@ public class MainPageJeu extends AppCompatActivity {
                 break;
             case R.id.menu_setting:
                 //TODO menu Settings
-
+                Intent intent = new Intent(this,Setting.class);
+                startActivity(intent);
                 break;
             case R.id.menu_quit:
                 //TODO menu Quit
