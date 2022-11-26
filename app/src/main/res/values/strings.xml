@@ -8,6 +8,8 @@
     <string name="main_login_password_hint">Mot de passe</string>
     <string name="button_signup">Enregistrez-vous ici</string>
     <string name="button_login">Connectez-vous ici</string>
+    <string name="main_login_incorrect_credentials_text">Votre nom d\'utilisateur ou votre mot de passe est incorrect</string>
+    <string name="main_login_account_already_exists">Votre nom d\'utilisateur appartient déjà à un compte</string>
     <string name="menu_about">À propos</string>
     <string name="menu_setting">Paramètres</string>
     <string name="menu_disconnect">Déconnection</string>

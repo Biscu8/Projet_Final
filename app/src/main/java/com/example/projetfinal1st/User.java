@@ -1,5 +1,6 @@
 package com.example.projetfinal1st;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,6 +12,7 @@ import androidx.room.PrimaryKey;
 public class User {
 
     @PrimaryKey
+    @NonNull
     public String username;
 
     @ColumnInfo(name="password")

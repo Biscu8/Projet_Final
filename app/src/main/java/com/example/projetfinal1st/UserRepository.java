@@ -3,13 +3,14 @@ package com.example.projetfinal1st;
 import android.app.Application;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Repository class for database
  */
 public class UserRepository {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     /**
      * Function to set the database to this application
@@ -60,9 +61,30 @@ public class UserRepository {
         });
     }
 
-    public Boolean userNameExist(String username) {
+    /**
+     * Function to check whether the user is already in the database or not
+     * @param username String of username
+     * @return
+     */
+    public boolean isUserInDatabase(String username) {
+        AtomicBoolean bool = new AtomicBoolean(false);
         Executors.newSingleThreadExecutor().execute(() -> {
-            userDao.getUsername(username);
+            bool.set(userDao.isUserInDatabase(username));
         });
+        return bool.get();
+    }
+
+    /**
+     * Function to check whether the password is correct
+     * @param password String of password
+     * @param username String of password
+     * @return boolean
+     */
+    public boolean isPasswordCorrect(String password, String username) {
+        AtomicBoolean bool = new AtomicBoolean(false);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            bool.set(userDao.isPasswordCorrect(password, username));
+        });
+        return bool.get();
     }
 }

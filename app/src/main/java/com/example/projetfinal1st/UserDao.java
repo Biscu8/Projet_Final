@@ -1,5 +1,6 @@
 package com.example.projetfinal1st;
 
+import androidx.core.location.LocationRequestCompat;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,8 +17,11 @@ public interface UserDao {
      * @param username String of username
      * @return String of username
      */
-    @Query("SELECT username FROM 'User' WHERE username = :username ")
-    String getUsername(String username);
+    @Query("SELECT username FROM 'User' WHERE username = :username")
+    boolean isUserInDatabase(String username);
+
+    @Query("SELECT password FROM 'User' WHERE username = :username AND password = :password")
+    boolean isPasswordCorrect(String password, String username);
 
     /**
      * Add a user to the database

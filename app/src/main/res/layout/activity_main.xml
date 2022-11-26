@@ -8,9 +8,10 @@
 
     <LinearLayout
         android:id="@+id/loginLayoutVertical"
-        android:layout_width="301dp"
-        android:layout_height="273dp"
-        android:gravity="center"
+        android:layout_width="293dp"
+        android:layout_height="321dp"
+        android:layout_marginBottom="200dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +70,14 @@
             android:layout_height="wrap_content"
             android:text="@string/button_login"
             android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/loginErrorText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/main_login_incorrect_credentials_text"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
