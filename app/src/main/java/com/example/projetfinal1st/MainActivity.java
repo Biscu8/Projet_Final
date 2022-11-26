@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                 findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
-                //retirer apres les test
+                // TODO retirer apres les test
                 Intent intent = new Intent(this, MainPageJeu.class);
                 startActivity(intent);
             }
