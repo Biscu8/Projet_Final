@@ -1,17 +1,15 @@
 package com.example.projetfinal1st;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.View;
-import android.view.textclassifier.TextClassifierEvent;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import java.util.Locale;
+import java.util.concurrent.locks.Condition;
 
 public class Setting extends AppCompatActivity {
     private RadioGroup group;
@@ -21,8 +19,8 @@ public class Setting extends AppCompatActivity {
      * Resources va chercher le fichier ressource de lapplication
      * Config prend la configuration des ressources
      */
-    private Resources res = getApplicationContext().getResources();
-    private Configuration config = res.getConfiguration();
+   // private Resources res = getApplicationContext().getResources();
+   // private Configuration config = res.getConfiguration();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_setting);
@@ -51,10 +49,38 @@ public class Setting extends AppCompatActivity {
             }
         });
         /**
+         * ouvre la page des politiques prives
+         */
+        findViewById(R.id.Politique).setOnClickListener(view -> {
+            Intent intent = new Intent(this, PolitiqueConfidentalite.class);
+            startActivity(intent);
+        });
+        /**
+         * ouvre la page des conditions dutilisations
+         */
+        findViewById(R.id.Conditions).setOnClickListener(view -> {
+            Intent intent = new Intent(this, ConditionsUtilisations.class);
+            startActivity(intent);
+        });
+        //fais un popup des credits
+        findViewById(R.id.Credit).setOnClickListener(view -> {
+                    AlertDialog.Builder creditpopup = new AlertDialog.Builder(new MainActivity());
+                    creditpopup.setTitle("Credit");
+                    creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
+                    creditpopup.setNeutralButton("fermer", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                        //creditpopup.show() marche pas
+                    });
+                });
+        /**
          * fonction qui verifie si le boutton anglais est utiliser
          * sil est utiliser on change la configuration pour langlais
          * cela va faire reload lapp et nous devrons la relancer avec langlais
          */
+        /*
         findViewById(R.id.anglais).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +95,6 @@ public class Setting extends AppCompatActivity {
                 res.updateConfiguration(config, res.getDisplayMetrics());
             }
         });
+        */
     }
-
-
 }
