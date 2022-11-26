@@ -15,6 +15,18 @@ public class MainPageJeu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_jeu);
+
+        Score score = new Score();
+        score.incrementScore();
+        findViewById(R.id.button).setOnClickListener(view -> {
+            score.incrementScore();
+            score.updateScore(this);
+        });
+
+        findViewById(R.id.button2).setOnClickListener(view -> {
+            AutoClicker autoClicker = new AutoClicker(1000, this, score);
+        });
+
     }
 
     @Override
@@ -44,4 +56,7 @@ public class MainPageJeu extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
