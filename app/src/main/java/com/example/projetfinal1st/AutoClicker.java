@@ -29,6 +29,7 @@ public class AutoClicker {
     /**
      * Function to start the timer after creating an auto clicker
      */
+    //TODO si on click sur lauto clicker plusieurs fois la vitesse sacummule xDDDD
     public void start() {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
