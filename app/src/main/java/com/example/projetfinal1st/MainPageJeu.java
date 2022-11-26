@@ -31,10 +31,12 @@ public class MainPageJeu extends AppCompatActivity {
                 //TODO menu About
                 break;
             case R.id.menu_disconnect:
-                //TODO menu Disconnect
+                System.exit(0);
+                //TODO sauvegarder la progression
                 break;
             case R.id.menu_setting:
                 //TODO menu Settings
+
                 break;
             case R.id.menu_quit:
                 //TODO menu Quit
