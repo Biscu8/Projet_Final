@@ -26,7 +26,7 @@
     <string name="darkMode">Mode sombre</string>
     <string name="langue">Langue</string>
     <string name="Anglais">Anglais</string>
-    <string name="francais">francais</string>
+    <string name="francais">Francais</string>
     <string name="Politique">Politique de confidentalité</string>
     <string name="Conditions">Conditions dutilisation</string>
     <string name="Credit">Crédits</string>
@@ -34,4 +34,8 @@
     <string name="textPolitique">Nous utiliserons vos informations de connection ainsi que tout les données que vous allez rentrer dans cette application a des fin lucratives.
         \n Tout vos erreurs seront comptabilise et si vous faites assez derreur nous nous ferons un plaisir de faire une publication sur nos réseaux sociaux en riant de vous.</string>
     <string name="ConditionsUtilisations">En jouant a ce jeu, vous consenter a nous donner votre ame et toute liberter de vous ridiculisez en publique.</string>
+    <string name="employees">Employés</string>
+    <string name="employee_text_view">Employé</string>
+    <string name="employee_count">Employés</string>
+    <string name="button_buy">Acheter</string>
 </resources>
