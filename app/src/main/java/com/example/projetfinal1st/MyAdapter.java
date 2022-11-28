@@ -1,7 +1,6 @@
 package com.example.projetfinal1st;
 
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+import java.util.ArrayList;
 
-    private String[] localDataSet;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+    private final ArrayList<Employee> localDataSet;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -25,7 +26,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         private final ImageView employeeImageView;
         private final ImageButton employeeDescriptionButton;
         private final Button employeeBuyButton;
-        private final TextView employeeCountTextView;
         private final TextView employeeCountNumberTextView;
 
         public ViewHolder(View view) {
@@ -33,7 +33,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             // Define click listener for the ViewHolder's View
 
             employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
-            employeeCountTextView = (TextView) view.findViewById(R.id.employeeCountTextView);
             employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
             employeeImageView = (ImageView) view.findViewById(R.id.employeeImageView);
             employeeDescriptionButton = (ImageButton) view.findViewById(R.id.employeeDescriptionButton);
@@ -46,10 +45,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         public TextView getEmployeeCountNumberTextView() {
             return employeeCountNumberTextView;
-        }
-
-        public TextView getEmployeeCountTextView() {
-            return employeeCountTextView;
         }
 
         public Button getEmployeeBuyButton() {
@@ -67,11 +62,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     /**
      * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     * by RecyclerView.
+     * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
+    public MyAdapter(ArrayList<Employee> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -91,16 +84,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getEmployeeTextView().setText(localDataSet[position]);
-        viewHolder.getEmployeeCountTextView().setText(localDataSet[position]);
-        viewHolder.getEmployeeCountNumberTextView().setText(localDataSet[position]);
-        viewHolder.getEmployeeImageView().setImageDrawable(Drawable.createFromPath(localDataSet[position]));
+        viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
+        viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
+        viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
         // TODO ?? viewHolder.getEmployeeBuyButton().set
+        // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }

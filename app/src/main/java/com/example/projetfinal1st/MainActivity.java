@@ -1,22 +1,13 @@
 package com.example.projetfinal1st;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
         // Connects login button to game page
         findViewById(R.id.loginButton).setOnClickListener(view -> { // Listener on the login button
             if (findUsername()) { // Checks for correct credentials
-                Intent intent = new Intent(this, MainPageJeu.class);
+                Intent intent = new Intent(this, MainGame.class);
                 startActivity(intent);
             }
             else {
                 findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
                 // TODO retirer apres les test
-                Intent intent = new Intent(this, MainPageJeu.class);
+                Intent intent = new Intent(this, MainGame.class);
                 startActivity(intent);
             }
         }); // mettre la classe de la deuxieme page

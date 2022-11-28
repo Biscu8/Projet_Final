@@ -1,20 +1,19 @@
 package com.example.projetfinal1st;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainPageJeu extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainGame extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page_jeu);
+        setContentView(R.layout.activity_main_game);
 
         // Initiate the score of the user
         Score score = new Score();
@@ -25,11 +24,10 @@ public class MainPageJeu extends AppCompatActivity {
             score.updateScore(this);
         });
 
-        // How to implement autoclickers
-        // TODO delete before sending this shit
+        // Open employees tab
         findViewById(R.id.button2).setOnClickListener(view -> {
-            AutoClicker autoClicker = new AutoClicker(1000, this, score);
-            autoClicker.start();
+            Intent intent = new Intent(this, MainEmployee.class); // TODO CHARLE FIX CA STP
+            startActivity(intent);
         });
 
     }

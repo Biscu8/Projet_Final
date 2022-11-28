@@ -10,26 +10,30 @@ import java.util.TimerTask;
  */
 public class AutoClicker {
 
-    private int timer;
     private Activity activity;
     private Score score;
+    private int rate;
 
     /**
      * Constructor for an auto clicker
-     * @param timer Int in ms, rate at which the clicker adds 1 to the score
      * @param activity Activity
      * @param score Score
+     * @param rate Int rate at which the score increases
      */
-    public AutoClicker(int timer, Activity activity, Score score) {
-        this.timer = timer;
+    public AutoClicker(Activity activity, Score score, int rate) {
         this.activity = activity;
         this.score = score;
+        this.rate = rate;
+        start();
+    }
+
+    public void incrementScore(Score score, int rate) {
+        score.setScore(rate + score.getScore());
     }
 
     /**
      * Function to start the timer after creating an auto clicker
      */
-    //TODO si on click sur lauto clicker plusieurs fois la vitesse sacummule xDDDD
     public void start() {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -38,12 +42,12 @@ public class AutoClicker {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        score.incrementScore();
+                        incrementScore(score, rate);
                     }
                 });
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 0, this.timer);
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
 }

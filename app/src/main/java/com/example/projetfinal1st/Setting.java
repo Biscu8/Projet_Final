@@ -1,15 +1,13 @@
 package com.example.projetfinal1st;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import java.util.concurrent.locks.Condition;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Setting extends AppCompatActivity {
     private RadioGroup group;
@@ -76,6 +74,7 @@ public class Setting extends AppCompatActivity {
                     });
                 });
         /**
+         * TODO
          * fonction qui verifie si le boutton anglais est utiliser
          * sil est utiliser on change la configuration pour langlais
          * cela va faire reload lapp et nous devrons la relancer avec langlais

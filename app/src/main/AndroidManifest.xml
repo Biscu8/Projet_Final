@@ -34,7 +34,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainPageJeu"
+            android:name=".MainGame"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MainEmployee"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
