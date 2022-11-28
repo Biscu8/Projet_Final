@@ -25,7 +25,7 @@
     <string name="darkMode">Mode sombre</string>
     <string name="langue">Langue</string>
     <string name="Anglais">Anglais</string>
-    <string name="francais">francais</string>
+    <string name="francais">Français</string>
     <string name="Politique">Politique de confidentalité</string>
     <string name="Conditions">Conditions dutilisation</string>
     <string name="Credit">Crédits</string>
@@ -36,5 +36,6 @@
     <string name="employees">Employés</string>
     <string name="employee_text_view">Employé</string>
     <string name="employee_count">Employés</string>
-    <string name="button_buy">Acherter</string>
+    <string name="employee_button_buy">Acheter</string>
+    <string name="employee_button_back">Retour</string>
 </resources>

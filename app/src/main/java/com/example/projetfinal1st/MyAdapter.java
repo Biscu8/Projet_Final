@@ -8,35 +8,52 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private final ArrayList<Employee> localDataSet;
+    private final ClickListener listener;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView employeeTextView;
         private final ImageView employeeImageView;
         private final ImageButton employeeDescriptionButton;
         private final Button employeeBuyButton;
         private final TextView employeeCountNumberTextView;
+        private WeakReference<ClickListener> listenerWeakReference;
 
-        public ViewHolder(View view) {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == employeeBuyButton.getId()) {
+                Toast.makeText(view.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+            }
+            listenerWeakReference.get().onPositionClicked(getAdapterPosition());
+        }
+
+        public ViewHolder(View view, ClickListener listener) {
             super(view);
             // Define click listener for the ViewHolder's View
+            listenerWeakReference = new WeakReference<>(listener);
 
             employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
             employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
             employeeImageView = (ImageView) view.findViewById(R.id.employeeImageView);
             employeeDescriptionButton = (ImageButton) view.findViewById(R.id.employeeDescriptionButton);
             employeeBuyButton = (Button) view.findViewById(R.id.employeeBuyButton);
+            employeeBuyButton.setOnClickListener(this);
         }
 
         public TextView getEmployeeTextView() {
@@ -64,8 +81,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * Initialize the dataset of the Adapter.
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      */
-    public MyAdapter(ArrayList<Employee> dataSet) {
+    public MyAdapter(ArrayList<Employee> dataSet, ClickListener listener) {
         localDataSet = dataSet;
+        this.listener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -75,7 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_employees, viewGroup, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -87,7 +105,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
-        // TODO ?? viewHolder.getEmployeeBuyButton().set
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 
@@ -96,4 +113,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return localDataSet.size();
     }
+
 }
+

@@ -37,5 +37,6 @@
     <string name="employees">Employés</string>
     <string name="employee_text_view">Employé</string>
     <string name="employee_count">Employés</string>
-    <string name="button_buy">Acheter</string>
+    <string name="employee_button_buy">Acheter</string>
+    <string name="employee_button_back">Retour</string>
 </resources>

@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
+
 public class MainGame extends AppCompatActivity {
 
     @Override
@@ -15,18 +17,29 @@ public class MainGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
 
+        // Retrieve Score object
+        Score score = (Score) getIntent().getSerializableExtra("score");
+
         // Initiate the score of the user
-        Score score = new Score();
+        if (score == null) {
+            score = new Score();
+        }
+        score.updateScore(this);
 
         // Normal, hand clicker
+        Score finalScore = score;
         findViewById(R.id.button).setOnClickListener(view -> {
-            score.incrementScore();
-            score.updateScore(this);
+            finalScore.incrementScore();
+            finalScore.updateScore(this);
         });
 
         // Open employees tab
+        // TODO share score between activities
+        Score finalScore1 = score;
         findViewById(R.id.button2).setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainEmployee.class); // TODO CHARLE FIX CA STP
+            Intent intent = new Intent(this, MainEmployee.class);
+            intent.putExtra("autoclicker", new AutoClicker(this, finalScore1, 0));
+            intent.putExtra("score", (Serializable) finalScore1);
             startActivity(intent);
         });
 
@@ -51,7 +64,7 @@ public class MainGame extends AppCompatActivity {
                 break;
             case R.id.menu_setting:
                 //TODO menu Settings
-                Intent intent = new Intent(this,Setting.class);
+                Intent intent = new Intent(this, Setting.class);
                 startActivity(intent);
                 break;
             case R.id.menu_quit:

@@ -7,6 +7,7 @@ public class Employee {
     private int image;
     private int quantity;
     private int rate;
+    private Score score;
 
     /**
      * Default constructor

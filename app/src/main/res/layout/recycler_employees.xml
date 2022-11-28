@@ -7,9 +7,13 @@
 
     <LinearLayout
         android:id="@+id/employeeLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/employeeImageView"
@@ -60,7 +64,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/button_buy"
+                android:text="@string/employee_button_buy"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/employeeCountNumber"
                 app:layout_constraintStart_toEndOf="@+id/employeeTextView"
