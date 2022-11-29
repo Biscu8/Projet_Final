@@ -112,7 +112,9 @@
                     android:id="@+id/VolumeBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbarSize="130dp" />
+                    android:clickable="false"
+                    android:scrollbarSize="130dp"
+                    android:soundEffectsEnabled="true" />
 
             </LinearLayout>
 
