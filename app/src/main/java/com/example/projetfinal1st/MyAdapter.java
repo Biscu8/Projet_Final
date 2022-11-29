@@ -36,6 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public void onClick(View view) {
             if (view.getId() == employeeBuyButton.getId()) {
                 Toast.makeText(view.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                getEmployeeCountNumberTextView().setText(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1);
             }
             else {
                 Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();

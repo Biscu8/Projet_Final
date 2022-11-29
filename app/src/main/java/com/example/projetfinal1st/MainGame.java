@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
-
 public class MainGame extends AppCompatActivity {
 
     @Override
@@ -39,7 +37,7 @@ public class MainGame extends AppCompatActivity {
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
             intent.putExtra("autoclicker", new AutoClicker(this, finalScore1, 0));
-            intent.putExtra("score", (Serializable) finalScore1);
+            //intent.putExtra("score", (Serializable) finalScore1);
             startActivity(intent);
         });
 

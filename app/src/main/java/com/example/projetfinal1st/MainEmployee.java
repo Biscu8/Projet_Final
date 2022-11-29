@@ -1,13 +1,11 @@
 package com.example.projetfinal1st;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainEmployee extends AppCompatActivity {
@@ -19,7 +17,6 @@ public class MainEmployee extends AppCompatActivity {
 
         // Retrieve AutoClicker and Score object from intent
         AutoClicker autoclicker = (AutoClicker) getIntent().getSerializableExtra("autoclicker");
-        Score score = (Score) getIntent().getSerializableExtra("score");
 
         // Different employees
         Employee employee1 = new Employee("George", "S'amuse au parc", R.drawable.dde9fd7a087fa4eaa70554ed266099dc, 0, 2);
@@ -40,10 +37,15 @@ public class MainEmployee extends AppCompatActivity {
 
         // Back button
         findViewById(R.id.employeeButtonBack).setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainGame.class);
-            intent.putExtra("score", (Serializable) score);
-            startActivity(intent);
+            finish();
         });
+
+        // Buy button
+        /**.setOnClickListener(view -> {
+            TextView textView = findViewById(R.id.employeeCountNumber);
+            employee1.setQuantity(employee1.getQuantity() + 1);
+            textView.setText(String.valueOf(employee1.getQuantity()));
+        });*/
 
     }
 }
