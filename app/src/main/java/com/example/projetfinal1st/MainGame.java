@@ -41,6 +41,12 @@ public class MainGame extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Open upgrades tab
+        findViewById(R.id.button3).setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainUpgrade.class);
+            startActivity(intent);
+        });
+
     }
 
     @Override
