@@ -42,8 +42,6 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         super.onCreate(savedInstanceState);
 
-        imageView = findViewById(R.id.imagedifficulte);
-        group = findViewById(R.id.bouttongroup);
         //page du mode developpeur
         ModeDev.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,49 +62,6 @@ public class Setting extends AppCompatActivity {
                 }
             }
         });
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            /**
-             * la fonction verifie quelle boutton est selectionner pour ensuite changer limage selon la difficulte
-             */
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i)
-                {
-                    case R.id.bouttonFacile:
-                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.easy));
-                        break;
-                    case R.id.BouttonMedium:
-                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.medium));
-                        break;
-                    case R.id.bouttondifficile:
-                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.difficile));
-                        break;
-                }
-            }
-        });
-        /**
-         * ouvre la page des politiques prives
-         */
-        //TODO rendre le retour vers les settings possible pour la page de politique et la page Conditions
-        findViewById(R.id.Politique).setOnClickListener(view -> {
-            Intent intent = new Intent(this, PolitiqueConfidentalite.class);
-            startActivity(intent);
-        });
-        /**
-         * ouvre la page des conditions dutilisations
-         * ne marche pas
-         */
-        findViewById(R.id.Conditions).setOnClickListener(view -> {
-            Intent intent = new Intent(this, ConditionsUtilisations.class);
-            startActivity(intent);
-        });
-        //fais un popup des credits //TODO faire fonctionner le popup et mettre un bouton ok sur le popup
-        findViewById(R.id.Credit).setOnClickListener(view -> {
-                    AlertDialog.Builder creditpopup = new AlertDialog.Builder(new Setting());
-                    creditpopup.setTitle("Credit");
-                    creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
-                    creditpopup.show();
-                });
         //TODO faire fonctionner le changement de langue
         /**
          *

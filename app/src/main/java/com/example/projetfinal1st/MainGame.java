@@ -68,7 +68,7 @@ public class MainGame extends AppCompatActivity {
                 break;
             case R.id.menu_setting:
                 //TODO menu Settings
-                Intent intent = new Intent(this, Setting.class);
+                Intent intent = new Intent(this, Settings.class);
                 startActivity(intent);
                 break;
             case R.id.menu_quit:
