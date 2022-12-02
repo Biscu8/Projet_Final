@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/SCREEN"
     android:layout_height="match_parent"
     tools:context=".MainEmployee">
 
@@ -10,6 +11,7 @@
         android:id="@+id/employeeButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/BUTTON"
         android:text="@string/employee_button_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

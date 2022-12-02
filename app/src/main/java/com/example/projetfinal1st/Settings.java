@@ -1,5 +1,6 @@
 package com.example.projetfinal1st;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,18 +9,34 @@ import android.widget.CompoundButton;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
 public class Settings extends AppCompatActivity {
-  private SharedPreferences PreferencesDevMode;
+  private SharedPreferences Preferences;
+  private SharedPreferences PreferencesDarkMode;
+  private SharedPreferences.Editor editor;
+  private Boolean nightMODE;
   private SettingsFragment settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        PreferencesDevMode =  PreferenceManager.getDefaultSharedPreferences(this /* Activity context */);;
+        Preferences =  PreferenceManager.getDefaultSharedPreferences(this);
+
+        PreferencesDarkMode = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMODE = PreferencesDarkMode.getBoolean("light", false);
+        if(nightMODE)
+        {
+            //mettre que la switch change
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+
+        //Pour voir si le devMode est activer lors de louverture
+      // ShowDevModeSetting(Preferences, "ModeDev");
         if (savedInstanceState == null) {
             settings = new SettingsFragment();
             getSupportFragmentManager()
@@ -54,37 +71,45 @@ public class Settings extends AppCompatActivity {
             creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
             creditpopup.show();
         });
-        //page du mode developpeur
 
-        PreferencesDevMode.registerOnSharedPreferenceChangeListener((sharedPreferences, key) ->{
+//ce que les boutton dans les settings font
+        Preferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key) ->{
             switch (key)
             {
                 case "ModeDev" :
                     ShowDevModeSetting(sharedPreferences, key);
                     break;
+                case "DarkMode":
+                    if(nightMODE)
+                    {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        editor =  PreferencesDarkMode.edit();
+                        editor.putBoolean("night", false);
+                    }
+                    else
+                    {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        editor =  PreferencesDarkMode.edit();
+                        editor.putBoolean("night", true);
+                    }
+                    editor.apply();
+                    break;
+
             }
 
         } );
-              //TODO faire le bouton pour ouvrir les options du devMode
-                        //TODO deverrouiller le bouton des options de la page developpeur
-            /*
-                Intent intent = new Intent(this, PageDev.class);//TODO faire la page DevMode
-                startActivity(intent);
-                else {
-                        //TODO verrouiller le bouton des options de la page developpeur
-                        //TODO remmettre les options a la normal
-                     }
-             */
+
+                //TODO faire les options du DevMode
     }
 public void ShowDevModeSetting(SharedPreferences preference, String key)
 {
     if(preference.getBoolean(key, false))
     {
-        settings.findPreference(key).setVisible(true);
+        settings.findPreference("SettingDev").setVisible(true);
     }
     else
     {
-        settings.findPreference(key).setVisible(false);
+        settings.findPreference("SettingDev").setVisible(false);
     }
 }
     public static class SettingsFragment extends PreferenceFragmentCompat {

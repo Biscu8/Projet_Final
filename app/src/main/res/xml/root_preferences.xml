@@ -12,7 +12,7 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="switch_preference_1"
+                android:key="DarkMode"
                 android:title="@string/darkMode" />
             <SwitchPreference
                 android:defaultValue="false"
@@ -32,6 +32,10 @@
         app:isPreferenceVisible="false"
         app:key="SettingDev">
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:title="Switch preference" />
     </PreferenceCategory>
 
 </PreferenceScreen>

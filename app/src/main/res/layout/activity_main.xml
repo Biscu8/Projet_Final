@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/SCREEN"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -22,6 +23,7 @@
             android:id="@+id/loginTextTitle"
             android:layout_width="match_parent"
             android:layout_height="68dp"
+            style="@style/TEXT"
             android:gravity="bottom|center_horizontal"
             android:text="@string/main_login_text_title"
             android:textColor="@color/text"
@@ -31,6 +33,7 @@
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:ems="10"
             android:gravity="bottom"
             android:hint="@string/main_login_username_hint"
@@ -41,6 +44,7 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:ems="10"
             android:hint="@string/main_login_password_hint"
             android:inputType="textPassword"
@@ -51,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom|center_horizontal"
+            style="@style/TEXT"
             android:text="@string/main_login_text_signup"
             android:textColor="@color/text"
             android:textSize="15sp" />
@@ -60,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:layout_gravity="center"
+            style="@style/BUTTON"
             android:text="@string/button_signup"
             android:textSize="12sp"
             tools:ignore="TouchTargetSizeCheck" />
@@ -67,6 +73,7 @@
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
+            style="@style/BUTTON"
             android:layout_height="wrap_content"
             android:text="@string/button_login"
             android:textSize="22sp" />
