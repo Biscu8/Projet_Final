@@ -1,34 +1,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     style="@style/SCREEN"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:layout_height="485dp">
+        android:layout_height="567dp">
 
     </FrameLayout>
 
-    <Button
-        android:id="@+id/Conditions"
+    <LinearLayout
         android:layout_width="match_parent"
-        style="@style/BUTTON"
-        android:layout_height="wrap_content"
-        android:text="@string/Conditions" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/Credit"
-        style="@style/BUTTON"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Credit" />
+        <Button
+            android:id="@+id/Politique"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Politique" />
 
-    <Button
-        android:id="@+id/Politique"
-        style="@style/BUTTON"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Politique" />
+        <Button
+            android:id="@+id/Credit"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Credit" />
+
+        <Button
+            android:id="@+id/Conditions"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Conditions" />
+    </LinearLayout>
+
 </LinearLayout>

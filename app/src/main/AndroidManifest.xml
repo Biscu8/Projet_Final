@@ -15,7 +15,8 @@
         <activity
             android:name=".Settings"
             android:exported="false"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainGame">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

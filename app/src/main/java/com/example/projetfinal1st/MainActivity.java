@@ -1,22 +1,33 @@
 package com.example.projetfinal1st;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
     MyViewModel myViewModel;
-
+    SharedPreferences preference;
+    Settings.SettingsFragment settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //activation du darkMode si les settings on ete changer auparavant
+        preference = PreferenceManager.getDefaultSharedPreferences(this);
+        if (preference.getBoolean("DarkMode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         // Link database via a view model
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);

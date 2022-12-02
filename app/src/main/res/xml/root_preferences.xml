@@ -28,13 +28,13 @@
             android:title="@string/DevMod" />
     </PreferenceCategory>
     <PreferenceCategory
+        style="@style/TEXT"
         android:title="Setting dev mode"
         app:isPreferenceVisible="false"
         app:key="SettingDev">
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="switch_preference_1"
             android:title="Switch preference" />
     </PreferenceCategory>
 
