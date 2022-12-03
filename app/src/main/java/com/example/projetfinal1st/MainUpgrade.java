@@ -1,16 +1,14 @@
 package com.example.projetfinal1st;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 public class MainUpgrade extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upgrade);
-
-
+        setContentView(R.layout.activity_main_upgrade);
     }
 }

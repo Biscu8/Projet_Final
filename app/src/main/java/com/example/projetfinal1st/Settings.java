@@ -18,12 +18,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 //Orde a faire : finir ce qui a été déja commmencer, puis faire cette liste en ordre
+//TODO trouver une meilleur musique pour le jeu
+//TODO faire les soundeffects
 
-//TODO desactiver/activer la volume bar selon la Switch musique
-//TODO faire jouer la musique plus ou moins fort selon la VolumeBar
-//TODO Implementer une musique
-
-//TODO Switch basse qualite qui reduit les graphiques si elle est activer
 public class Settings extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private SharedPreferences Preferences;
     private SettingsFragment settings;
@@ -49,7 +46,6 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
         /**
          * ouvre la page des politiques prives
          */
-        //TODO rendre le retour vers les settings possible pour la page de politique et la page Conditions
         findViewById(R.id.Politique).setOnClickListener(view -> {
             Intent intent = new Intent(this, PolitiqueConfidentalite.class);
             startActivity(intent);

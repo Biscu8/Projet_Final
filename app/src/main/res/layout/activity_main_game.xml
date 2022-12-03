@@ -8,11 +8,11 @@
     tools:context=".MainGame">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/ClickButton"
+        style="@style/BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        style="@style/BUTTON"
+        android:text="CLicker ici"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         style="@style/TEXT"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/ClickButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,10 +48,21 @@
         android:layout_height="wrap_content"
         android:text="@string/upgrades"
         style="@style/BUTTON"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/ClickButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
         app:layout_constraintVertical_bias="0.01999998" />
+
+    <TextView
+        android:id="@+id/MoneyAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0$"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/ClickButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@ public class MainGame extends AppCompatActivity {
 
         // Normal, hand clicker
         Score finalScore = score;
-        findViewById(R.id.button).setOnClickListener(view -> {
+        findViewById(R.id.ClickButton).setOnClickListener(view -> {
             finalScore.incrementScore();
             finalScore.updateScore(this);
         });

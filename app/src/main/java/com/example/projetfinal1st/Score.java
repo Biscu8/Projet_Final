@@ -56,7 +56,9 @@ public class Score {
                     @Override
                     public void run() {
                         TextView textView = activity.findViewById(R.id.textView);
+                        TextView money = activity.findViewById(R.id.MoneyAmount);
                         textView.setText(String.valueOf(getScore()));
+                        money.setText(String.valueOf(getScore()*10 + "$"));
                     }
                 });
             }
