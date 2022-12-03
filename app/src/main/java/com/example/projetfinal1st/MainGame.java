@@ -1,19 +1,22 @@
 package com.example.projetfinal1st;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 public class MainGame extends AppCompatActivity {
-
+    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Retrieve Score object
         Score score = (Score) getIntent().getSerializableExtra("score");
@@ -22,13 +25,13 @@ public class MainGame extends AppCompatActivity {
         if (score == null) {
             score = new Score();
         }
-        score.updateScore(this);
+        score.updateScore(this, preferences);
 
         // Normal, hand clicker
         Score finalScore = score;
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
             finalScore.incrementScore();
-            finalScore.updateScore(this);
+            finalScore.updateScore(this, preferences);
         });
 
         // Open employees tab

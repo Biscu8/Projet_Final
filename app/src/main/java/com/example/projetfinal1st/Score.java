@@ -1,7 +1,10 @@
 package com.example.projetfinal1st;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.widget.TextView;
+
+import androidx.preference.PreferenceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,7 +50,7 @@ public class Score {
      * Function to update the score each seconds
      * @param activity Activity
      */
-    public void updateScore(Activity activity) {
+    public void updateScore(Activity activity,SharedPreferences preferences) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -58,7 +61,14 @@ public class Score {
                         TextView textView = activity.findViewById(R.id.textView);
                         TextView money = activity.findViewById(R.id.MoneyAmount);
                         textView.setText(String.valueOf(getScore()));
-                        money.setText(String.valueOf(getScore()*10 + "$"));
+                        if(preferences.getBoolean("SettingDev", false) || preferences.getBoolean("InfiniteMoney", false))
+                        {
+                            money.setText("Infinite Money");
+                        }
+                        else
+                        {
+                            money.setText(String.valueOf(getScore() * 10 + "$"));
+                        }
                     }
                 });
             }

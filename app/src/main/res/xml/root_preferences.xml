@@ -25,7 +25,8 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:title="Infinite money" />
+            android:title="Infinite money"
+            app:key="InfiniteMoney" />
     </PreferenceCategory>
     <PreferenceCategory app:title="Audio">
         <SwitchPreference
