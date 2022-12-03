@@ -2,12 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/setting">
-        <PreferenceCategory app:title="Audio">
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="switch_preference_1"
-                android:title="@string/Musique" />
-        </PreferenceCategory>
         <PreferenceCategory android:title="video">
 
             <SwitchPreference
@@ -29,13 +23,19 @@
     </PreferenceCategory>
     <PreferenceCategory
         style="@style/TEXT"
-        android:title="Setting dev mode"
+        android:title="@string/DevModeSetting"
         app:isPreferenceVisible="false"
         app:key="SettingDev">
 
         <SwitchPreference
             android:defaultValue="false"
-            android:title="Switch preference" />
+            android:title="Infinite money" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Audio">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="Musique"
+            android:title="@string/Musique" />
     </PreferenceCategory>
 
 </PreferenceScreen>

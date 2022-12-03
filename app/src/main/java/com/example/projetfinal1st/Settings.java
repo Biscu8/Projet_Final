@@ -3,10 +3,12 @@ package com.example.projetfinal1st;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -16,26 +18,21 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 //Orde a faire : finir ce qui a été déja commmencer, puis faire cette liste en ordre
-//TODO faire un bouton pour retourner a la page de jeu avec les settings sauvegarder
-
-//TODO trouver quoi mettre dans le haut de la page a droite
-
-//TODO trouver uen utilité au niveau de difficulté ou le changer
 
 //TODO desactiver/activer la volume bar selon la Switch musique
 //TODO faire jouer la musique plus ou moins fort selon la VolumeBar
 //TODO Implementer une musique
 
 //TODO Switch basse qualite qui reduit les graphiques si elle est activer
-//TODO implement le mode Sombre avec la Switch DarkMode
 public class Settings extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private SharedPreferences Preferences;
     private SettingsFragment settings;
-
+    private MediaPlayer music;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+       music = MediaPlayer.create(this, R.raw.bodybreakdown);
         Preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (savedInstanceState == null) {
@@ -113,6 +110,20 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
                 break;
+            case "Musique":
+                if(preference.getBoolean(key, false))
+                {
+                    //partir la musique
+                        music.start();
+                }
+                else
+                {
+                    //arreter la musique
+                        music.stop();
+                        music.release();
+                    music = MediaPlayer.create(this, R.raw.bodybreakdown);
+                }
+                    break;
         }
     }
 

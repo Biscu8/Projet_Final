@@ -30,6 +30,7 @@
         </activity>
         <activity
             android:name=".ConditionsUtilisations"
+            android:parentActivityName=".Settings"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -37,18 +38,13 @@
         </activity>
         <activity
             android:name=".PolitiqueConfidentalite"
+            android:parentActivityName=".Settings"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".Setting"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".MainGame"
             android:exported="false" >

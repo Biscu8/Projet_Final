@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     MyViewModel myViewModel;
     SharedPreferences preference;
-    Settings.SettingsFragment settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
