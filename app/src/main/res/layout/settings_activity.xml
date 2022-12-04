@@ -36,6 +36,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Conditions" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bouttonAnglais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Anglais" />
+
+            <Button
+                android:id="@+id/bouttonFrancais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/francais" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

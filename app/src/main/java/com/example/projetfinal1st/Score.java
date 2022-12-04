@@ -8,7 +8,6 @@ import androidx.preference.PreferenceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 /**
  * Class that manages the score of the player
  */
@@ -19,8 +18,8 @@ public class Score {
     /**
      * Default constructor
      */
-    public Score() {
-        this.score = 0;
+    public Score(int scores) {
+        this.score = scores;
     }
 
     /**
@@ -60,6 +59,8 @@ public class Score {
                     public void run() {
                         TextView textView = activity.findViewById(R.id.textView);
                         TextView money = activity.findViewById(R.id.MoneyAmount);
+                        textView.setText(String.valueOf(getScore()));
+                       // score = Integer.valueOf(String.valueOf(textView.getText()));
                         textView.setText(String.valueOf(getScore()));
                         if(preferences.getBoolean("SettingDev", false) || preferences.getBoolean("InfiniteMoney", false))
                         {

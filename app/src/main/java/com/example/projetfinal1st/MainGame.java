@@ -12,18 +12,20 @@ import androidx.preference.PreferenceManager;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
+    private Score score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // Retrieve Score object
-        Score score = (Score) getIntent().getSerializableExtra("score");
-
         // Initiate the score of the user
         if (score == null) {
-            score = new Score();
+            score = new Score(0);
+        }
+        else
+        {
+            score = new Score(score.getScore());
         }
         score.updateScore(this, preferences);
 
@@ -51,7 +53,6 @@ public class MainGame extends AppCompatActivity {
         });
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
