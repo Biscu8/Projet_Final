@@ -15,13 +15,15 @@ public class Save {
     @NonNull
     public String username;
 
-    //TODO @ColumnInfo
+    @ColumnInfo(name="score")
+    public Score score;
 
     /**
      * Default constructor
      */
     public Save() {
         this.username = "";
+        this.score = new Score(0);
     }
 
     /**
@@ -30,6 +32,7 @@ public class Save {
      */
     public Save(String username) {
         this.username = username;
+        //aller initialiser le score en allant le chercher avec le username
     }
 
 }

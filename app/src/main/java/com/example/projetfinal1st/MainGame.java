@@ -8,24 +8,31 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
+    private MyViewModelGame myViewModelGame;
     private Score score;
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        username = preferences.getString("Username", "");
+               //a mettre lors de lenregistrement preferences.edit().putString("Username", Username).apply();
+        myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // Initiate the score of the user
-        if (score == null) {
-            score = new Score(0);
+        if(myViewModelGame.getSave(username) != null) {
+            score = myViewModelGame.getSave(username);
         }
         else
         {
-            score = new Score(score.getScore());
+            Save save = new Save(username);
+            myViewModelGame.setSave(save);
+            score = new Score(0);
         }
         score.updateScore(this, preferences);
 

@@ -6,14 +6,15 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceManager;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 /**
  * Class that manages the score of the player
  */
-public class Score {
+public class Score implements Serializable {
 
-    private int score;
+    public int score;
 
     /**
      * Default constructor
