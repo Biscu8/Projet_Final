@@ -23,6 +23,8 @@ public interface UserDao {
     @Query("SELECT password FROM 'User' WHERE username = :username AND password = :password")
     boolean isPasswordCorrect(String password, String username);
 
+    @Query("SELECT score FROM 'Save' WHERE username =:username")
+     Score getScore(String username);
     /**
      * Add a user to the database
      * @param users User to insert in database

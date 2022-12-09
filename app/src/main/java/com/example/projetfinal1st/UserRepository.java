@@ -17,6 +17,7 @@ public class UserRepository {
 
     /**
      * Function to set the database to this application
+     *
      * @param application Application
      */
     public UserRepository(Application application) {
@@ -26,6 +27,7 @@ public class UserRepository {
 
     /**
      * Function to insert users in the database
+     *
      * @param user User object
      */
     public void insert(User user) {
@@ -36,6 +38,7 @@ public class UserRepository {
 
     /**
      * Function to insert saves in the database
+     *
      * @param save Save object
      */
     public void insert(Save save) {
@@ -46,6 +49,7 @@ public class UserRepository {
 
     /**
      * Function to delete users from the database
+     *
      * @param user User object
      */
     public void delete(User user) {
@@ -56,6 +60,7 @@ public class UserRepository {
 
     /**
      * Function to delete saves from the database
+     *
      * @param save Save object
      */
     public void delete(Save save) {
@@ -66,6 +71,7 @@ public class UserRepository {
 
     /**
      * Function to check whether the user is already in the database or not
+     *
      * @param username String of username
      * @return
      */
@@ -79,6 +85,7 @@ public class UserRepository {
 
     /**
      * Function to check whether the password is correct
+     *
      * @param password String of password
      * @param username String of password
      * @return boolean
@@ -89,5 +96,9 @@ public class UserRepository {
             bool.postValue(userDao.isPasswordCorrect(password, username));
         });
         return bool;
+    }
+
+    public Score getSave(String username) {
+        return userDao.getScore(username);
     }
 }

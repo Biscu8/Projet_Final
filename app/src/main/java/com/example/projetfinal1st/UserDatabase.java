@@ -5,10 +5,12 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 /**
  * Database of usernames and passwords
  */
+@TypeConverters(TypeConverter.class)
 @Database(entities = {User.class, Save.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract UserDao userDao();

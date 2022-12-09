@@ -30,7 +30,7 @@ public class MyViewModel extends AndroidViewModel {
      * @return boolean
      */
     public Boolean isUserInDatabase(String username) {
-        return userRepository.isUserInDatabase(username).getValue();
+      return userRepository.isUserInDatabase(username).getValue();
     }
 
     /**

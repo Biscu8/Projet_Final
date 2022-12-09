@@ -6,27 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 public class MyViewModelGame extends AndroidViewModel {
-    private int m_score;
-    private int m_argent;
+    UserRepository userRepository;
     public MyViewModelGame(@NonNull Application application) {
         super(application);
+        userRepository = new UserRepository(application);
     }
 
-    public int getScore()
+    public Score getSave(String username)
     {
-        return m_score;
+        return userRepository.getSave(username);
     }
-    public int getArgent()
+    public void setSave(Save save)
     {
-        return m_argent;
-    }
-    public void setArgent(int argent)
-    {
-        m_argent = argent;
-    }
-    public void setScore(int score)
-    {
-        m_score = score;
+      userRepository.insert(save);
     }
 }
 
