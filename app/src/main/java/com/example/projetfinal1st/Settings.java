@@ -3,8 +3,11 @@ package com.example.projetfinal1st;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -14,9 +17,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
+
+import java.util.Locale;
 //Orde a faire : finir ce qui a été déja commmencer, puis faire cette liste en ordre
 //TODO trouver une meilleur musique pour le jeu
 //TODO faire les soundeffects
@@ -25,6 +31,9 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
     private SharedPreferences Preferences;
     private SettingsFragment settings;
     private MediaPlayer music;
+    private Resources res;
+    private Configuration config;
+    private LocaleListCompat appLocale;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +73,38 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
             creditpopup.show();
         });
+//pour le changement de langue
+        /**
+         * Resources va chercher le fichier ressource de lapplication
+         * Config prend la configuration des ressources
+         */
+         res = getApplicationContext().getResources();
+        config = res.getConfiguration();
 
-//ce que les boutton dans les settings font
+        //TODO faire fonctionner le changement de langue
+        /**
+         *
+         * fonction qui verifie si le boutton anglais est utiliser
+         * sil est utiliser on change la configuration pour langlais
+         * cela va faire reload lapp et nous devrons la relancer avec langlais
+         */
+        findViewById(R.id.bouttonAnglais).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale locale = new Locale("en-rCA");
+                config.setLocale(locale);
+                res.updateConfiguration(config, res.getDisplayMetrics());
+
+            }
+        });
+        findViewById(R.id.bouttonFrancais).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale locale = new Locale("fr-rCA");
+                config.setLocale(locale);
+                res.updateConfiguration(config, res.getDisplayMetrics());
+            }
+        });
 
     }
     //TODO faire les options du DevMode
@@ -90,6 +129,7 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
     }
 
     @Override
+    //ce que les boutton dans les settings font
     public void onSharedPreferenceChanged(SharedPreferences preference, String key) {
         switch (key) {
             case "ModeDev":
@@ -129,35 +169,5 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
     }
-    //pour le changement de langue //TODO faire fonctionner le changement de langue
-    /**
-     * Resources va chercher le fichier ressource de lapplication
-     * Config prend la configuration des ressources
-     */
-    // private Resources res = getApplicationContext().getResources();
-    // private Configuration config = res.getConfiguration();
 
-    //TODO faire fonctionner le changement de langue
-    /**
-     *
-     * fonction qui verifie si le boutton anglais est utiliser
-     * sil est utiliser on change la configuration pour langlais
-     * cela va faire reload lapp et nous devrons la relancer avec langlais
-     */
-        /*
-        findViewById(R.id.anglais).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                config.locale = new Locale("en-rCA");
-                res.updateConfiguration(config, res.getDisplayMetrics());
-            }
-        });
-        findViewById(R.id.francais).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                config.locale = new Locale("fr-rCA");
-                res.updateConfiguration(config, res.getDisplayMetrics());
-            }
-        });
-        */
 }

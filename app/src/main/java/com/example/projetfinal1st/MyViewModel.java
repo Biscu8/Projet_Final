@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MyViewModel extends AndroidViewModel {
 
@@ -17,14 +20,17 @@ public class MyViewModel extends AndroidViewModel {
         super(application);
         userRepository = new UserRepository(application);
     }
-
+   public void registerUser(String username, String password)
+   {
+    userRepository.insert(new User(username, password));
+   }
     /**
      * Function to check whether the user is already in the database or not
      * @param username String of username
      * @return boolean
      */
-    public boolean isUserInDatabase(String username) {
-        return userRepository.isUserInDatabase(username);
+    public Boolean isUserInDatabase(String username) {
+        return userRepository.isUserInDatabase(username).getValue();
     }
 
     /**
@@ -34,6 +40,6 @@ public class MyViewModel extends AndroidViewModel {
      * @return boolean
      */
     public boolean isPasswordCorrect(String password, String username) {
-        return userRepository.isPasswordCorrect(password, username);
+        return userRepository.isPasswordCorrect(password, username).getValue();
     }
 }

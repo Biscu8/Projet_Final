@@ -62,7 +62,7 @@ public class Score {
                         textView.setText(String.valueOf(getScore()));
                        // score = Integer.valueOf(String.valueOf(textView.getText()));
                         textView.setText(String.valueOf(getScore()));
-                        if(preferences.getBoolean("SettingDev", false) || preferences.getBoolean("InfiniteMoney", false))
+                        if(preferences.getBoolean("ModeDev", false) && preferences.getBoolean("InfiniteMoney", false))
                         {
                             money.setText("Infinite Money");
                         }

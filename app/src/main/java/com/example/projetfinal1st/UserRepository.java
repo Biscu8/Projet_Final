@@ -2,6 +2,9 @@ package com.example.projetfinal1st;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -66,12 +69,12 @@ public class UserRepository {
      * @param username String of username
      * @return
      */
-    public boolean isUserInDatabase(String username) {
-        AtomicBoolean bool = new AtomicBoolean(false);
+    public LiveData<Boolean> isUserInDatabase(String username) {
+        MutableLiveData<Boolean> bool = new MutableLiveData<Boolean>(false);
         Executors.newSingleThreadExecutor().execute(() -> {
-            bool.set(userDao.isUserInDatabase(username));
+            bool.postValue(userDao.isUserInDatabase(username));
         });
-        return bool.get();
+        return bool;
     }
 
     /**
@@ -80,11 +83,11 @@ public class UserRepository {
      * @param username String of password
      * @return boolean
      */
-    public boolean isPasswordCorrect(String password, String username) {
-        AtomicBoolean bool = new AtomicBoolean(false);
+    public LiveData<Boolean> isPasswordCorrect(String password, String username) {
+        MutableLiveData<Boolean> bool = new MutableLiveData<Boolean>(false);
         Executors.newSingleThreadExecutor().execute(() -> {
-            bool.set(userDao.isPasswordCorrect(password, username));
+            bool.postValue(userDao.isPasswordCorrect(password, username));
         });
-        return bool.get();
+        return bool;
     }
 }
