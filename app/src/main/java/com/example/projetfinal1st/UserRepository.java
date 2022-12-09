@@ -5,8 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Repository class for database
@@ -28,10 +30,8 @@ public class UserRepository {
      * Function to insert users in the database
      * @param user User object
      */
-    public void insert(User user) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            userDao.insert(user);
-        });
+    public void registerUser(User user) {
+        userDao.registerUser(user);
     }
 
     /**
@@ -44,50 +44,11 @@ public class UserRepository {
         });
     }
 
-    /**
-     * Function to delete users from the database
-     * @param user User object
-     */
-    public void delete(User user) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            userDao.delete(user);
-        });
+    public User loginFromUserAndPassword(String username, String password) {
+        return userDao.loginFromUserAndPassword(username, password);
     }
 
-    /**
-     * Function to delete saves from the database
-     * @param save Save object
-     */
-    public void delete(Save save) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            userDao.delete(save);
-        });
-    }
-
-    /**
-     * Function to check whether the user is already in the database or not
-     * @param username String of username
-     * @return
-     */
-    public LiveData<Boolean> isUserInDatabase(String username) {
-        MutableLiveData<Boolean> bool = new MutableLiveData<Boolean>(false);
-        Executors.newSingleThreadExecutor().execute(() -> {
-            bool.postValue(userDao.isUserInDatabase(username));
-        });
-        return bool;
-    }
-
-    /**
-     * Function to check whether the password is correct
-     * @param password String of password
-     * @param username String of password
-     * @return boolean
-     */
-    public LiveData<Boolean> isPasswordCorrect(String password, String username) {
-        MutableLiveData<Boolean> bool = new MutableLiveData<Boolean>(false);
-        Executors.newSingleThreadExecutor().execute(() -> {
-            bool.postValue(userDao.isPasswordCorrect(password, username));
-        });
-        return bool;
+    public User userInDatabase(String username) {
+        return userDao.userInDatabase(username);
     }
 }

@@ -3,15 +3,16 @@ package com.example.projetfinal1st;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
+
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,22 +35,22 @@ public class MainActivity extends AppCompatActivity {
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
         // Connects login button to game page
         findViewById(R.id.loginButton).setOnClickListener(view -> { // Listener on the login button
-            if (findUsername()) { // Checks for correct credentials
-                if(verifyPassword()) {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                EditText usernameText = findViewById(R.id.editTextUsername);
+                String username = usernameText.getText().toString();
+                EditText passwordText = findViewById(R.id.editTextPassword);
+                String password = passwordText.getText().toString();
+                if (myViewModel.loginFromUserPassword(username, password) != null) {
                     Intent intent = new Intent(this, MainGame.class);
                     startActivity(intent);
+                } else {
+                    runOnUiThread(() -> {
+                        TextView textView = findViewById(R.id.loginErrorText);
+                        textView.setText("Credentials incorrect");
+                        findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
+                    });
                 }
-                else
-                {
-                    TextView textView = findViewById(R.id.loginErrorText);
-                    textView.setText("Mauvais mot de passe");
-                    textView.setVisibility(View.VISIBLE);
-                }
-            } else {
-                TextView textView = findViewById(R.id.loginErrorText);
-                textView.setText("Nom dutilisateur non trouver enregistrer-vous");
-                findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
-            }
+            });
         });
 
         // Connect signup button to database
@@ -60,37 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * look in the database if the username enter exist
-     * @return
-     */
-    public Boolean findUsername()
-{
-    EditText usernameText = findViewById(R.id.editTextUsername); // Find username and puts it into a string
-    String username = usernameText.getText().toString();
-    if(!"".equals(username))
-    {
-        return myViewModel.isUserInDatabase(username);
-         //retourne la valeur si le compte existe
-    }
-    else
-    {
-        return false;
-    }
-}
-
-    /**
-     * look in the database if the password fits the username
-     * @return true if it fits and false if it doesnt
-     */
-    public Boolean verifyPassword()
-{
-    EditText usernameText = findViewById(R.id.editTextUsername); // Find username and puts it into a string
-    String username = usernameText.getText().toString();
-    EditText passwordText = findViewById(R.id.editTextPassword); // Find password and puts it into a string
-    String password = passwordText.getText().toString();
-    return myViewModel.isPasswordCorrect(username, password);
-}
     /**
      * Function to input users in database
      */

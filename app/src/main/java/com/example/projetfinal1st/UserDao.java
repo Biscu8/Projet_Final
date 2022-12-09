@@ -1,16 +1,39 @@
 package com.example.projetfinal1st;
 
 import androidx.core.location.LocationRequestCompat;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Database Access Object to access data from the database
  */
 @Dao
 public interface UserDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public Completable registerUser(User user);
+
+    @Update
+    public Completable updateUser(List<User> users);
+
+    @Delete
+    public Completable deleteUser(List<User> users);
+
+    @Query("SELECT * FROM user WHERE username = :username")
+    public User userInDatabase(String username);
+
+    @Query("SELECT * FROM user WHERE username = :username AND password = :password")
+    public User loginFromUserAndPassword(String username, String password);
 
     /**
      * Query to get usernames from database
