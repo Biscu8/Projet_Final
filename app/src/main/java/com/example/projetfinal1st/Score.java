@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.widget.TextView;
 
-import androidx.preference.PreferenceManager;
-
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;

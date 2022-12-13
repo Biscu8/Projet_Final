@@ -3,13 +3,13 @@ package com.example.projetfinal1st;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -25,8 +25,8 @@ public class MainGame extends AppCompatActivity {
                //a mettre lors de lenregistrement preferences.edit().putString("Username", Username).apply();
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // Initiate the score of the user
-        if(myViewModelGame.getSave(username) != null) {
-            score = myViewModelGame.getSave(username);
+        if(myViewModelGame.getSave(username).getValue() != null) {
+            score = myViewModelGame.getSave(username).getValue();
         }
         else
         {

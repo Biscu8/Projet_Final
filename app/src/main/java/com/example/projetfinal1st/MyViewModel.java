@@ -4,10 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
+import androidx.lifecycle.LiveData;
 
 public class MyViewModel extends AndroidViewModel {
 
@@ -35,7 +32,7 @@ public class MyViewModel extends AndroidViewModel {
         return userRepository.userInDatabase(username);
     }
 
-    public User loginFromUserPassword(String username, String password) {
+    public LiveData<User> loginFromUserPassword(String username, String password) {
         return userRepository.loginFromUserAndPassword(username, password);
     }
 

@@ -65,22 +65,32 @@ public class MainActivity extends AppCompatActivity {
      * Function to input users in database
      */
     public void signup() {
-        EditText usernameText = findViewById(R.id.editTextUsername);
-        String username = usernameText.getText().toString();
-        EditText passwordText = findViewById(R.id.editTextPassword);
-        String password = passwordText.getText().toString();
-        if(!"".equals(username) && !"".equals(password))
-        {
-            myViewModel.registerUser(username, password);
-            Intent intent = new Intent(this, MainGame.class);
-            startActivity(intent);
-        }
-        else
-        {
-            TextView textView = findViewById(R.id.loginErrorText);
-            textView.setText("Nom et mot de passe necessaire");
-            textView.setVisibility(View.VISIBLE);
-        }
+        Executors.newSingleThreadExecutor().execute(() -> {
+            EditText usernameText = findViewById(R.id.editTextUsername);
+            String username = usernameText.getText().toString();
+            EditText passwordText = findViewById(R.id.editTextPassword);
+            String password = passwordText.getText().toString();
+            if (myViewModel.userInDatabase(username) != null) {
+                if (!"".equals(username) && !"".equals(password)) {
+                    myViewModel.registerUser(username, password);
+                    Intent intent = new Intent(this, MainGame.class);
+                    startActivity(intent);
+                } else {
+                    runOnUiThread(() -> {
+                        TextView textView = findViewById(R.id.loginErrorText);
+                        textView.setText("Nom et mot de passe necessaire");
+                        textView.setVisibility(View.VISIBLE);
+                    });
+                }
+            }
+            else {
+                runOnUiThread(() -> {
+                    TextView textView = findViewById(R.id.loginErrorText);
+                    textView.setText("Utilisateur déjà existant");
+                    textView.setVisibility(View.VISIBLE);
+                });
+            }
+        });
     }
 
 }

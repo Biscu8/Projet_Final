@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 public class MyViewModelGame extends AndroidViewModel {
     UserRepository userRepository;
@@ -12,7 +13,7 @@ public class MyViewModelGame extends AndroidViewModel {
         userRepository = new UserRepository(application);
     }
 
-    public Score getSave(String username)
+    public LiveData<Score> getSave(String username)
     {
         return userRepository.getSave(username);
     }
