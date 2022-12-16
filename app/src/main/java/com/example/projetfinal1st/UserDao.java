@@ -17,13 +17,13 @@ public interface UserDao {
     public User userInDatabase(String username);
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password")
-    public LiveData<User> loginFromUserAndPassword(String username, String password);
+    public User loginFromUserAndPassword(String username, String password);
 
     @Insert
     void registerUser(User user);
 
     @Query("SELECT score FROM 'Save' WHERE username =:username")
-    public LiveData<Score> getSave(String username);
+    public Score getSave(String username);
 
     /**
      * Add a user to the database

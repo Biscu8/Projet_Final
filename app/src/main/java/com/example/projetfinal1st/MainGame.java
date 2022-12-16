@@ -52,10 +52,9 @@ public class MainGame extends AppCompatActivity {
 
         // Open employees tab
         // TODO share score between activities with database
-        Score finalScore1 = score;
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
-            intent.putExtra("autoclicker", new AutoClicker(this, finalScore1, 0));
+            intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
             startActivity(intent);
         });
 

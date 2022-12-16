@@ -20,7 +20,10 @@ public class Score implements Serializable {
     public Score(int scores) {
         this.score = scores;
     }
-
+public Score()
+{
+    this.score = 0;
+}
     /**
      * Getter to get the score
      * @return Int of score

@@ -11,6 +11,6 @@ public class TypeConverter {
     @androidx.room.TypeConverter
     public Score StringToScore(String score)
     {
-        return new Gson().fromJson(score, Score.class);
+            return new Gson().fromJson(score, Score.class);
     }
 }

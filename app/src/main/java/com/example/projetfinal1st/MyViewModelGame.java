@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.concurrent.Executors;
+
 public class MyViewModelGame extends AndroidViewModel {
     UserRepository userRepository;
     Score score;
@@ -16,7 +18,7 @@ public class MyViewModelGame extends AndroidViewModel {
 
     public Score getSave(String username)
     {
-        return userRepository.getSave(username);
+            return userRepository.getSave(username);
     }
     public void setSave(Save save)
     {

@@ -1,7 +1,6 @@
 package com.example.projetfinal1st;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.concurrent.Executors;
@@ -22,16 +21,17 @@ public class UserRepository {
         userDao = database.userDao();
     }
 
-    public Score getSave(String username)
-    {
-        return userDao.getScore(username);
+    public Score getSave(String username) {
+            return userDao.getSave(username);
 }
     /**
      * Function to insert users in the database
      * @param user User object
      */
     public void registerUser(User user) {
-        userDao.insert(user);//test sinon remettre register user
+        Executors.newSingleThreadExecutor().execute(() -> {
+            userDao.insert(user);//test sinon remettre register user
+        });
     }
 
     /**
@@ -44,15 +44,11 @@ public class UserRepository {
         });
     }
 
-    public LiveData<User> loginFromUserAndPassword(String username, String password) {
+    public User loginFromUserAndPassword(String username, String password) {
         return userDao.loginFromUserAndPassword(username, password);
     }
 
     public User userInDatabase(String username) {
         return userDao.userInDatabase(username);
-    }
-
-    public LiveData<Score> getSave(String username) {
-        return userDao.getSave(username);
     }
 }

@@ -74,15 +74,28 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
         if(!"".equals(username) && !"".equals(password))
         {
-            myViewModel.registerUser(username, password);
-            preference.edit().putString("Username", username).apply();
-           openPageJeu();
+            if(myViewModel.userInDatabase(username) == null) {
+                myViewModel.registerUser(username, password);
+                preference.edit().putString("Username", username).apply();
+                openPageJeu();
+            }
+            else
+            {
+                runOnUiThread(() ->{
+                    TextView textView = findViewById(R.id.loginErrorText);
+                    textView.setText("Nom dutilisateur deja existant");
+                    textView.setVisibility(View.VISIBLE);
+                });
+            }
         }
         else
         {
-            TextView textView = findViewById(R.id.loginErrorText);
-           textView.setText("Nom et mot de passe necessaire");
-           textView.setVisibility(View.VISIBLE);
+            runOnUiThread(() ->{
+                TextView textView = findViewById(R.id.loginErrorText);
+            textView.setText("Nom et mot de passe necessaire");
+            textView.setVisibility(View.VISIBLE);
+            });
+
         }
     }
 
