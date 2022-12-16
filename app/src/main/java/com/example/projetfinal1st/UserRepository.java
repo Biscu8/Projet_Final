@@ -3,12 +3,8 @@ package com.example.projetfinal1st;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import java.util.List;
 import java.util.concurrent.Executors;
-
-import io.reactivex.rxjava3.core.Single;
 
 /**
  * Repository class for database
@@ -48,11 +44,15 @@ public class UserRepository {
         });
     }
 
-    public User loginFromUserAndPassword(String username, String password) {
+    public LiveData<User> loginFromUserAndPassword(String username, String password) {
         return userDao.loginFromUserAndPassword(username, password);
     }
 
     public User userInDatabase(String username) {
         return userDao.userInDatabase(username);
+    }
+
+    public LiveData<Score> getSave(String username) {
+        return userDao.getSave(username);
     }
 }

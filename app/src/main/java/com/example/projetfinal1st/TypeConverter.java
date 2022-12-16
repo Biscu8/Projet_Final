@@ -1,6 +1,5 @@
 package com.example.projetfinal1st;
 
-import com.example.projetfinal1st.Score;
 import com.google.gson.Gson;
 
 public class TypeConverter {
