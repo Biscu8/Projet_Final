@@ -38,6 +38,7 @@ public class AutoClicker implements Serializable {
 
     public void incrementScore(Score score, int rate) {
         score.setScore(rate + score.getScore());
+        //TODO regler cette fonction qui fait crash(setScore)
     }
 
     /**
