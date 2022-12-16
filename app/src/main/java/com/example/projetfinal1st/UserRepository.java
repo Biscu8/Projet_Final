@@ -26,12 +26,16 @@ public class UserRepository {
         userDao = database.userDao();
     }
 
+    public Score getSave(String username)
+    {
+        return userDao.getScore(username);
+}
     /**
      * Function to insert users in the database
      * @param user User object
      */
     public void registerUser(User user) {
-        userDao.registerUser(user);
+        userDao.insert(user);//test sinon remettre register user
     }
 
     /**

@@ -8,8 +8,11 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
+
+import java.util.concurrent.Executors;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -22,34 +25,37 @@ public class MainGame extends AppCompatActivity {
         setContentView(R.layout.activity_main_game);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
-               //a mettre lors de lenregistrement preferences.edit().putString("Username", Username).apply();
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // Initiate the score of the user
+        Executors.newSingleThreadExecutor().execute(() -> {
         if(myViewModelGame.getSave(username) != null) {
-            score = myViewModelGame.getSave(username);
+                score = myViewModelGame.getSave(username);
+            score.updateScore(this, preferences);
         }
         else
         {
-            Save save = new Save(username);
-            myViewModelGame.setSave(save);
             score = new Score(0);
+                Save save = new Save(username);
+                myViewModelGame.setSave(save);
+            score.updateScore(this, preferences);
+
         }
-        score.updateScore(this, preferences);
+        });
 
         // Normal, hand clicker
-        Score finalScore = score;
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
-            finalScore.incrementScore();
-            finalScore.updateScore(this, preferences);
+            if(score != null) {
+                score.incrementScore();
+                score.updateScore(this, preferences);
+            }
         });
 
         // Open employees tab
-        // TODO share score between activities
+        // TODO share score between activities with database
         Score finalScore1 = score;
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
             intent.putExtra("autoclicker", new AutoClicker(this, finalScore1, 0));
-            //intent.putExtra("score", (Serializable) finalScore1);
             startActivity(intent);
         });
 

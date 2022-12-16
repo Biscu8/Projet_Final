@@ -22,8 +22,7 @@ public class Save {
      * Default constructor
      */
     public Save() {
-        this.username = "";
-        this.score = new Score(0);
+        this("");
     }
 
     /**
@@ -32,7 +31,7 @@ public class Save {
      */
     public Save(String username) {
         this.username = username;
-        //aller initialiser le score en allant le chercher avec le username
+        this.score = new Score(0);
     }
 
 }

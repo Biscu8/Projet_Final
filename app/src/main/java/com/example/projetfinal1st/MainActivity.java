@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.concurrent.Executors;
@@ -35,30 +37,31 @@ public class MainActivity extends AppCompatActivity {
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
         // Connects login button to game page
         findViewById(R.id.loginButton).setOnClickListener(view -> { // Listener on the login button
+            EditText usernameText = findViewById(R.id.editTextUsername);
+            String username = usernameText.getText().toString();
+            EditText passwordText = findViewById(R.id.editTextPassword);
+            String password = passwordText.getText().toString();
             Executors.newSingleThreadExecutor().execute(() -> {
-                EditText usernameText = findViewById(R.id.editTextUsername);
-                String username = usernameText.getText().toString();
-                EditText passwordText = findViewById(R.id.editTextPassword);
-                String password = passwordText.getText().toString();
-                if (myViewModel.loginFromUserPassword(username, password) != null) {
-                    Intent intent = new Intent(this, MainGame.class);
-                    startActivity(intent);
+                if (myViewModel.userInDatabase(username) != null) {
+                    if (myViewModel.loginFromUserPassword(username,password) != null) {
+                        preference.edit().putString("Username", username).apply();
+                        openPageJeu();
+                    }
                 } else {
                     runOnUiThread(() -> {
-                        TextView textView = findViewById(R.id.loginErrorText);
+                         TextView textView = findViewById(R.id.loginErrorText);
                         textView.setText("Credentials incorrect");
-                        findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
+                         findViewById(R.id.loginErrorText).setVisibility(View.VISIBLE);
                     });
                 }
             });
         });
-
         // Connect signup button to database
         findViewById(R.id.signupButton).setOnClickListener(view -> {
-            signup();
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        signup();
+                    });
         });
-
-
     }
 
     /**
@@ -72,15 +75,24 @@ public class MainActivity extends AppCompatActivity {
         if(!"".equals(username) && !"".equals(password))
         {
             myViewModel.registerUser(username, password);
-            Intent intent = new Intent(this, MainGame.class);
-            startActivity(intent);
+            preference.edit().putString("Username", username).apply();
+           openPageJeu();
         }
         else
         {
             TextView textView = findViewById(R.id.loginErrorText);
-            textView.setText("Nom et mot de passe necessaire");
-            textView.setVisibility(View.VISIBLE);
+           textView.setText("Nom et mot de passe necessaire");
+           textView.setVisibility(View.VISIBLE);
         }
     }
 
+
+    /**
+     * open the game page
+     */
+   public void openPageJeu()
+   {
+   Intent intent = new Intent(this, MainGame.class);
+   startActivity(intent);
+   }
 }

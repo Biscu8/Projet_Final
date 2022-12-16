@@ -2,6 +2,7 @@ package com.example.projetfinal1st;
 
 import androidx.core.location.LocationRequestCompat;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;

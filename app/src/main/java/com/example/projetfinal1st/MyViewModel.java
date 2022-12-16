@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.SingleObserver;
@@ -12,6 +13,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class MyViewModel extends AndroidViewModel {
 
     UserRepository userRepository;
+    private MutableLiveData<User> user;
 
     /**
      * Links repo with app
@@ -20,6 +22,7 @@ public class MyViewModel extends AndroidViewModel {
     public MyViewModel(@NonNull Application application) {
         super(application);
         userRepository = new UserRepository(application);
+
     }
 
     public void registerUser(String username, String password)
@@ -36,7 +39,6 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public User loginFromUserPassword(String username, String password) {
-        return userRepository.loginFromUserAndPassword(username, password);
+      return userRepository.loginFromUserAndPassword(username, password);
     }
-
 }

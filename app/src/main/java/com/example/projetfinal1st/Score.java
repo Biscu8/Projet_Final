@@ -61,7 +61,6 @@ public class Score implements Serializable {
                         TextView textView = activity.findViewById(R.id.textView);
                         TextView money = activity.findViewById(R.id.MoneyAmount);
                         textView.setText(String.valueOf(getScore()));
-                       // score = Integer.valueOf(String.valueOf(textView.getText()));
                         textView.setText(String.valueOf(getScore()));
                         if(preferences.getBoolean("ModeDev", false) && preferences.getBoolean("InfiniteMoney", false))
                         {
