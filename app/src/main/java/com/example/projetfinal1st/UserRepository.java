@@ -38,7 +38,6 @@ public class UserRepository {
             userDao.insert(user);//test sinon remettre register user
         });
     }
-
     /**
      * Function to insert saves in the database
      * @param save Save object
@@ -48,7 +47,11 @@ public class UserRepository {
             userDao.insert(save);
         });
     }
-
+    public void update(Save save) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            userDao.update(save);
+        });
+    }
     /**
      * login the player with the username and the password
      * @param username player username

@@ -13,6 +13,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.concurrent.Executors;
 
 public class MainGame extends AppCompatActivity {
@@ -31,24 +33,29 @@ public class MainGame extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
         if(myViewModelGame.getSave(username) != null) {
                 score = myViewModelGame.getSave(username);
-            score.updateScore(this, preferences);
+                if(getIntent().getStringExtra("MoneyMinusBuy") != null)
+                {
+                    score.updateScore(this, preferences, String.valueOf(getIntent().getStringExtra("MoneyMinusBuy")));
+                    getIntent().removeExtra("MoneyMinusBuy");
+                }
+                else {
+                    score.updateScore(this, preferences, "");
+                }
         }
         else
         {
             score = new Score(0);
                 Save save = new Save(username);
                 myViewModelGame.setSave(save);
-            score.updateScore(this, preferences);
+            score.updateScore(this, preferences,"");
 
         }
         });
 
         // Normal, hand clicker
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
-            if(score != null) {
                 score.incrementScore();
-                score.updateScore(this, preferences);
-            }
+                score.updateScore(this, preferences,"");
         });
 
         // Open employees tab
@@ -57,7 +64,15 @@ public class MainGame extends AppCompatActivity {
             Intent intent = new Intent(this, MainEmployee.class);
             intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
             TextView money = findViewById(R.id.MoneyAmount);
-            intent.putExtra("Money", money.getText());
+            //put score in database
+            TextView viewScore = findViewById(R.id.clickAmount);
+            String stringScore =(String) viewScore.getText();
+            Save save = new Save(preferences.getString("Username", ""), Integer.valueOf(stringScore));
+            Executors.newSingleThreadExecutor().execute(() -> {
+                        myViewModelGame.updateSave(save);
+                    });
+            String money1 = (String) money.getText();
+            intent.putExtra("Money", money1);
             startActivity(intent);
         });
 

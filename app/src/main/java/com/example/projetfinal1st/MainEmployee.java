@@ -1,6 +1,9 @@
 package com.example.projetfinal1st;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +28,8 @@ public class MainEmployee extends AppCompatActivity {
         // Initiate recycler view
         ArrayList<Employee> dataSet = new ArrayList<>();
         dataSet.add(employee1);
-        MyAdapter myAdapter = new MyAdapter(dataSet, new ClickListener() {
+        String money =(String) getIntent().getStringExtra("Money");
+        MyAdapter myAdapter = new MyAdapter(dataSet, money, new ClickListener() {
             @Override
             public void onPositionClicked(int position) {
                 autoclicker.setRate(dataSet.get(position).getRate());
@@ -34,14 +38,13 @@ public class MainEmployee extends AppCompatActivity {
         });
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Back button
-        findViewById(R.id.employeeButtonBack).setOnClickListener(view -> {
-            finish();
+        //connect the back button
+        Button back = findViewById(R.id.Back);
+        back.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainGame.class);
+            intent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
+            startActivity(intent);
         });
-        //sending money amount
-        String money = getIntent().getStringExtra("money");
-        myAdapter.sendMoney(money);
 
     }
 }

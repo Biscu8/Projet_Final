@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 /**
  * Database Access Object to access data from the database
@@ -49,6 +50,8 @@ public interface UserDao {
     @Insert
     void insert(Save... saves);
 
+    @Update
+    void update(Save... saves);
     /**
      * Remove a user from the database
      * @param user User to remove from database

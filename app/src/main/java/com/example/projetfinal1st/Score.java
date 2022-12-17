@@ -51,7 +51,7 @@ public Score()
      * Function to update the score each seconds
      * @param activity Activity
      */
-    public void updateScore(Activity activity,SharedPreferences preferences) {
+    public void updateScore(Activity activity,SharedPreferences preferences,String moneyAmount) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -59,7 +59,7 @@ public Score()
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView textView = activity.findViewById(R.id.textView);
+                        TextView textView = activity.findViewById(R.id.clickAmount);
                         TextView money = activity.findViewById(R.id.MoneyAmount);
                         textView.setText(String.valueOf(getScore()));
                         textView.setText(String.valueOf(getScore()));
@@ -69,7 +69,13 @@ public Score()
                         }
                         else
                         {
-                            money.setText(String.valueOf(getScore() * 10 + "$"));
+                            if(moneyAmount == "") {
+                               money.setText(String.valueOf(getScore() * 10 + "$"));
+                           }
+                           else
+                            {
+                                money.setText(moneyAmount + "$");
+                            }
                         }
                     }
                 });
@@ -77,5 +83,4 @@ public Score()
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
-
 }

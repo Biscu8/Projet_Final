@@ -34,5 +34,9 @@ public class MyViewModelGame extends AndroidViewModel {
     {
       userRepository.insert(save);
     }
+    public void updateSave(Save save)
+    {
+        userRepository.update(save);
+    }
 }
 

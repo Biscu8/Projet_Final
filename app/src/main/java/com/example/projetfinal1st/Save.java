@@ -34,4 +34,10 @@ public class Save {
         this.score = new Score(0);
     }
 
+    public Save(String username,int scores)
+    {
+        this.username = username;
+        this.score =new Score(scores);
+    }
+
 }
