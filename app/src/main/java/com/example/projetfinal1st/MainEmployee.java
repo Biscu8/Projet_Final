@@ -14,12 +14,13 @@ public class MainEmployee extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
-
+        //retrieve recyclerView
+        RecyclerView recyclerView = findViewById(R.id.employeeRecyclerView);
         // Retrieve AutoClicker and Score object from intent
         AutoClicker autoclicker = (AutoClicker) getIntent().getSerializableExtra("autoclicker");
 
         // Different employees
-        Employee employee1 = new Employee("George", "S'amuse au parc", R.drawable.dde9fd7a087fa4eaa70554ed266099dc, 0, 2);
+        Employee employee1 = new Employee("George", "S'amuse au parc", R.drawable.george, 0, 2);
 
         // Initiate recycler view
         ArrayList<Employee> dataSet = new ArrayList<>();
@@ -31,7 +32,6 @@ public class MainEmployee extends AppCompatActivity {
                 dataSet.get(position).setQuantity(dataSet.get(position).getQuantity() + 1);
             }
         });
-        RecyclerView recyclerView = findViewById(R.id.employeeRecyclerView);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -39,13 +39,9 @@ public class MainEmployee extends AppCompatActivity {
         findViewById(R.id.employeeButtonBack).setOnClickListener(view -> {
             finish();
         });
-
-        // Buy button
-        /**.setOnClickListener(view -> {
-            TextView textView = findViewById(R.id.employeeCountNumber);
-            employee1.setQuantity(employee1.getQuantity() + 1);
-            textView.setText(String.valueOf(employee1.getQuantity()));
-        });*/
+        //sending money amount
+        String money = getIntent().getStringExtra("money");
+        myAdapter.sendMoney(money);
 
     }
 }

@@ -36,10 +36,18 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * get the username
+     * @return the username
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * get the password
+     * @return the password
+     */
     public String getPassword() {
         return this.password;
     }

@@ -19,6 +19,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private final ArrayList<Employee> localDataSet;
     private final ClickListener listener;
+    private String m_money;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -31,12 +32,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private final Button employeeBuyButton;
         private final TextView employeeCountNumberTextView;
         private WeakReference<ClickListener> listenerWeakReference;
-
+        //get the money amount
         @Override
         public void onClick(View view) {
             if (view.getId() == employeeBuyButton.getId()) {
-                Toast.makeText(view.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                getEmployeeCountNumberTextView().setText(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1);
+                //convert m_money string to int
+               //int money = m_money.substring()
+                // if(money < 1000)
+                // {
+                            //change UI to print a buy error
+                     //  }
+                      //  else {
+                            getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
+                       // }
             }
             else {
                 Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
@@ -103,9 +111,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
-        viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
+         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
+         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
+
+      //  switch(localDataSet[position].getId())
+      //  {
+       //     case R.drawable.george:
+
+        //        break;
+       // }
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 
@@ -114,6 +129,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return localDataSet.size();
     }
-
+    public void sendMoney(String money)
+    {
+        m_money = money;
+    }
 }
 

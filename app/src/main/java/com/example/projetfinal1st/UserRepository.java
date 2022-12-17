@@ -21,6 +21,11 @@ public class UserRepository {
         userDao = database.userDao();
     }
 
+    /**
+     * Function to get the score from the database save row
+     * @param username the username of the player
+     * @return the score
+     */
     public Score getSave(String username) {
             return userDao.getSave(username);
 }
@@ -44,10 +49,21 @@ public class UserRepository {
         });
     }
 
+    /**
+     * login the player with the username and the password
+     * @param username player username
+     * @param password player password
+     * @return
+     */
     public User loginFromUserAndPassword(String username, String password) {
         return userDao.loginFromUserAndPassword(username, password);
     }
 
+    /**
+     * to get the user information from database
+     * @param username player username
+     * @return the user that fits the username
+     */
     public User userInDatabase(String username) {
         return userDao.userInDatabase(username);
     }

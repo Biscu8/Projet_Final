@@ -16,10 +16,20 @@ public class MyViewModelGame extends AndroidViewModel {
         userRepository = new UserRepository(application);
     }
 
+    /**
+     * get the score from the database
+     * @param username player username
+     * @return the score
+     */
     public Score getSave(String username)
     {
             return userRepository.getSave(username);
     }
+
+    /**
+     * register the save in the database
+     * @param save user save
+     */
     public void setSave(Save save)
     {
       userRepository.insert(save);

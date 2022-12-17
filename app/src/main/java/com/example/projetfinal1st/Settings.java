@@ -28,19 +28,26 @@ import java.util.Locale;
 //TODO faire les soundeffects
 
 public class Settings extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private SharedPreferences Preferences;
-    private SettingsFragment settings;
-    private MediaPlayer music;
-    private Resources res;
-    private Configuration config;
     private LocaleListCompat appLocale;
+    private Configuration config;
+    private MediaPlayer music;
+    private SharedPreferences Preferences;
+    private Resources res;
+    private SettingsFragment settings;
+
+    /**
+     * set the page on oppening of the page
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+        //set the music
        music = MediaPlayer.create(this, R.raw.bodybreakdown);
+       //get the last preferences
         Preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        //set the page with the last setting
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -52,41 +59,42 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //click listener link and button link
         /**
-         * ouvre la page des politiques prives
+         * open private policy page
          */
         findViewById(R.id.Politique).setOnClickListener(view -> {
             Intent intent = new Intent(this, PolitiqueConfidentalite.class);
             startActivity(intent);
         });
         /**
-         * ouvre la page des conditions dutilisations
+         * open terms of use
          */
         findViewById(R.id.Conditions).setOnClickListener(view -> {
             Intent intent = new Intent(this, ConditionsUtilisations.class);
             startActivity(intent);
         });
-        //fais un popup des credits //TODO faire fonctionner le popup et mettre un bouton ok sur le popup
+        /**
+         * open a popup for the credentials
+         */
+        //TODO faire fonctionner le popup et mettre un bouton ok sur le popup
         findViewById(R.id.Credit).setOnClickListener(view -> {
             AlertDialog.Builder creditpopup = new AlertDialog.Builder(new Settings());
             creditpopup.setTitle("Credit");
             creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
             creditpopup.show();
         });
-//pour le changement de langue
-        /**
-         * Resources va chercher le fichier ressource de lapplication
-         * Config prend la configuration des ressources
-         */
-         res = getApplicationContext().getResources();
+        // language change
+/**
+ * Res go search the resource file form application
+ * Config take the configuration from the resource file
+ */
+        res = getApplicationContext().getResources();
         config = res.getConfiguration();
 
         //TODO faire fonctionner le changement de langue
         /**
-         *
-         * fonction qui verifie si le boutton anglais est utiliser
-         * sil est utiliser on change la configuration pour langlais
-         * cela va faire reload lapp et nous devrons la relancer avec langlais
+         * change the language to english
          */
         findViewById(R.id.bouttonAnglais).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +102,11 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
                 Locale locale = new Locale("en-rCA");
                 config.setLocale(locale);
                 res.updateConfiguration(config, res.getDisplayMetrics());
-
             }
         });
+        /**
+         * change the language to french
+         */
         findViewById(R.id.bouttonFrancais).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,12 +115,14 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
                 res.updateConfiguration(config, res.getDisplayMetrics());
             }
         });
-
     }
     //TODO faire les options du DevMode
 
-
     @Override
+    /**
+     * is call when the page is resume
+     * get the preferences and set the settings to the settings before the state on Resume
+     */
     protected void onResume() {
         super.onResume();
         Preferences.registerOnSharedPreferenceChangeListener(this);
@@ -121,17 +133,25 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             settings.findPreference("SettingDev").setVisible(false);
         }
     }
-
     @Override
+    /**
+     * is call if the page is the on pause
+     * set the preferences
+     */
     protected void onPause() {
         Preferences.unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
     }
 
     @Override
-    //ce que les boutton dans les settings font
+    /**
+     * tells what each preferences does
+     * @param preference previous shared preferences
+     * @param key key to know which preference is which
+     */
     public void onSharedPreferenceChanged(SharedPreferences preference, String key) {
         switch (key) {
+            //Devlopper mode
             case "ModeDev":
                 if (preference.getBoolean(key, false)) {
                     settings.findPreference("SettingDev").setVisible(true);
@@ -139,6 +159,7 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
                     settings.findPreference("SettingDev").setVisible(false);
                 }
                 break;
+                //dark mode
             case "DarkMode":
                 if (preference.getBoolean(key, false)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -146,15 +167,16 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
                 break;
+                //music
             case "Musique":
                 if(preference.getBoolean(key, false))
                 {
-                    //partir la musique
+                    //start music
                         music.start();
                 }
                 else
                 {
-                    //arreter la musique
+                    //stop music
                         music.stop();
                         music.release();
                     music = MediaPlayer.create(this, R.raw.bodybreakdown);
@@ -163,6 +185,9 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
         }
     }
 
+    /**
+     * to help with setting managment and preference managment
+     */
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

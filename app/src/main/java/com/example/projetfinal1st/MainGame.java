@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,8 @@ public class MainGame extends AppCompatActivity {
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
             intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
+            TextView money = findViewById(R.id.MoneyAmount);
+            intent.putExtra("Money", money.getText());
             startActivity(intent);
         });
 

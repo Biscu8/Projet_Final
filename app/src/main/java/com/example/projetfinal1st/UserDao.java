@@ -12,10 +12,20 @@ import androidx.room.Query;
  */
 @Dao
 public interface UserDao {
-
+    /**
+     * get the user that fits the username
+     * @param username player username
+     * @return the user that fits the name
+     */
     @Query("SELECT * FROM user WHERE username = :username")
     public User userInDatabase(String username);
 
+    /**
+     *
+     * @param username player username
+     * @param password player password
+     * @return the user
+     */
     @Query("SELECT * FROM user WHERE username = :username AND password = :password")
     public User loginFromUserAndPassword(String username, String password);
 
@@ -32,6 +42,10 @@ public interface UserDao {
     @Insert
     void insert(User... users);
 
+    /**
+     * Add a save to the database
+     * @param saves to insert in database
+     */
     @Insert
     void insert(Save... saves);
 

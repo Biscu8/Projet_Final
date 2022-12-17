@@ -64,12 +64,12 @@
 
             <Button
                 android:id="@+id/employeeBuyButton"
+                style="@style/BUTTON"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/employee_button_buy"
-                style="@style/BUTTON"
+                android:text="Acheter \n 1000$"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/employeeCountNumber"
                 app:layout_constraintStart_toEndOf="@+id/employeeTextView"
