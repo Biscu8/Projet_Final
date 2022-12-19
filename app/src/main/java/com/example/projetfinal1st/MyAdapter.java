@@ -89,7 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
             //manage to get the intent into this adapter
             employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
-            employeeCountNumberTextView.setText(m_newEmployeeCountNumber);
+            //employeeCountNumberTextView.setText(m_newEmployeeCountNumber);
             employeeImageView = (ImageView) view.findViewById(R.id.employeeImageView);
             employeeDescriptionButton = (ImageButton) view.findViewById(R.id.employeeDescriptionButton);
             employeeBuyButton = (Button) view.findViewById(R.id.employeeBuyButton);
