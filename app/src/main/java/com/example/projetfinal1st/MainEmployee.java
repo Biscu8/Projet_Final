@@ -3,7 +3,6 @@ package com.example.projetfinal1st;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +23,7 @@ public class MainEmployee extends AppCompatActivity {
 
         // Different employees
         Employee employee1 = new Employee("George", "S'amuse au parc", R.drawable.george, 0, 2);
+        //Employee employee2 = new Employee("2")
 
         // Initiate recycler view
         ArrayList<Employee> dataSet = new ArrayList<>();
@@ -47,6 +47,8 @@ public class MainEmployee extends AppCompatActivity {
             intent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
             startActivity(intent);
         });
+
+
 
     }
 }

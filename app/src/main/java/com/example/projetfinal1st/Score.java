@@ -20,10 +20,11 @@ public class Score implements Serializable {
     public Score(int scores) {
         this.score = scores;
     }
-public Score()
-{
-    this.score = 0;
-}
+
+    public Score() {
+        this.score = 0;
+    }
+
     /**
      * Getter to get the score
      * @return Int of score
@@ -59,7 +60,7 @@ public Score()
                 activity.runOnUiThread(new Runnable() {
                    @Override
                    public void run() {
-                        TextView money = activity.findViewById(R.id.MoneyAmount);
+                        TextView money = activity.findViewById(R.id.moneyAmount);
                         if(preferences.getBoolean("ModeDev", false) && preferences.getBoolean("InfiniteMoney", false))
                         {
                             money.setText("Infinite Money");

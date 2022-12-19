@@ -10,12 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.snackbar.Snackbar;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 
 public class MainGame extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class MainGame extends AppCompatActivity {
                TextView clickAmountView = findViewById(R.id.clickAmount);
                clickAmountView.setText(String.valueOf(clickAmount));
                //verify if the user is oppening the app or is coming back from the employee tab
-            TextView moneyAmount = findViewById(R.id.MoneyAmount);
+            TextView moneyAmount = findViewById(R.id.moneyAmount);
                 if(getIntent().getStringExtra("MoneyMinusBuy") != null)
                 {
                     //update UI with MoneyAmount
@@ -75,11 +74,11 @@ public class MainGame extends AppCompatActivity {
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
             //Update clickAmount view + 1
             TextView clickAmount = findViewById(R.id.clickAmount);
-            int clickAmountPlusOne = Integer.parseInt(String.valueOf(clickAmount.getText())) +1;
-            clickAmount.setText(String.valueOf(clickAmountPlusOne));
+            int m_score = Integer.parseInt(clickAmount.getText().toString()) + 1;
+            clickAmount.setText(String.valueOf(m_score));
             if(!preferences.getBoolean("InfiniteMoney", false)) {
                 //Update moneyAmount view + 10
-                TextView moneyAmount = findViewById(R.id.MoneyAmount);
+                TextView moneyAmount = findViewById(R.id.moneyAmount);
                 String moneyAmountString = String.valueOf(moneyAmount.getText()).substring(0, String.valueOf(moneyAmount.getText()).length() -1);
                 int moneyAmountPlusTen = Integer.parseInt(moneyAmountString) + 10;
                 moneyAmount.setText(String.valueOf(moneyAmountPlusTen) + "$");
@@ -97,7 +96,7 @@ public class MainGame extends AppCompatActivity {
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
             intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
-            TextView money = findViewById(R.id.MoneyAmount);
+            TextView money = findViewById(R.id.moneyAmount);
             //put score in database
             saveGameInDatabase();
             String money1 = (String) money.getText();
@@ -111,12 +110,34 @@ public class MainGame extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Update score each seconds
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView clickAmount = findViewById(R.id.clickAmount);
+                        TextView moneyAmount = findViewById(R.id.moneyAmount);
+                        int m_score = Integer.parseInt(clickAmount.getText().toString());
+                        Executors.newSingleThreadExecutor().execute(() -> {
+                            myViewModelGame.getSave(username).setScore(m_score);
+                        });
+                        clickAmount.setText(String.valueOf(m_score));
+                        moneyAmount.setText(String.valueOf(m_score));
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+
     }
     public void saveGameInDatabase()
     {
         TextView viewScore = findViewById(R.id.clickAmount);
         String stringScore =(String) viewScore.getText();
-        TextView viewAmount = findViewById(R.id.MoneyAmount);
+        TextView viewAmount = findViewById(R.id.moneyAmount);
         String moneyAmount = (String) viewAmount.getText();
         Save save = new Save(preferences.getString("Username", ""), Integer.parseInt(stringScore), moneyAmount);
         Executors.newSingleThreadExecutor().execute(() -> {
