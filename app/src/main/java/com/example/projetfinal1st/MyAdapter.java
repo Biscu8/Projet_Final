@@ -1,7 +1,6 @@
 package com.example.projetfinal1st;
 
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +12,14 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import org.w3c.dom.Text;
-
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private final ArrayList<Employee> localDataSet;
-    private final ClickListener listener;
     private static String m_money;
     private static int employeeCountNumber;
-    private static int m_newEmployeeCountNumber;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -41,7 +33,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private final TextView employeeCountNumberTextView;
         private final TextView missingMoney;
         private String m_money;
-        private WeakReference<ClickListener> listenerWeakReference;
 
         //get the money amount
         @Override
@@ -79,13 +70,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             else {
                 Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
             }
-            listenerWeakReference.get().onPositionClicked(getAdapterPosition());
         }
 
-        public ViewHolder(View view, ClickListener listener) {
+        public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
-            listenerWeakReference = new WeakReference<>(listener);
             employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
             //manage to get the intent into this adapter
             employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
@@ -133,11 +121,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * Initialize the dataset of the Adapter.
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      */
-    public MyAdapter(ArrayList<Employee> dataSet, String money, int newEmployeeCOuntNumber, ClickListener listener) {
+    public MyAdapter(ArrayList<Employee> dataSet) {
         localDataSet = dataSet;
-        this.listener = listener;
-        this.m_money = money;
-        m_newEmployeeCountNumber = newEmployeeCOuntNumber;
     }
 
     // Create new views (invoked by the layout manager)
@@ -147,16 +132,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_employees, viewGroup, false);
 
-        return new ViewHolder(view, listener);
+        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.setMoney(m_money);
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
+        viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
 

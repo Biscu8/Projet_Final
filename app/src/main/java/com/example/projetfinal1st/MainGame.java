@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -30,60 +32,108 @@ public class MainGame extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
+
+        // ArrayList of employees
+        ArrayList<Employee> arrayEmployee = new ArrayList<>();
+
         // Initiate the score of the user
         Executors.newSingleThreadExecutor().execute(() -> {
-        if(myViewModelGame.getSave(username) != null) {
-            //Update UI with text database moneyAmount
-               int clickAmount = myViewModelGame.getSave(username).getScore();
-               TextView clickAmountView = findViewById(R.id.clickAmount);
-               clickAmountView.setText(String.valueOf(clickAmount));
-               //verify if the user is oppening the app or is coming back from the employee tab
-            TextView moneyAmount = findViewById(R.id.moneyAmount);
-                if(getIntent().getStringExtra("MoneyMinusBuy") != null)
-                {
+
+            //Initiate the employees with default stats
+            Employee employee1 = new Employee("name", "desc", R.drawable.george, 0, 2, 1000);
+            Employee employee2 = new Employee("name", "desc", R.drawable.george, 0, 4, 2000);
+            Employee employee3 = new Employee("name", "desc", R.drawable.george, 0, 6, 3000);
+            Employee employee4 = new Employee("name", "desc", R.drawable.george, 0, 8, 4000);
+            Employee employee5 = new Employee("name", "desc", R.drawable.george, 0, 10, 5000);
+            Employee employee6 = new Employee("name", "desc", R.drawable.george, 0, 12, 6000);
+            Employee employee7 = new Employee("name", "desc", R.drawable.george, 0, 14, 7000);
+            Employee employee8 = new Employee("name", "desc", R.drawable.george, 0, 16, 8000);
+            arrayEmployee.add(employee1); arrayEmployee.add(employee2); arrayEmployee.add(employee3); arrayEmployee.add(employee4);
+            arrayEmployee.add(employee5); arrayEmployee.add(employee6); arrayEmployee.add(employee7); arrayEmployee.add(employee8);
+
+            // Verify is user has save
+            if(myViewModelGame.getSave(username) != null) {
+
+                //Update UI with text database moneyAmount
+                int clickAmount = myViewModelGame.getSave(username).getScore();
+                TextView clickAmountView = findViewById(R.id.clickAmount);
+                clickAmountView.setText(String.valueOf(clickAmount));
+
+                // Update employees
+                for (int i = 0; i < arrayEmployee.size(); i++) {
+                    //int nb = myViewModelGame.getSave(username).getEmployeeNb(); //TODO
+                    int nb = 0;
+                    arrayEmployee.get(i).setQuantity(nb);
+                    for (int j = 0; j <= nb; j ++) {
+                        new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                    }
+                }
+
+                //verify if the user is opening the app or is coming back from the employee tab
+                TextView moneyAmount = findViewById(R.id.moneyAmount);
+                if(getIntent().getStringExtra("MoneyMinusBuy") != null) {
+
                     //update UI with MoneyAmount
                     moneyAmount.setText(getIntent().getStringExtra("MoneyMinusBuy"));
+
                     //remove Extra data
                     getIntent().removeExtra("MoneyMinusBuy");
                 }
-                else
-                {
+
+                // Verify if user is coming back from upgrade tab
+                /*else if () {
+                    for (int i = 0; i <= arrayEmployee.size(); i++) {
+                    int nb = myViewModelGame.getSave(username).getEmployeeNb();
+                    arrayEmployee.get(i).setQuantity(nb);
+                        for (int j = 0; j <= nb; j ++) {
+                            new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                        }
+                    }
+                }*/
+
+                // if user is loading
+                else {
+
                     //Update UI with database data
                     moneyAmount.setText(myViewModelGame.getMoneyAmount(username));
                 }
+
                 //update data with new data
-            saveGameInDatabase();
-            // if preference infinite money is check udpate UI
-            if(preferences.getBoolean("InfiniteMoney", false))
-            {
-                moneyAmount.setText("Infinite Money");
+                saveGameInDatabase();
+
+                // if preference infinite money is check update UI
+                if(preferences.getBoolean("InfiniteMoney", false)) {
+                    moneyAmount.setText("Infinite Money");
+                }
             }
-        }
-        else
-        {
-            //put all preferences to default
-            preferences.getAll().clear();//pas sur
-            //if there is no user initiate score to 0 and create a new save
-            score = new Score(0);
+            else {
+
+                //put all preferences to default
+                preferences.getAll().clear();//pas sur
+                //if there is no user initiate score to 0 and create a new save
+                score = new Score(0);
                 Save save = new Save(username);
-                myViewModelGame.setSave(save);
-        }
+            }
         });
 
         // Normal, hand clicker
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
+
             //Update clickAmount view + 1
             TextView clickAmount = findViewById(R.id.clickAmount);
             int m_score = Integer.parseInt(clickAmount.getText().toString()) + 1;
             clickAmount.setText(String.valueOf(m_score));
             if(!preferences.getBoolean("InfiniteMoney", false)) {
+
                 //Update moneyAmount view + 10
                 TextView moneyAmount = findViewById(R.id.moneyAmount);
                 String moneyAmountString = String.valueOf(moneyAmount.getText()).substring(0, String.valueOf(moneyAmount.getText()).length() -1);
                 int moneyAmountPlusTen = Integer.parseInt(moneyAmountString) + 10;
                 moneyAmount.setText(String.valueOf(moneyAmountPlusTen) + "$");
+
                 //start a new thread
                 Executors.newSingleThreadExecutor().execute(() -> {
+
                     //update database with the new data
                     Save save = new Save(username, Integer.parseInt(String.valueOf(clickAmount.getText())), String.valueOf(moneyAmount.getText()));
                     myViewModelGame.updateSave(save);
@@ -95,9 +145,18 @@ public class MainGame extends AppCompatActivity {
         // TODO share score between activities with database
         findViewById(R.id.button2).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
-            intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
             TextView money = findViewById(R.id.moneyAmount);
-            //put score in database
+
+            // Sends employees to adapter
+            MyAdapter adapter = new MyAdapter(arrayEmployee);
+
+            // Sends employees to activity
+            Bundle args = new Bundle();
+            args.putSerializable("arrayList", (Serializable) arrayEmployee);
+            intent.putExtra("arrayList", arrayEmployee);
+            intent.putExtra("bundle", args);
+
+            //put money in database
             saveGameInDatabase();
             String money1 = (String) money.getText();
             intent.putExtra("Money", money1);
@@ -118,14 +177,14 @@ public class MainGame extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView clickAmount = findViewById(R.id.clickAmount);
+                        TextView clickAmount = findViewById(R.id.clickAmount); // Updates from the click amount, Score = click amount
                         TextView moneyAmount = findViewById(R.id.moneyAmount);
                         int m_score = Integer.parseInt(clickAmount.getText().toString());
                         Executors.newSingleThreadExecutor().execute(() -> {
                             myViewModelGame.getSave(username).setScore(m_score);
                         });
                         clickAmount.setText(String.valueOf(m_score));
-                        moneyAmount.setText(String.valueOf(m_score));
+                        moneyAmount.setText(String.valueOf(m_score) + "$");
                     }
                 });
             }

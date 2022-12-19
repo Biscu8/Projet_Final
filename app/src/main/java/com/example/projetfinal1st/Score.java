@@ -1,12 +1,6 @@
 package com.example.projetfinal1st;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.widget.TextView;
-
 import java.io.Serializable;
-import java.util.Timer;
-import java.util.TimerTask;
 /**
  * Class that manages the score of the player
  */
@@ -48,27 +42,4 @@ public class Score implements Serializable {
         this.score++;
     }
 
-    /**
-     * Function to update the score each seconds
-     * @param activity Activity
-     */
-    public void updateScore(Activity activity,SharedPreferences preferences,String moneyAmount) {
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-        @Override
-           public void run() {
-                activity.runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                        TextView money = activity.findViewById(R.id.moneyAmount);
-                        if(preferences.getBoolean("ModeDev", false) && preferences.getBoolean("InfiniteMoney", false))
-                        {
-                            money.setText("Infinite Money");
-                        }
-                    }
-                });
-          }
-        };
-       timer.scheduleAtFixedRate(timerTask, 0, 1000);
-    }
 }

@@ -2,17 +2,16 @@ package com.example.projetfinal1st;
 
 import android.app.Activity;
 
-import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Class to create an auto clicker with parameters
  */
-public class AutoClicker implements Serializable {
+public class AutoClicker {
 
     private transient Activity activity;
-    private transient Score score;
+    private transient int score;
     private int rate;
 
     /**
@@ -21,7 +20,7 @@ public class AutoClicker implements Serializable {
      * @param score Score
      * @param rate Int rate at which the score increases
      */
-    public AutoClicker(Activity activity, Score score, int rate) {
+    public AutoClicker(Activity activity, int score, int rate) {
         this.activity = activity;
         this.score = score;
         this.rate = rate;

@@ -1,13 +1,15 @@
 package com.example.projetfinal1st;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 
     private String name;
     private String description;
     private int image;
     private int quantity;
     private int rate;
-    private Score score;
+    private int price;
 
     /**
      * Default constructor
@@ -18,6 +20,7 @@ public class Employee {
         this.image = 0;
         this.quantity = 0;
         this.rate = 0;
+        this.price = 0;
     }
 
     /**
@@ -28,12 +31,13 @@ public class Employee {
      * @param quantity Int of the quantity of employees
      * @param rate Int of the rate of the employee (clicks per operations)
      */
-    public Employee(String name, String description, int image, int quantity, int rate) {
+    public Employee(String name, String description, int image, int quantity, int rate, int price) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.quantity = quantity;
         this.rate = rate;
+        this.price = price;
     }
 
     /**
@@ -114,6 +118,22 @@ public class Employee {
      */
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    /**
+     * Getter of the price of the employee
+     * @return Int of the price of the employee
+     */
+    public int getPrice() {
+        return this.price;
+    }
+
+    /**
+     * Setter of the price of the employee
+     * @param price Int of the price of the employee
+     */
+    public void setPrice(int price) {
+        this.price = price;
     }
 
 }
