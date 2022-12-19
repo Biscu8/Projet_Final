@@ -37,7 +37,7 @@ public class AutoClicker implements Serializable {
     }
 
     public void incrementScore(Score score, int rate) {
-        score.setScore(rate + score.getScore());
+        //score.setScore(rate + score.getScore());
         //TODO regler cette fonction qui fait crash(setScore)
     }
 
@@ -52,7 +52,7 @@ public class AutoClicker implements Serializable {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        incrementScore(score, rate);
+                        //incrementScore(score, rate);
                     }
                 });
             }

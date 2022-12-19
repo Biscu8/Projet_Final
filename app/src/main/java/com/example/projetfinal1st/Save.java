@@ -15,8 +15,11 @@ public class Save {
     @NonNull
     public String username;
 
-    @ColumnInfo(name="score")
+    @ColumnInfo(name = "score")
     public Score score;
+
+    @ColumnInfo(name = "money")
+    public String money;
 
     /**
      * Default constructor
@@ -27,6 +30,7 @@ public class Save {
 
     /**
      * Constructor with info of save
+     *
      * @param username String of username
      */
     public Save(String username) {
@@ -34,10 +38,9 @@ public class Save {
         this.score = new Score(0);
     }
 
-    public Save(String username,int scores)
-    {
+    public Save(String username, int scores, String money) {
         this.username = username;
-        this.score =new Score(scores);
+        this.score = new Score(scores);
+        this.money = money;
     }
-
 }

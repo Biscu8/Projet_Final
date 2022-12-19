@@ -1,5 +1,6 @@
 package com.example.projetfinal1st;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class MainGame extends AppCompatActivity {
     private MyViewModelGame myViewModelGame;
     private Score score;
     private String username;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,30 +34,62 @@ public class MainGame extends AppCompatActivity {
         // Initiate the score of the user
         Executors.newSingleThreadExecutor().execute(() -> {
         if(myViewModelGame.getSave(username) != null) {
-                score = myViewModelGame.getSave(username);
+            //Update UI with text database moneyAmount
+               int clickAmount = myViewModelGame.getSave(username).getScore();
+               TextView clickAmountView = findViewById(R.id.clickAmount);
+               clickAmountView.setText(String.valueOf(clickAmount));
+               //verify if the user is oppening the app or is coming back from the employee tab
+            TextView moneyAmount = findViewById(R.id.MoneyAmount);
                 if(getIntent().getStringExtra("MoneyMinusBuy") != null)
                 {
-                    score.updateScore(this, preferences, String.valueOf(getIntent().getStringExtra("MoneyMinusBuy")));
+                    //update UI with MoneyAmount
+                    moneyAmount.setText(getIntent().getStringExtra("MoneyMinusBuy"));
+                    //remove Extra data
                     getIntent().removeExtra("MoneyMinusBuy");
                 }
-                else {
-                    score.updateScore(this, preferences, "");
+                else
+                {
+                    //Update UI with database data
+                    moneyAmount.setText(myViewModelGame.getMoneyAmount(username));
                 }
+                //update data with new data
+            saveGameInDatabase();
+            // if preference infinite money is check udpate UI
+            if(preferences.getBoolean("InfiniteMoney", false))
+            {
+                moneyAmount.setText("Infinite Money");
+            }
         }
         else
         {
+            //put all preferences to default
+            preferences.getAll().clear();//pas sur
+            //if there is no user initiate score to 0 and create a new save
             score = new Score(0);
                 Save save = new Save(username);
                 myViewModelGame.setSave(save);
-            score.updateScore(this, preferences,"");
-
         }
         });
 
         // Normal, hand clicker
         findViewById(R.id.ClickButton).setOnClickListener(view -> {
-                score.incrementScore();
-                score.updateScore(this, preferences,"");
+            //Update clickAmount view + 1
+            TextView clickAmount = findViewById(R.id.clickAmount);
+            int clickAmountPlusOne = Integer.parseInt(String.valueOf(clickAmount.getText())) +1;
+            clickAmount.setText(String.valueOf(clickAmountPlusOne));
+            if(!preferences.getBoolean("InfiniteMoney", false)) {
+                //Update moneyAmount view + 10
+                TextView moneyAmount = findViewById(R.id.MoneyAmount);
+                String moneyAmountString = String.valueOf(moneyAmount.getText()).substring(0, String.valueOf(moneyAmount.getText()).length() -1);
+                int moneyAmountPlusTen = Integer.parseInt(moneyAmountString) + 10;
+                moneyAmount.setText(String.valueOf(moneyAmountPlusTen) + "$");
+                //start a new thread
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    //update database with the new data
+                    Save save = new Save(username, Integer.parseInt(String.valueOf(clickAmount.getText())), String.valueOf(moneyAmount.getText()));
+                    myViewModelGame.updateSave(save);
+                });
+            }
         });
 
         // Open employees tab
@@ -65,12 +99,7 @@ public class MainGame extends AppCompatActivity {
             intent.putExtra("autoclicker", new AutoClicker(this, score, 0));
             TextView money = findViewById(R.id.MoneyAmount);
             //put score in database
-            TextView viewScore = findViewById(R.id.clickAmount);
-            String stringScore =(String) viewScore.getText();
-            Save save = new Save(preferences.getString("Username", ""), Integer.valueOf(stringScore));
-            Executors.newSingleThreadExecutor().execute(() -> {
-                        myViewModelGame.updateSave(save);
-                    });
+            saveGameInDatabase();
             String money1 = (String) money.getText();
             intent.putExtra("Money", money1);
             startActivity(intent);
@@ -82,6 +111,17 @@ public class MainGame extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+    public void saveGameInDatabase()
+    {
+        TextView viewScore = findViewById(R.id.clickAmount);
+        String stringScore =(String) viewScore.getText();
+        TextView viewAmount = findViewById(R.id.MoneyAmount);
+        String moneyAmount = (String) viewAmount.getText();
+        Save save = new Save(preferences.getString("Username", ""), Integer.parseInt(stringScore), moneyAmount);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            myViewModelGame.updateSave(save);
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,8 +137,9 @@ public class MainGame extends AppCompatActivity {
                 //TODO menu About
                 break;
             case R.id.menu_disconnect:
-                System.exit(0);
-                //TODO sauvegarder la progression
+                Intent intentMainPage = new Intent(this, MainActivity.class);
+                saveGameInDatabase();
+                startActivity(intentMainPage);
                 break;
             case R.id.menu_setting:
                 //TODO menu Settings

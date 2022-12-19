@@ -54,33 +54,20 @@ public Score()
     public void updateScore(Activity activity,SharedPreferences preferences,String moneyAmount) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
+        @Override
+           public void run() {
                 activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView textView = activity.findViewById(R.id.clickAmount);
+                   @Override
+                   public void run() {
                         TextView money = activity.findViewById(R.id.MoneyAmount);
-                        textView.setText(String.valueOf(getScore()));
-                        textView.setText(String.valueOf(getScore()));
                         if(preferences.getBoolean("ModeDev", false) && preferences.getBoolean("InfiniteMoney", false))
                         {
                             money.setText("Infinite Money");
                         }
-                        else
-                        {
-                            if(moneyAmount == "") {
-                               money.setText(String.valueOf(getScore() * 10 + "$"));
-                           }
-                           else
-                            {
-                                money.setText(moneyAmount + "$");
-                            }
-                        }
                     }
                 });
-            }
+          }
         };
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+       timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 }

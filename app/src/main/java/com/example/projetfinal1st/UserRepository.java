@@ -29,6 +29,10 @@ public class UserRepository {
     public Score getSave(String username) {
             return userDao.getSave(username);
 }
+    public String getMoneyAmount(String username)
+    {
+        return userDao.getMoneyAmount(username);
+    }
     /**
      * Function to insert users in the database
      * @param user User object

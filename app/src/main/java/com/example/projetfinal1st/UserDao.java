@@ -36,6 +36,8 @@ public interface UserDao {
     @Query("SELECT score FROM 'Save' WHERE username =:username")
     public Score getSave(String username);
 
+    @Query("SELECT money FROM 'Save' WHERE username =:username")
+    public String getMoneyAmount(String username);
     /**
      * Add a user to the database
      * @param users User to insert in database

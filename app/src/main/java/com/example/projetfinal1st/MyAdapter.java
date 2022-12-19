@@ -19,12 +19,15 @@ import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private final ArrayList<Employee> localDataSet;
     private final ClickListener listener;
     private static String m_money;
+    private static int employeeCountNumber;
+    private static int m_newEmployeeCountNumber;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -38,37 +41,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private final TextView employeeCountNumberTextView;
         private final TextView missingMoney;
         private String m_money;
-        private boolean removeDollarsSign = true;
         private WeakReference<ClickListener> listenerWeakReference;
 
         //get the money amount
         @Override
         public void onClick(View view) {
+            m_money = MyAdapter.m_money;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
                 int money;
-                if(m_money == "Infinite Money")
+                if(Objects.equals(m_money, "Infinite Money"))
                 {
                     money = 99999999;
                 }
-                else {
-                    if(removeDollarsSign) {
-                        money = Integer.valueOf(m_money.substring(0, m_money.length() - 1));
-                        removeDollarsSign = false;
+                else
+                {
+                    if("$".equals(m_money.substring(m_money.length() - 1,m_money.length())))
+                    {
+                        money = Integer.parseInt(m_money.substring(0, m_money.length() - 1));
                     }
                     else
                     {
-                        money = Integer.valueOf(m_money);
+                        money = Integer.parseInt(m_money);
                     }
-                    if (money < 1000) {
-                        //change UI to print a buy error
-                        getMissingMoney().setVisibility(View.VISIBLE);
-                    } else {
-                        getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
-                        money -= 1000;
-                        m_money = String.valueOf(money);
-                        MyAdapter.m_money = m_money;
-                    }
+                }
+                if (money < 1000) {
+                    //change UI to print a buy error
+                    getMissingMoney().setVisibility(View.VISIBLE);
+                } else {
+                    getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
+                    money -= 1000;
+                    m_money = String.valueOf(money) + "$";
+                    MyAdapter.m_money = m_money;
+                    MyAdapter.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
                 }
             }
             else {
@@ -81,9 +86,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(view);
             // Define click listener for the ViewHolder's View
             listenerWeakReference = new WeakReference<>(listener);
-
             employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
+            //manage to get the intent into this adapter
             employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
+            employeeCountNumberTextView.setText(m_newEmployeeCountNumber);
             employeeImageView = (ImageView) view.findViewById(R.id.employeeImageView);
             employeeDescriptionButton = (ImageButton) view.findViewById(R.id.employeeDescriptionButton);
             employeeBuyButton = (Button) view.findViewById(R.id.employeeBuyButton);
@@ -127,10 +133,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * Initialize the dataset of the Adapter.
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      */
-    public MyAdapter(ArrayList<Employee> dataSet, String money, ClickListener listener) {
+    public MyAdapter(ArrayList<Employee> dataSet, String money, int newEmployeeCOuntNumber, ClickListener listener) {
         localDataSet = dataSet;
         this.listener = listener;
-        m_money = money;
+        this.m_money = money;
+        m_newEmployeeCountNumber = newEmployeeCOuntNumber;
     }
 
     // Create new views (invoked by the layout manager)
@@ -150,7 +157,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
          viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
-         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
+        viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
 
       //  switch(localDataSet[position].getId())
@@ -170,6 +177,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public String getMoney()
     {
         return m_money;
+    }
+    public int getEmployeeCountNumber()
+    {
+        return employeeCountNumber;
     }
 }
 
