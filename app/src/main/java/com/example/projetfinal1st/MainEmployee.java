@@ -28,7 +28,7 @@ public class MainEmployee extends AppCompatActivity {
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
         //get the employee count number from database
-        MyAdapter myAdapter = new MyAdapter(dataSet);
+        MyAdapter myAdapter = new MyAdapter(dataSet, money);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //connect the back button
@@ -39,8 +39,6 @@ public class MainEmployee extends AppCompatActivity {
             secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
             startActivity(secondIntent);
         });
-
-
 
     }
 }

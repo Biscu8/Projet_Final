@@ -125,13 +125,13 @@ public class MainGame extends AppCompatActivity {
             clickAmount.setText(String.valueOf(m_score));
             if(!preferences.getBoolean("InfiniteMoney", false)) {
 
-                //Update moneyAmount view + 10
+                // Update moneyAmount view + 10
                 TextView moneyAmount = findViewById(R.id.moneyAmount);
                 String moneyAmountString = String.valueOf(moneyAmount.getText()).substring(0, String.valueOf(moneyAmount.getText()).length() -1);
                 int moneyAmountPlusTen = Integer.parseInt(moneyAmountString) + 10;
                 moneyAmount.setText(String.valueOf(moneyAmountPlusTen) + "$");
 
-                //start a new thread
+                // start a new thread
                 Executors.newSingleThreadExecutor().execute(() -> {
 
                     //update database with the new data
@@ -148,7 +148,8 @@ public class MainGame extends AppCompatActivity {
             TextView money = findViewById(R.id.moneyAmount);
 
             // Sends employees to adapter
-            MyAdapter adapter = new MyAdapter(arrayEmployee);
+            String money1 = (String) money.getText();
+            MyAdapter adapter = new MyAdapter(arrayEmployee, money1);
 
             // Sends employees to activity
             Bundle args = new Bundle();
@@ -158,7 +159,7 @@ public class MainGame extends AppCompatActivity {
 
             //put money in database
             saveGameInDatabase();
-            String money1 = (String) money.getText();
+
             intent.putExtra("Money", money1);
             startActivity(intent);
         });

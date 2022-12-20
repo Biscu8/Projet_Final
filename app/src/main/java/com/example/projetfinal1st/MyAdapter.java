@@ -47,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
                 else
                 {
-                    if("$".equals(m_money.substring(m_money.length() - 1,m_money.length())))
+                    if("$".equals(m_money.substring(m_money.length() - 1)))
                     {
                         money = Integer.parseInt(m_money.substring(0, m_money.length() - 1));
                     }
@@ -62,32 +62,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 } else {
                     getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
                     money -= 1000;
-                    m_money = String.valueOf(money) + "$";
+                    m_money = money + "$";
                     MyAdapter.m_money = m_money;
                     MyAdapter.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
                 }
             }
             else {
-                Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "ROW PRESSED = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
             }
         }
 
         public ViewHolder(View view) {
             super(view);
-            employeeTextView = (TextView) view.findViewById(R.id.employeeTextView);
+            employeeTextView = view.findViewById(R.id.employeeTextView);
             //manage to get the intent into this adapter
-            employeeCountNumberTextView = (TextView) view.findViewById(R.id.employeeCountNumber);
+            employeeCountNumberTextView = view.findViewById(R.id.employeeCountNumber);
             //employeeCountNumberTextView.setText(m_newEmployeeCountNumber);
-            employeeImageView = (ImageView) view.findViewById(R.id.employeeImageView);
-            employeeDescriptionButton = (ImageButton) view.findViewById(R.id.employeeDescriptionButton);
-            employeeBuyButton = (Button) view.findViewById(R.id.employeeBuyButton);
+            employeeImageView = view.findViewById(R.id.employeeImageView);
+            employeeDescriptionButton = view.findViewById(R.id.employeeDescriptionButton);
+            employeeBuyButton = view.findViewById(R.id.employeeBuyButton);
             employeeBuyButton.setOnClickListener(this);
-            missingMoney = (TextView) view.findViewById(R.id.missingMoney);
+            missingMoney = view.findViewById(R.id.missingMoney);
         }
         public TextView getMissingMoney()
         {
             return missingMoney;
         }
+
         public TextView getEmployeeTextView() {
             return employeeTextView;
         }
@@ -107,10 +108,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView getEmployeeImageView() {
             return employeeImageView;
         }
+
         public void setMoney(String money)
         {
             m_money = money;
         }
+
         public String getMoney()
         {
             return m_money;
@@ -120,9 +123,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     /**
      * Initialize the dataset of the Adapter.
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
+     * @param money1
      */
-    public MyAdapter(ArrayList<Employee> dataSet) {
+    public MyAdapter(ArrayList<Employee> dataSet, String money1) {
         localDataSet = dataSet;
+        m_money = money1;
     }
 
     // Create new views (invoked by the layout manager)
@@ -142,13 +147,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
+        viewHolder.getEmployeeBuyButton().setText((localDataSet.get(position).getPrice()) + "$");
 
-      //  switch(localDataSet[position].getId())
-      //  {
-       //     case R.drawable.george:
+        //  switch(localDataSet[position].getId())
+        //  {
+        //     case R.drawable.george:
 
         //        break;
-       // }
+        // }
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 
@@ -165,5 +171,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     {
         return employeeCountNumber;
     }
+
 }
 
