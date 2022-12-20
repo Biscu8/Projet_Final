@@ -182,7 +182,9 @@ public class MainGame extends AppCompatActivity {
                         TextView moneyAmount = findViewById(R.id.moneyAmount);
                         int m_score = Integer.parseInt(clickAmount.getText().toString());
                         Executors.newSingleThreadExecutor().execute(() -> {
-                            myViewModelGame.getSave(username).setScore(m_score);
+                            if (myViewModelGame.getSave(username) != null) {
+                                myViewModelGame.getSave(username).setScore(m_score);
+                            }
                         });
                         clickAmount.setText(String.valueOf(m_score));
                         moneyAmount.setText(String.valueOf(m_score) + "$");
