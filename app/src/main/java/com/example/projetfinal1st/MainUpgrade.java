@@ -36,7 +36,6 @@ public class MainUpgrade extends AppCompatActivity {
         recyclerView.setAdapter(adapterUpgrade);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
     }
 
     //on

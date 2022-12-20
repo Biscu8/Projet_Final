@@ -188,6 +188,23 @@ public class MainGame extends AppCompatActivity {
         // Open companies tab
         findViewById(R.id.buttonCompanies).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainCompanies.class);
+
+            // ArrayList of strings TODO change it for companies or smt
+            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList.add("hello");
+            arrayList.add("yo");
+
+            // Send ArrayList to adapter
+            AdapterCompanies adapterCompanies = new AdapterCompanies(arrayList);
+
+            // Send strings to activity
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("bundle", (Serializable) arrayList);
+
+            // Put extras in intent
+            intent.putExtra("arrayList", arrayList);
+            intent.putExtra("bundle", bundle);
+
             startActivity(intent);
         });
 
