@@ -40,7 +40,7 @@ public class MainGame extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
 
             //Initiate the employees with default stats
-            Employee employee1 = new Employee("name", "desc", R.drawable.george, 0, 2, 1000);
+            Employee employee1 = new Employee("name", "desc", R.drawable.george, 0, 2, 1);
             Employee employee2 = new Employee("name", "desc", R.drawable.george, 0, 4, 2000);
             Employee employee3 = new Employee("name", "desc", R.drawable.george, 0, 6, 3000);
             Employee employee4 = new Employee("name", "desc", R.drawable.george, 0, 8, 4000);

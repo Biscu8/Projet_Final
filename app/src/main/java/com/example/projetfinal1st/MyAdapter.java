@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 
+import android.graphics.EmbossMaskFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,13 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private final ArrayList<Employee> localDataSet;
+    private static ArrayList<Employee> localDataSet;
     private static String m_money;
     private static int employeeCountNumber;
 
@@ -37,6 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //get the money amount
         @Override
         public void onClick(View view) {
+            ArrayList<Employee> arrayEmployee = MyAdapter.localDataSet;
             m_money = MyAdapter.m_money;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
@@ -56,12 +59,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                         money = Integer.parseInt(m_money);
                     }
                 }
-                if (money < 1000) {
+                if (money < Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText()).substring(0, Integer.parseInt(String.valueOf(getEmployeeBuyButton().length())) - 1))) { // LMAO :skull:
                     //change UI to print a buy error
                     getMissingMoney().setVisibility(View.VISIBLE);
                 } else {
                     getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
-                    money -= 1000;
+                    money -= Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText()).substring(0, Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText().length() - 1))));
                     m_money = money + "$";
                     MyAdapter.m_money = m_money;
                     MyAdapter.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
