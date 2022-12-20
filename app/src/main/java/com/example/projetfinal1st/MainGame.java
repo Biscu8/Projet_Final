@@ -113,6 +113,7 @@ public class MainGame extends AppCompatActivity {
                 //if there is no user initiate score to 0 and create a new save
                 score = new Score(0);
                 Save save = new Save(username);
+                myViewModelGame.setSave(save);
             }
         });
 
@@ -127,9 +128,6 @@ public class MainGame extends AppCompatActivity {
 
                 // Update moneyAmount view + 10
                 TextView moneyAmount = findViewById(R.id.moneyAmount);
-                String moneyAmountString = String.valueOf(moneyAmount.getText()).substring(0, String.valueOf(moneyAmount.getText()).length() -1);
-                int moneyAmountPlusTen = Integer.parseInt(moneyAmountString) + 10;
-                moneyAmount.setText(String.valueOf(moneyAmountPlusTen) + "$");
 
                 // start a new thread
                 Executors.newSingleThreadExecutor().execute(() -> {

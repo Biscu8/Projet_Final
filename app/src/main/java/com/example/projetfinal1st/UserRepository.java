@@ -3,7 +3,11 @@ package com.example.projetfinal1st;
 import android.app.Application;
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
+
+import kotlinx.coroutines.flow.Flow;
 
 /**
  * Repository class for database

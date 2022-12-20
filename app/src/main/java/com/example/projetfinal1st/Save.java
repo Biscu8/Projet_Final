@@ -2,8 +2,13 @@ package com.example.projetfinal1st;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import java.util.ArrayList;
 
 /**
  * Class save containing a save game tied to a username
@@ -20,6 +25,10 @@ public class Save {
 
     @ColumnInfo(name = "money")
     public String money;
+
+    @ColumnInfo(name ="EmployeeIdlink")
+    public String entitytab;
+
 
     /**
      * Default constructor
@@ -42,5 +51,10 @@ public class Save {
         this.username = username;
         this.score = new Score(scores);
         this.money = money;
+    }
+    public Save(String username, String id)
+    {
+        this.username = username;
+        this.entitytab = id;
     }
 }

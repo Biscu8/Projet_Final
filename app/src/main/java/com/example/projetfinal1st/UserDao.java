@@ -6,7 +6,12 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
+
+import java.util.List;
+
+import kotlinx.coroutines.flow.Flow;
 
 /**
  * Database Access Object to access data from the database
@@ -52,6 +57,9 @@ public interface UserDao {
     @Insert
     void insert(Save... saves);
 
+   // @Transaction
+   // @Query("SELECT * FROM 'Save'")
+    //public Flow<List<SaveEntityEmployee>> getAllEmployee();
     @Update
     void update(Save... saves);
     /**

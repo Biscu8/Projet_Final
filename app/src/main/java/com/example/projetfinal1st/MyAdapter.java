@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             m_money = MyAdapter.m_money;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
-                int money;
+                int money;//TODO pas hardcode le money
                 if(Objects.equals(m_money, "Infinite Money"))
                 {
                     money = 99999999;
@@ -148,13 +148,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
         viewHolder.getEmployeeBuyButton().setText((localDataSet.get(position).getPrice()) + "$");
-
-        //  switch(localDataSet[position].getId())
-        //  {
-        //     case R.drawable.george:
-
-        //        break;
-        // }
+        
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 

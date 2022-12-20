@@ -2,6 +2,8 @@ package com.example.projetfinal1st;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 public class TypeConverter {
     /**
      * convert the score to string to input in database
