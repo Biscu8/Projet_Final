@@ -41,4 +41,7 @@
     <string name="employee_button_buy">Buy</string>
     <string name="employee_button_back">Back</string>
     <string name="upgrades">Upgrades</string>
+    <string name="button_back">Back</string>
+    <string name="button_info">Info</string>
+    <string name="companies">Companies</string>
 </resources>

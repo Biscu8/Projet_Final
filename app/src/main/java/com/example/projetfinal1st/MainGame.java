@@ -28,7 +28,7 @@ public class MainGame extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_game);
+        setContentView(R.layout.activity_game);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);

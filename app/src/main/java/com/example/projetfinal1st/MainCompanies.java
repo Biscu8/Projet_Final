@@ -14,7 +14,7 @@ public class MainCompanies extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_companies);
+        setContentView(R.layout.activity_companies);
 
         // Get Intent
         Intent intent = getIntent();

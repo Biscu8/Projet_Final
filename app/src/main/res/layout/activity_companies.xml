@@ -3,23 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    style="@style/SCREEN"
     android:layout_height="match_parent"
-    tools:context=".MainEmployee">
+    tools:context=".MainCompanies">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEmployee"
+        android:id="@+id/reyclerViewCompanies"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -30,20 +29,20 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/buttonEmployeeBack"
+            android:id="@+id/buttonCompaniesBack"
             style="@style/BUTTON"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/button_back"></Button>
+            android:text="@string/button_back" />
 
         <Button
-            android:id="@+id/buttonEmployeeInfo"
+            android:id="@+id/buttonCompaniesInfo"
             style="@style/BUTTON"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_info" />
-    </LinearLayout>
 
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
