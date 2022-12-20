@@ -113,6 +113,7 @@ public class MainGame extends AppCompatActivity {
                 //if there is no user initiate score to 0 and create a new save
                 score = new Score(0);
                 Save save = new Save(username);
+                myViewModelGame.setSave(save);
             }
         });
 
