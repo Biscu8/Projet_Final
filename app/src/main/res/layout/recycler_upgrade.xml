@@ -15,16 +15,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewUpgrade"
             android:layout_width="182dp"
             android:layout_height="84dp"
             app:srcCompat="@android:drawable/arrow_up_float" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewUpgrade"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="TextView" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

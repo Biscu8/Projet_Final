@@ -21,17 +21,20 @@ public class MainEmployee extends AppCompatActivity {
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
 
         //retrieve recyclerView
-        RecyclerView recyclerView = findViewById(R.id.employeeRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewEmployee);
+
         // Retrieve arrayList
         Bundle args = intent.getBundleExtra("bundle");
         ArrayList<Employee> dataSet = (ArrayList<Employee>) args.getSerializable("arrayList");
 
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
+
         //get the employee count number from database
         AdapterEmployee myAdapter = new AdapterEmployee(dataSet, money);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         //connect the back button
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {

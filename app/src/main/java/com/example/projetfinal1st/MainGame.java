@@ -165,6 +165,23 @@ public class MainGame extends AppCompatActivity {
         // Open upgrades tab
         findViewById(R.id.buttonUpgrade).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainUpgrade.class);
+
+            // ArrayList of strings TODO change it for upgrades or smt
+            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList.add("Hello");
+            arrayList.add("Aurevoir");
+
+            // Sends ArrayList to adapter
+            AdapterUpgrade adapterUpgrade = new AdapterUpgrade(arrayList);
+
+            // Sends strings to activity
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("bundle", (Serializable) arrayList);
+
+            // Put extas in intent
+            intent.putExtra("arrayList", arrayList);
+            intent.putExtra("bundle", bundle);
+
             startActivity(intent);
         });
 
