@@ -1,7 +1,6 @@
 package com.example.projetfinal1st;
 
 
-import android.graphics.EmbossMaskFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHolder> {
 
     private static ArrayList<Employee> localDataSet;
     private static String m_money;
@@ -39,8 +37,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //get the money amount
         @Override
         public void onClick(View view) {
-            ArrayList<Employee> arrayEmployee = MyAdapter.localDataSet;
-            m_money = MyAdapter.m_money;
+            ArrayList<Employee> arrayEmployee = AdapterEmployee.localDataSet;
+            m_money = AdapterEmployee.m_money;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
                 int money;//TODO pas hardcode le money
@@ -66,8 +64,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
                     money -= Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText()).substring(0, Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText().length() - 1))));
                     m_money = money + "$";
-                    MyAdapter.m_money = m_money;
-                    MyAdapter.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
+                    AdapterEmployee.m_money = m_money;
+                    AdapterEmployee.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
                 }
             }
             else {
@@ -128,7 +126,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      * @param money1
      */
-    public MyAdapter(ArrayList<Employee> dataSet, String money1) {
+    public AdapterEmployee(ArrayList<Employee> dataSet, String money1) {
         localDataSet = dataSet;
         m_money = money1;
     }

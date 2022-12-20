@@ -41,6 +41,7 @@
     <string name="employee_button_back">Retour</string>
     <string name="upgrades">Amélioration</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="companies">Compagnies</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

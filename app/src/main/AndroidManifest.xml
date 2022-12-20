@@ -13,8 +13,14 @@
         android:theme="@style/Theme.ProjetFinal1st"
         tools:targetApi="31">
         <activity
+            android:name=".MainCompanies"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainUpgrade"
-            android:parentActivityName=".MainGame"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,7 +36,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".about"
+            android:name=".About"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

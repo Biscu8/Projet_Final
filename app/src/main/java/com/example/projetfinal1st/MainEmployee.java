@@ -29,12 +29,12 @@ public class MainEmployee extends AppCompatActivity {
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
         //get the employee count number from database
-        MyAdapter myAdapter = new MyAdapter(dataSet, money);
+        AdapterEmployee myAdapter = new AdapterEmployee(dataSet, money);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //connect the back button
-        Button back = findViewById(R.id.Back);
-        back.setOnClickListener(view -> {
+        Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
+        buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
             //register an id for the employees of the user link to is username
            // Save save = new Save(getIntent().getStringExtra("Username"), );

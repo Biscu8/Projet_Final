@@ -141,13 +141,13 @@ public class MainGame extends AppCompatActivity {
 
         // Open employees tab
         // TODO share score between activities with database
-        findViewById(R.id.button2).setOnClickListener(view -> {
+        findViewById(R.id.buttonEmployee).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainEmployee.class);
             TextView money = findViewById(R.id.moneyAmount);
 
             // Sends employees to adapter
             String money1 = (String) money.getText();
-            MyAdapter adapter = new MyAdapter(arrayEmployee, money1);
+            AdapterEmployee adapter = new AdapterEmployee(arrayEmployee, money1);
 
             // Sends employees to activity
             Bundle args = new Bundle();
@@ -163,8 +163,14 @@ public class MainGame extends AppCompatActivity {
         });
 
         // Open upgrades tab
-        findViewById(R.id.button3).setOnClickListener(view -> {
+        findViewById(R.id.buttonUpgrade).setOnClickListener(view -> {
             Intent intent = new Intent(this, MainUpgrade.class);
+            startActivity(intent);
+        });
+
+        // Open companies tab
+        findViewById(R.id.buttonCompanies).setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainCompanies.class);
             startActivity(intent);
         });
 
