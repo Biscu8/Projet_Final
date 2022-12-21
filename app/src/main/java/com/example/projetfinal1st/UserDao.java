@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kotlinx.coroutines.flow.Flow;
@@ -57,11 +58,21 @@ public interface UserDao {
     @Insert
     void insert(Save... saves);
 
-   // @Transaction
-   // @Query("SELECT * FROM 'Save'")
-    //public Flow<List<SaveEntityEmployee>> getAllEmployee();
+    @Query("SELECT * FROM 'Save'")
+    public static ArrayList<Save> getAllUser() {
+        return null;
+    }
+    @Query("SELECT EmployeeIdlink FROM 'Save' WHERE username =:username")
+    public String getid(String username);
+    @Query("SELECT * FROM 'Employee' WHERE Userid =:id")
+    public List<EntityEmployee> getAllEmployeeWithSameId(String id);
     @Update
     void update(Save... saves);
+    @Insert
+    void insert(EntityEmployee... EntityEmployees);
+
+    @Update
+    void updateEmployee(EntityEmployee... Employees);
     /**
      * Remove a user from the database
      * @param user User to remove from database

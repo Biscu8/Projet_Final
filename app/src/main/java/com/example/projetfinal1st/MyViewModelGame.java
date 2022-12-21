@@ -40,9 +40,28 @@ public class MyViewModelGame extends AndroidViewModel {
     {
       userRepository.insert(save);
     }
-    public void updateSave(Save save)
-    {
+    public void updateSave(Save save) {
         userRepository.update(save);
+    }
+
+    public int getUserCount() {
+        return userRepository.getUserCount();
+    }
+
+    public String getid(String username) {
+        return userRepository.getid(username);
+    }
+    public void insert(EntityEmployee employee)
+    {
+        userRepository.insert(employee);
+    }
+    public List<EntityEmployee> getAllEmployeeWithSameId(String id)
+    {
+        return userRepository.getAllEmployeeWithSameId(id);
+    }
+    public void udpateEmployee(EntityEmployee employee)
+    {
+        userRepository.udpateEmployee(employee);
     }
 }
 

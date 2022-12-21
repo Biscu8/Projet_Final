@@ -6,21 +6,29 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.projetfinal1st.Employee;
+
 @Entity(tableName = "Employee")
-public class EntityEmployee {
+public class EntityEmployee  extends Employee {
 
-    @PrimaryKey
-    @NonNull
-    public String Employeeid;
+        @PrimaryKey(autoGenerate = true)
+        @NonNull
+        public int Employeeid;
 
-    @ColumnInfo(name="Employee name")
-    public String name;
-    @ColumnInfo(name="CountNumber")
-    public int number;
+        @ColumnInfo(name="Userid")
+        public String Userid;
+        @ColumnInfo(name="Employee name")
+        public String name;
 
-    public EntityEmployee()
-    {
-        this.name = "";
-        this.number = 0;
+        public EntityEmployee()
+        {
+            this.name = "";
+            this.setQuantity(0);
+        }
+        public EntityEmployee(int number, String name,String id)
+        {
+            this.name = name;
+            this.Userid = id;
+            this.setQuantity(number);
+        }
     }
-}

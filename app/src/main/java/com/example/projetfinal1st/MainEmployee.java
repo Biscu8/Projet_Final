@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,10 +13,13 @@ import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public class MainEmployee extends AppCompatActivity {
     MyViewModelGame myViewModelGame;
@@ -32,7 +36,28 @@ public class MainEmployee extends AppCompatActivity {
         // Retrieve arrayList
         Bundle args = intent.getBundleExtra("bundle");
         ArrayList<Employee> dataSet = (ArrayList<Employee>) args.getSerializable("arrayList");
+        //link the database when page is open
+        Executors.newSingleThreadExecutor().execute(() -> {
+            //register an id for the employees of the user link to is username
+            //verify if the player already has an id
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String id = preferences.getString("Username", "");
 
+            if(myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
+                //Use the same id to create each employee in the employee tab
+                for (int i = 0; i < dataSet.size(); i++) {
+                    //set all the employee name which represent their type
+                    String name = dataSet.get(i).getName();
+                    //register name in database with the id and the amount of 0 employee
+                    EntityEmployee employee = new EntityEmployee(0, name, id);
+                    myViewModelGame.insert(employee);
+                }
+            } else {
+                //get the employee tab that fits the user into an Array
+                List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
+                //TODO Set dataset with the employee in the database
+            }
+        });
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
 

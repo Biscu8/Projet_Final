@@ -1,7 +1,9 @@
 package com.example.projetfinal1st;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class TypeConverter {
@@ -25,5 +27,17 @@ public class TypeConverter {
     public Score StringToScore(String score)
     {
             return new Gson().fromJson(score, Score.class);
+    }
+    @androidx.room.TypeConverter
+    public String ArrayListEmployeeToString(ArrayList<EntityEmployee> EmployeeArrayList){
+        Gson gson = new Gson();
+        String json = gson.toJson(EmployeeArrayList);
+        return json;
+    }
+
+    @androidx.room.TypeConverter
+    public ArrayList<EntityEmployee> StringToArrayListEmployee(String EmployeeString){
+        Type listType = new TypeToken<ArrayList<EntityEmployee>>() {}.getType();
+        return new Gson().fromJson(EmployeeString, listType);
     }
 }

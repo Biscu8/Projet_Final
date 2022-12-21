@@ -19,24 +19,24 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
      * (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
-        private final ImageView imageView;
+      //  private final TextView textView;
+       // private final ImageView imageView;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = view.findViewById(R.id.textViewUpgrade);
-            imageView = view.findViewById(R.id.imageViewUpgrade);
+           // textView = view.findViewById(R.id.textViewUpgrade);
+            //imageView = view.findViewById(R.id.imageViewUpgrade);
         }
 
-        public TextView getTextView() {
-            return textView;
-        }
+        //public TextView getTextView() {
+         //   return textView;
+        //}
 
-        public ImageView getImageView() {
-            return imageView;
-        }
+        //public ImageView getImageView() {
+          //  return imageView;
+        //}
     }
 
     /**
@@ -65,8 +65,8 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText("t");//localDataSet.get(position)); //TODO FIX THIS
-        viewHolder.getImageView().setImageResource(R.drawable.george);
+      //  viewHolder.getTextView().setText("t");//localDataSet.get(position)); //TODO FIX THIS
+        //viewHolder.getImageView().setImageResource(R.drawable.george);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

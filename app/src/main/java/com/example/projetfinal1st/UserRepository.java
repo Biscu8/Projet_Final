@@ -78,4 +78,28 @@ public class UserRepository {
     public User userInDatabase(String username) {
         return userDao.userInDatabase(username);
     }
+
+    public int getUserCount()
+    {
+        ArrayList<Save> userList = UserDao.getAllUser();//???
+        return userList.size();
+    }
+    public String getid(String username)
+    {
+        return userDao.getid(username);
+    }
+    public void insert(EntityEmployee employee)
+    {
+        // Executors.newSingleThreadExecutor().execute(() -> {
+        userDao.insert(employee);
+        //});
+    }
+    public List<EntityEmployee> getAllEmployeeWithSameId(String id)
+    {
+        return userDao.getAllEmployeeWithSameId(id);
+    }
+    public void udpateEmployee(EntityEmployee employee)
+    {
+        userDao.updateEmployee(employee);
+    }
 }
