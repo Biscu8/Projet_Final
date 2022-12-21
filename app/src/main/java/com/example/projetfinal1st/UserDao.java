@@ -72,7 +72,7 @@ public interface UserDao {
     void insert(EntityEmployee... EntityEmployees);
 
     @Update
-    void updateEmployee(EntityEmployee... Employees);
+    void updateEmployee(EntityEmployee... EntityEmployees);
     /**
      * Remove a user from the database
      * @param user User to remove from database

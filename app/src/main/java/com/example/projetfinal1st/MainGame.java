@@ -60,13 +60,31 @@ public class MainGame extends AppCompatActivity {
                 TextView clickAmountView = findViewById(R.id.clickAmount);
                 clickAmountView.setText(String.valueOf(clickAmount));
 
-                // Update employees
-                for (int i = 0; i < arrayEmployee.size(); i++) {
-                    //int nb = myViewModelGame.getSave(username).getEmployeeNb(); //TODO
-                    int nb = 0;
-                    arrayEmployee.get(i).setQuantity(nb);
-                    for (int j = 0; j <= nb; j ++) {
-                        new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                if (!myViewModelGame.getAllEmployeeWithSameId(username).isEmpty()) {
+                    // Update employees
+                    for (int i = 0; i < arrayEmployee.size(); i++) {
+                        int nb = myViewModelGame.getAllEmployeeWithSameId(username).get(i).getQuantity(); //TODO
+                        arrayEmployee.get(i).setQuantity(nb);
+                        for (int j = 0; j <= nb; j++) {
+                            new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                        }
+                    }
+                }
+                else {
+                    //Use the same id to create each employee in the employee tab TODO WORKS
+                    for (int i = 0; i < arrayEmployee.size(); i++) {
+
+                        // Set employees
+                        String name = arrayEmployee.get(i).getName();
+                        int image = arrayEmployee.get(i).getImage();
+                        int rate = arrayEmployee.get(i).getRate();
+                        String desc = arrayEmployee.get(i).getDescription();
+                        int price = arrayEmployee.get(i).getPrice();
+                        int quantity = arrayEmployee.get(i).getQuantity();
+
+                        //register name in database with the id and the amount of 0 employee
+                        EntityEmployee employee = new EntityEmployee(quantity, name, username, desc, rate, price, image);
+                        myViewModelGame.insert(employee);
                     }
                 }
 
@@ -74,8 +92,10 @@ public class MainGame extends AppCompatActivity {
                 TextView moneyAmount = findViewById(R.id.moneyAmount);
                 if(getIntent().getStringExtra("MoneyMinusBuy") != null) {
 
+                    runOnUiThread(() -> {
                     //update UI with MoneyAmount
                     moneyAmount.setText(getIntent().getStringExtra("MoneyMinusBuy"));
+                    });
 
                     //remove Extra data
                     getIntent().removeExtra("MoneyMinusBuy");
@@ -95,9 +115,11 @@ public class MainGame extends AppCompatActivity {
 
                 // if user is loading
                 else {
-
                     //Update UI with database data
-                    moneyAmount.setText(myViewModelGame.getMoneyAmount(username));
+                    String money = myViewModelGame.getMoneyAmount(username);
+                    runOnUiThread(() -> {
+                        moneyAmount.setText(money);
+                    });
                 }
 
                 //update data with new data
@@ -149,10 +171,10 @@ public class MainGame extends AppCompatActivity {
 
             // Sends employees to adapter
             String money1 = (String) money.getText();
-            AdapterEmployee adapter = new AdapterEmployee(arrayEmployee, money1);
+            Bundle args = new Bundle();
+            AdapterEmployee adapter = new AdapterEmployee(arrayEmployee, money1, args);
 
             // Sends employees to activity
-            Bundle args = new Bundle();
             args.putSerializable("arrayList", (Serializable) arrayEmployee);
             intent.putExtra("arrayList", arrayEmployee);
             intent.putExtra("bundle", args);

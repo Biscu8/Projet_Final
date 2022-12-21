@@ -1,6 +1,8 @@
 package com.example.projetfinal1st;
 
 
+import android.os.Binder;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 
 public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHolder> {
 
     private static ArrayList<Employee> localDataSet;
     private static String m_money;
     private static int employeeCountNumber;
+    private static int m_position;
+    private static Bundle m_bundle;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -33,12 +38,14 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         private final TextView employeeCountNumberTextView;
         private final TextView missingMoney;
         private String m_money;
+        private int m_position;
 
         //get the money amount
         @Override
         public void onClick(View view) {
             ArrayList<Employee> arrayEmployee = AdapterEmployee.localDataSet;
             m_money = AdapterEmployee.m_money;
+            m_position = AdapterEmployee.m_position;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
                 int money;//TODO pas hardcode le money
@@ -66,6 +73,9 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                     m_money = money + "$";
                     AdapterEmployee.m_money = m_money;
                     AdapterEmployee.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
+                    arrayEmployee.get(m_position).setQuantity(arrayEmployee.get(m_position).getQuantity() + 1);
+                    ArrayList<Employee> arrayList = (ArrayList<Employee>) getBundle().getSerializable("arrayList");
+                    arrayList.get(m_position).setQuantity(arrayEmployee.get(m_position).getQuantity() + 1);
                 }
             }
             else {
@@ -115,9 +125,21 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
             m_money = money;
         }
 
+        public void setPosition(int position) {
+            m_position = position;
+        }
+
+        public void setBundle(Bundle bundle) {
+            m_bundle = bundle;
+        }
+
         public String getMoney()
         {
             return m_money;
+        }
+
+        public Bundle getBundle() {
+            return m_bundle;
         }
     }
 
@@ -126,9 +148,10 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      * @param money1
      */
-    public AdapterEmployee(ArrayList<Employee> dataSet, String money1) {
+    public AdapterEmployee(ArrayList<Employee> dataSet, String money1, Bundle args) {
         localDataSet = dataSet;
         m_money = money1;
+        m_bundle = args;
     }
 
     // Create new views (invoked by the layout manager)
@@ -145,6 +168,7 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.setMoney(m_money);
+        viewHolder.setPosition(m_position);
         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
@@ -152,6 +176,12 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
+
+    // Get position?
+    public int getPosition() {
+        return m_position;
+    }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

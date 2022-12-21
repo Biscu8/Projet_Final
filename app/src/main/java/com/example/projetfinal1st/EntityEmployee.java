@@ -25,10 +25,15 @@ public class EntityEmployee  extends Employee {
             this.name = "";
             this.setQuantity(0);
         }
-        public EntityEmployee(int number, String name,String id)
+        public EntityEmployee(int quantity, String name, String username, String description, int rate, int price, int image)
         {
             this.name = name;
-            this.Userid = id;
-            this.setQuantity(number);
+            this.Userid = username;
+            this.setQuantity(quantity);
+            this.setDescription(description);
+            this.setImage(image);
+            this.setPrice(price);
+            this.setRate(rate);
         }
+
     }

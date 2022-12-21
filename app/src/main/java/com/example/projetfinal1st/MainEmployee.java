@@ -3,6 +3,7 @@ package com.example.projetfinal1st;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -42,27 +43,23 @@ public class MainEmployee extends AppCompatActivity {
             //verify if the player already has an id
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String id = preferences.getString("Username", "");
-
-            if(myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
-                //Use the same id to create each employee in the employee tab
-                for (int i = 0; i < dataSet.size(); i++) {
-                    //set all the employee name which represent their type
-                    String name = dataSet.get(i).getName();
-                    //register name in database with the id and the amount of 0 employee
-                    EntityEmployee employee = new EntityEmployee(0, name, id);
-                    myViewModelGame.insert(employee);
-                }
-            } else {
+            if (!myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
                 //get the employee tab that fits the user into an Array
                 List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
-                //TODO Set dataset with the employee in the database
+                Log.i("name", employees.get(1).getName());
+                dataSet.clear();
+
+                for (int i = 0; i < employees.size(); i++) {
+                    dataSet.add(employees.get(i));
+                }
             }
         });
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
 
         //get the employee count number from database
-        AdapterEmployee myAdapter = new AdapterEmployee(dataSet, money);
+        AdapterEmployee myAdapter = new AdapterEmployee(dataSet, money, args);
+        Log.i("idk", String.valueOf(dataSet.get(1).getQuantity()));
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -70,7 +67,14 @@ public class MainEmployee extends AppCompatActivity {
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
-           //TODO register bought employee
+            Executors.newSingleThreadExecutor().execute(() -> {
+                ArrayList<Employee> dataSet2 = (ArrayList<Employee>) args.getSerializable("arrayList");
+                for (int i = 0; i < dataSet2.size(); i++) {
+                    Employee employee = dataSet2.get(i);
+                    myViewModelGame.udpateEmployee(new EntityEmployee(employee.getQuantity(), employee.getName(), getIntent().getStringExtra("Username"),
+                            employee.getDescription(), employee.getRate(), employee.getPrice(), employee.getImage()));
+                }
+            });
             secondIntent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
             secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
             startActivity(secondIntent);
