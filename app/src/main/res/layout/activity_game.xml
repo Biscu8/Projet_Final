@@ -82,4 +82,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonUpgrade"
         app:layout_constraintVertical_bias="0.00999999" />
+
+    <TextView
+        android:id="@+id/textViewMainError"
+        android:layout_width="181dp"
+        android:layout_height="84dp"
+        android:text="@string/main_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moneyAmount"
+        app:layout_constraintVertical_bias="0.01999998"
+        tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

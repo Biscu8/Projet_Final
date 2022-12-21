@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -75,9 +76,12 @@ public class MainEmployee extends AppCompatActivity {
         // open info popup window
         Button buttonEmployeeInfo = findViewById(R.id.buttonEmployeeInfo);
         buttonEmployeeInfo.setOnClickListener(view -> {
+
             // Inflate the layout of the popup
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = inflater.inflate(R.layout.popup_window, null);
+            TextView textView = popupView.findViewById(R.id.textViewPopup);
+            textView.setText(R.string.employee_popup);
 
             // Create the popup
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -89,13 +93,13 @@ public class MainEmployee extends AppCompatActivity {
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
             // Exit when tapped
-            /*popupView.setOnTouchListener(new View.OnTouchListener() -> {
+            popupView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                public boolean onTouch(View view, MotionEvent motionEvent) {
                     popupWindow.dismiss();
                     return true;
                 }
-            });*/
+            });
         });
 
     }
