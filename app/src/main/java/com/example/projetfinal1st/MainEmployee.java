@@ -70,10 +70,7 @@ public class MainEmployee extends AppCompatActivity {
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
-            //register an id for the employees of the user link to is username
-           // Save save = new Save(getIntent().getStringExtra("Username"), );
-          //  myViewModelGame.updateSave(save);
-            //Use the same id to register each employee in the employee tab
+           //TODO register bought employee
             secondIntent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
             secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
             startActivity(secondIntent);

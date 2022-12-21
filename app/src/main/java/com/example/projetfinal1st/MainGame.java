@@ -40,16 +40,17 @@ public class MainGame extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
 
             //Initiate the employees with default stats
-            Employee employee1 = new Employee("name", "desc", R.drawable.george, 0, 2, 1);
-            Employee employee2 = new Employee("name", "desc", R.drawable.george, 0, 4, 2000);
-            Employee employee3 = new Employee("name", "desc", R.drawable.george, 0, 6, 3000);
-            Employee employee4 = new Employee("name", "desc", R.drawable.george, 0, 8, 4000);
-            Employee employee5 = new Employee("name", "desc", R.drawable.george, 0, 10, 5000);
-            Employee employee6 = new Employee("name", "desc", R.drawable.george, 0, 12, 6000);
-            Employee employee7 = new Employee("name", "desc", R.drawable.george, 0, 14, 7000);
-            Employee employee8 = new Employee("name", "desc", R.drawable.george, 0, 16, 8000);
+            Employee employee1 = new Employee("George", "desc", R.drawable.george, 0, 2, 1);
+            Employee employee2 = new Employee("cody", "desc", R.drawable.george, 0, 4, 2000);
+            Employee employee3 = new Employee("marie", "desc", R.drawable.george, 0, 6, 3000);
+            Employee employee4 = new Employee("qwerty", "desc", R.drawable.george, 0, 8, 4000);
+            Employee employee5 = new Employee("jay", "desc", R.drawable.george, 0, 10, 5000);
+            Employee employee6 = new Employee("brrrr", "desc", R.drawable.george, 0, 12, 6000);
+            Employee employee7 = new Employee("black", "desc", R.drawable.george, 0, 14, 7000);
+            Employee employee8 = new Employee("white", "desc", R.drawable.george, 0, 16, 8000);
+            Employee employee9 = new Employee("sffsfdsf", "desc", R.drawable.george, 0, 16, 8000);
             arrayEmployee.add(employee1); arrayEmployee.add(employee2); arrayEmployee.add(employee3); arrayEmployee.add(employee4);
-            arrayEmployee.add(employee5); arrayEmployee.add(employee6); arrayEmployee.add(employee7); arrayEmployee.add(employee8);
+            arrayEmployee.add(employee5); arrayEmployee.add(employee6); arrayEmployee.add(employee7); arrayEmployee.add(employee8);arrayEmployee.add(employee9);
 
             // Verify is user has save
             if(myViewModelGame.getSave(username) != null) {
@@ -78,6 +79,7 @@ public class MainGame extends AppCompatActivity {
 
                     //remove Extra data
                     getIntent().removeExtra("MoneyMinusBuy");
+                    saveGameInDatabase();
                 }
 
                 // Verify if user is coming back from upgrade tab
