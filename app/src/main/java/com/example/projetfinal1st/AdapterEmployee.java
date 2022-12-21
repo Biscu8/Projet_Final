@@ -1,8 +1,8 @@
 package com.example.projetfinal1st;
 
 
-import android.os.Binder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHolder> {
 
-    private static ArrayList<Employee> localDataSet;
+    private static ArrayList<EntityEmployee> localDataSet;
     private static String m_money;
     private static int employeeCountNumber;
     private static int m_position;
@@ -187,8 +187,9 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      * @param money1
      */
-    public AdapterEmployee(ArrayList<Employee> dataSet, String money1, MyViewModelGame viewModelGame, String username) {
+    public AdapterEmployee(ArrayList<EntityEmployee> dataSet, String money1, MyViewModelGame viewModelGame, String username) {
         localDataSet = dataSet;
+
         m_money = money1;
         m_myViewModelGame = viewModelGame;
         m_username = username;

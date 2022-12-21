@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.annotation.SuppressLint;
+import android.content.Entity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class MainGame extends AppCompatActivity {
     private MyViewModelGame myViewModelGame;
     private Score score;
     private String username;
-    private  ArrayList<Employee> arrayEmployee;
+    private  ArrayList<EntityEmployee> arrayEmployee;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,14 @@ public class MainGame extends AppCompatActivity {
         // Initiate the score of the user
 
                     //Initiate the employees with default stats
-                    Employee employee1 = new Employee("George", "desc", R.drawable.george, 0, 2, 1);
-                    Employee employee2 = new Employee("cody", "desc", R.drawable.george, 0, 4, 2000);
-                    Employee employee3 = new Employee("marie", "desc", R.drawable.george, 0, 6, 3000);
-                    Employee employee4 = new Employee("qwerty", "desc", R.drawable.george, 0, 8, 4000);
-                    Employee employee5 = new Employee("jay", "desc", R.drawable.george, 0, 10, 5000);
-                    Employee employee6 = new Employee("brrrr", "desc", R.drawable.george, 0, 12, 6000);
-                    Employee employee7 = new Employee("black", "desc", R.drawable.george, 0, 14, 7000);
-                    Employee employee8 = new Employee("white", "desc", R.drawable.george, 0, 16, 8000);
-                    Employee employee9 = new Employee("sffsfdsf", "desc", R.drawable.george, 0, 16, 8000);
+                    EntityEmployee employee1 = new EntityEmployee(0,"charlo",username ,"desc",2 , 1,R.drawable.george);;
+                    EntityEmployee employee2 = new EntityEmployee(0,"noob",username ,"desc",4 , 2000,R.drawable.george);
+                    EntityEmployee employee3 = new EntityEmployee(0,"jay",username ,"desc",6 , 3000,R.drawable.george);
+                    EntityEmployee employee4 = new EntityEmployee(0,"cody",username ,"desc",8 , 4000,R.drawable.george);
+                    EntityEmployee employee5 = new EntityEmployee(0,"brrr",username ,"desc",10 , 5000,R.drawable.george);
+                    EntityEmployee employee6 = new EntityEmployee(0,"sims",username ,"desc",12 , 6000,R.drawable.george);
+                    EntityEmployee employee7 = new EntityEmployee(0,"qqw",username ,"desc",14 , 7000,R.drawable.george);
+                    EntityEmployee employee8 = new EntityEmployee(0,"qwerty",username ,"desc",16 , 4000,R.drawable.george);
                     arrayEmployee.add(employee1);
                     arrayEmployee.add(employee2);
                     arrayEmployee.add(employee3);
@@ -59,7 +59,6 @@ public class MainGame extends AppCompatActivity {
                     arrayEmployee.add(employee6);
                     arrayEmployee.add(employee7);
                     arrayEmployee.add(employee8);
-                    arrayEmployee.add(employee9);
         Executors.newSingleThreadExecutor().execute(() -> {
                     // Verify is user has save
                     if (myViewModelGame.getSave(username) != null) {
@@ -71,7 +70,7 @@ public class MainGame extends AppCompatActivity {
                         List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(username);
                         arrayEmployee = new ArrayList<>();
                         for (int i = 0; i < employees.size(); i++) {
-                            Employee employee = employees.get(i);
+                            EntityEmployee employee = employees.get(i);
                             arrayEmployee.add(employee);
                             new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
                         }
@@ -114,12 +113,12 @@ public class MainGame extends AppCompatActivity {
                     } else {
 
                         //put all preferences to default
-                        preferences.getAll().clear();//pas sur
+                      //  preferences.getAll().clear();//pas sur
                         //if there is no user initiate score to 0 and create a new save
                         score = new Score(0);
                         Save save = new Save(username);
                         myViewModelGame.setSave(save);
-                        //Use the same id to create each employee in the employee tab TODO WORKS
+                        //Use the same id to create each employee in the employee tab
                         for (int i = 0; i < arrayEmployee.size(); i++) {
 
                             // Set employees
@@ -133,6 +132,12 @@ public class MainGame extends AppCompatActivity {
                             EntityEmployee employee = new EntityEmployee(quantity, name, username, desc, rate, price, image);
                             myViewModelGame.insert(employee);
                         }
+                        for(int i= 0; i < myViewModelGame.getAllEmployeeWithSameId(username).size(); i++)
+                                {
+                                      Log.i("name", myViewModelGame.getAllEmployeeWithSameId(username).get(i).getName());
+                                      Log.i("desc", myViewModelGame.getAllEmployeeWithSameId(username).get(i).getDescription());
+                                      Log.i("size",String.valueOf(myViewModelGame.getAllEmployeeWithSameId(username).size()));
+                                }
                     }
             // Normal, hand clicker
             findViewById(R.id.ClickButton).setOnClickListener(view -> {

@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 public class MainEmployee extends AppCompatActivity {
     MyViewModelGame myViewModelGame;
-    public ArrayList<Employee> m_employees;
+    public ArrayList<EntityEmployee> m_employees;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +40,10 @@ public class MainEmployee extends AppCompatActivity {
         String id = preferences.getString("Username", "");
         //link the database when page is open
         Executors.newSingleThreadExecutor().execute(() -> {
-           // if (!myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
                 //get the employee tab that fits the user into an Array
-                List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
-                m_employees = new ArrayList<>();
-                    for(int i = 0; i < employees.size(); i++)
-                    {
-                        Employee employee = employees.get(i);
-                        m_employees.add(employee);
-                    }
-          //  }
+                for(int i = 0; i < myViewModelGame.getAllEmployeeWithSameId(id).size(); i++) {
+                    m_employees.add(new EntityEmployee());
+                }
         });
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");

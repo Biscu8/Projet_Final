@@ -90,9 +90,7 @@ public class UserRepository {
     }
     public void insert(EntityEmployee employee)
     {
-        // Executors.newSingleThreadExecutor().execute(() -> {
         userDao.insert(employee);
-        //});
     }
     public List<EntityEmployee> getAllEmployeeWithSameId(String id)
     {
