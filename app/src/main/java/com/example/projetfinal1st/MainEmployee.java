@@ -24,6 +24,7 @@ import java.util.concurrent.Executors;
 
 public class MainEmployee extends AppCompatActivity {
     MyViewModelGame myViewModelGame;
+    public ArrayList<Employee> m_employees;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,31 +36,26 @@ public class MainEmployee extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEmployee);
 
         // Retrieve arrayList
-        Bundle args = intent.getBundleExtra("bundle");
-        ArrayList<Employee> dataSet = (ArrayList<Employee>) args.getSerializable("arrayList");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = preferences.getString("Username", "");
         //link the database when page is open
         Executors.newSingleThreadExecutor().execute(() -> {
-            //register an id for the employees of the user link to is username
-            //verify if the player already has an id
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String id = preferences.getString("Username", "");
-            if (!myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
+           // if (!myViewModelGame.getAllEmployeeWithSameId(id).isEmpty()) {
                 //get the employee tab that fits the user into an Array
                 List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
-                Log.i("name", employees.get(1).getName());
-                dataSet.clear();
-
-                for (int i = 0; i < employees.size(); i++) {
-                    dataSet.add(employees.get(i));
-                }
-            }
+                m_employees = new ArrayList<>();
+                    for(int i = 0; i < employees.size(); i++)
+                    {
+                        Employee employee = employees.get(i);
+                        m_employees.add(employee);
+                    }
+          //  }
         });
         // Initiate recycler view
         String money = (String) getIntent().getStringExtra("Money");
 
         //get the employee count number from database
-        AdapterEmployee myAdapter = new AdapterEmployee(dataSet, money, args);
-        Log.i("idk", String.valueOf(dataSet.get(1).getQuantity()));
+        AdapterEmployee myAdapter = new AdapterEmployee(m_employees, money, myViewModelGame, id);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -67,16 +63,18 @@ public class MainEmployee extends AppCompatActivity {
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
-            Executors.newSingleThreadExecutor().execute(() -> {
-                ArrayList<Employee> dataSet2 = (ArrayList<Employee>) args.getSerializable("arrayList");
-                for (int i = 0; i < dataSet2.size(); i++) {
-                    Employee employee = dataSet2.get(i);
-                    myViewModelGame.udpateEmployee(new EntityEmployee(employee.getQuantity(), employee.getName(), getIntent().getStringExtra("Username"),
-                            employee.getDescription(), employee.getRate(), employee.getPrice(), employee.getImage()));
-                }
-            });
-            secondIntent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
-            secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
+            //Executors.newSingleThreadExecutor().execute(() -> {
+               // ArrayList<Employee> dataSet2 = (ArrayList<Employee>) args.getSerializable("arrayList");
+               // List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
+              //  for (int i = 0; i < employees.size(); i++) {
+                //    Employee employee = employees.get(i);
+                  //  myViewModelGame.udpateEmployee(new EntityEmployee(employee.getQuantity(), employee.getName(), getIntent().getStringExtra("Username"),
+                    //        employee.getDescription(), employee.getRate(), employee.getPrice(), employee.getImage()));
+               // }
+            //});
+            //secondIntent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
+           // secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
+
             startActivity(secondIntent);
         });
 

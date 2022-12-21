@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
     private static int employeeCountNumber;
     private static int m_position;
     private static Bundle m_bundle;
+    private static MyViewModelGame m_myViewModelGame;
+    private static String m_username;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -38,17 +41,26 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         private final TextView employeeCountNumberTextView;
         private final TextView missingMoney;
         private String m_money;
+        private MyViewModelGame myViewModelGame;
+        private String id;
         private int m_position;
 
         //get the money amount
         @Override
         public void onClick(View view) {
-            ArrayList<Employee> arrayEmployee = AdapterEmployee.localDataSet;
-            m_money = AdapterEmployee.m_money;
-            m_position = AdapterEmployee.m_position;
+           // ArrayList<Employee> arrayEmployee = AdapterEmployee.localDataSet;
+            setid();
+            setViewModel();
+            //aller chercher la money amount dans la database
+            Executors.newSingleThreadExecutor().execute(()-> {
+                        ;
+                        m_money = getMyViewModelGame().getMoneyAmount(getId());
+                    });
+                    //AdapterEmployee.m_money;
+           // m_position = AdapterEmployee.m_position;
             if (view.getId() == employeeBuyButton.getId()) {
                 //convert m_money string to int
-                int money;//TODO pas hardcode le money
+                int money;
                 if(Objects.equals(m_money, "Infinite Money"))
                 {
                     money = 99999999;
@@ -71,11 +83,22 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                     getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
                     money -= Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText()).substring(0, Integer.parseInt(String.valueOf(getEmployeeBuyButton().getText().length() - 1))));
                     m_money = money + "$";
-                    AdapterEmployee.m_money = m_money;
-                    AdapterEmployee.employeeCountNumber = Integer.parseInt(String.valueOf(getEmployeeCountNumberTextView().getText()));
-                    arrayEmployee.get(m_position).setQuantity(arrayEmployee.get(m_position).getQuantity() + 1);
-                    ArrayList<Employee> arrayList = (ArrayList<Employee>) getBundle().getSerializable("arrayList");
-                    arrayList.get(m_position).setQuantity(arrayEmployee.get(m_position).getQuantity() + 1);
+
+                   Executors.newSingleThreadExecutor().execute(()-> {
+                        setViewModel();
+                       Save save = new Save(getId(), getMyViewModelGame().getSave(getId()).getScore(), m_money);
+                       getMyViewModelGame().updateSave(save);
+                       //find the name
+                       String name = getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getName();
+                       //reuse the same description rate and image
+                       String desc = getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getDescription();
+                       int rate = getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getRate();
+                       int image = getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getImage();
+                       int price = getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getPrice();
+                       //change the quantity to the same quantity + 1
+                       EntityEmployee employee = new EntityEmployee(getMyViewModelGame().getAllEmployeeWithSameId(getId()).get(m_position).getQuantity() + 1, name, getId(), desc, rate,price, image);
+                       getMyViewModelGame().udpateEmployee(employee);
+                   });
                 }
             }
             else {
@@ -141,6 +164,22 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         public Bundle getBundle() {
             return m_bundle;
         }
+        public void setViewModel()
+        {
+            myViewModelGame = AdapterEmployee.m_myViewModelGame;
+        }
+
+        public MyViewModelGame getMyViewModelGame() {
+            return myViewModelGame;
+        }
+        public void setid()
+        {
+            id = AdapterEmployee.m_username;
+        }
+        public String getId()
+        {
+            return id;
+        }
     }
 
     /**
@@ -148,10 +187,11 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
      * @param dataSet ArrayList<Employee> containing the data to populate views to be used by RecyclerView.
      * @param money1
      */
-    public AdapterEmployee(ArrayList<Employee> dataSet, String money1, Bundle args) {
+    public AdapterEmployee(ArrayList<Employee> dataSet, String money1, MyViewModelGame viewModelGame, String username) {
         localDataSet = dataSet;
         m_money = money1;
-        m_bundle = args;
+        m_myViewModelGame = viewModelGame;
+        m_username = username;
     }
 
     // Create new views (invoked by the layout manager)
