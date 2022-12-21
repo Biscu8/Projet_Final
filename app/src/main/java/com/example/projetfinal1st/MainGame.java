@@ -26,7 +26,7 @@ public class MainGame extends AppCompatActivity {
     private MyViewModelGame myViewModelGame;
     private Score score;
     private String username;
-
+    private  ArrayList<Employee> arrayEmployee;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,9 @@ public class MainGame extends AppCompatActivity {
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
 
         // ArrayList of employees
-        ArrayList<Employee> arrayEmployee = new ArrayList<>();
+         arrayEmployee = new ArrayList<>();
 
         // Initiate the score of the user
-        Executors.newSingleThreadExecutor().execute(() -> {
 
                     //Initiate the employees with default stats
                     Employee employee1 = new Employee("George", "desc", R.drawable.george, 0, 2, 1);
@@ -61,7 +60,7 @@ public class MainGame extends AppCompatActivity {
                     arrayEmployee.add(employee7);
                     arrayEmployee.add(employee8);
                     arrayEmployee.add(employee9);
-
+        Executors.newSingleThreadExecutor().execute(() -> {
                     // Verify is user has save
                     if (myViewModelGame.getSave(username) != null) {
                         //Update UI with text database moneyAmount
@@ -74,8 +73,6 @@ public class MainGame extends AppCompatActivity {
                         for (int i = 0; i < employees.size(); i++) {
                             Employee employee = employees.get(i);
                             arrayEmployee.add(employee);
-                        }
-                        for (int j = 0; j <=; j++) {
                             new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
                         }
                         //verify if the user is opening the app or is coming back from the employee tab
@@ -114,8 +111,7 @@ public class MainGame extends AppCompatActivity {
                             moneyAmount.setText("Infinite Money");
                         }
 
-                    }
-                    else {
+                    } else {
 
                         //put all preferences to default
                         preferences.getAll().clear();//pas sur
@@ -138,7 +134,6 @@ public class MainGame extends AppCompatActivity {
                             myViewModelGame.insert(employee);
                         }
                     }
-
             // Normal, hand clicker
             findViewById(R.id.ClickButton).setOnClickListener(view -> {
 
@@ -239,7 +234,6 @@ public class MainGame extends AppCompatActivity {
                 }
             };
             timer.scheduleAtFixedRate(timerTask, 0, 1000);
-
         });
     }
         public void saveGameInDatabase ()
