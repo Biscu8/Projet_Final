@@ -42,6 +42,7 @@ public class MainGame extends AppCompatActivity {
     private ArrayList<EntityUpgrade> arrayUpgrade;
     private ArrayList<EntityCompanies> arrayCompanies;
     private TextView noMoreEmployee;
+    private int nbEmployee;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +76,11 @@ public class MainGame extends AppCompatActivity {
                         }
                         //verify if the user is opening the app or is coming back from the employee tab
                         if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
-                            Log.i("Passe par ici", "2");
+                             nbEmployee = myViewModelGame.getSave(username).getScore();
                             runOnUiThread(() -> {
                                 //update UI with MoneyAmount
                                 moneyAmount.setText(preferences.getString("NewMoney", ""));
+                                clickAmountView.setText(String.valueOf(nbEmployee));
                                 //remove Extra data
                                 preferences.edit().remove("NewMoney").apply();
                             });
