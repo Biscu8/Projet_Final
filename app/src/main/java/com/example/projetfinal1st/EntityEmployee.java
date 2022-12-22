@@ -30,8 +30,9 @@ public class EntityEmployee {
             //this.name = "";
             this.setQuantity(0);
         }
-        public EntityEmployee(String username, int quantity)
+        public EntityEmployee(String username, int quantity, String name)
         {
+            this.name = name;
             this.Userid = username;
             this.setQuantity(quantity);
         }

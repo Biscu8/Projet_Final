@@ -57,7 +57,6 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                 List<EntityEmployee> employees = getMyViewModelGame().getAllEmployeeWithSameId(getId());
                 m_money = AdapterEmployee.m_money;
                 int price = employees.get(m_position).getPrice();
-                Log.i("monwy at start", String.valueOf(m_money));
                 // m_position = AdapterEmployee.m_position;
                 if (view.getId() == employeeBuyButton.getId()) {
                     if (m_money < price) {
@@ -70,10 +69,13 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                         //change Ui
                         AdapterEmployee.m_Activity.runOnUiThread(()-> {
                                     getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
+                            localDataSet.get(m_position).setQuantity(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())));
+                            Log.i("getQuantity",String.valueOf(localDataSet.get(m_position).getQuantity()));
                                 });
                         //save the moneyCount
                         AdapterEmployee.m_money -= price;
                         setMoney(AdapterEmployee.m_money);
+
                         Log.i("moneyCount", String.valueOf(AdapterEmployee.m_money));
                     }
                 }
@@ -120,7 +122,6 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
 
         public void setMoney(int money)
         {
-            Log.i("moneyinsetmoney", String.valueOf(m_money));
             this.m_money = money;
         }
 
@@ -134,8 +135,7 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
 
         public int getMoney()
         {
-            Log.i("Moneyingetmoney", String.valueOf(m_money));
-            return m_money;
+            return AdapterEmployee.m_money;
         }
 
         public Bundle getBundle() {
@@ -186,12 +186,12 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        AdapterEmployee.m_viewHolder = viewHolder;
         viewHolder.setPosition(position);
         viewHolder.getEmployeeTextView().setText(localDataSet.get(position).getName());
         viewHolder.getEmployeeCountNumberTextView().setText(String.valueOf(localDataSet.get(position).getQuantity()));
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
         viewHolder.getEmployeeBuyButton().setText((localDataSet.get(position).getPrice()) + "$");
+        AdapterEmployee.m_viewHolder = viewHolder;
         
         // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }

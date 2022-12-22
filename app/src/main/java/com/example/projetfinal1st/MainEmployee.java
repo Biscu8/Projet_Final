@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -41,7 +42,6 @@ public class MainEmployee extends AppCompatActivity {
         String id = preferences.getString("Username", "");
         // Initiate recycler view
         //link the database when page is open
-
         Executors.newSingleThreadExecutor().execute(() -> {
                 //get the employee tab that fits the user into an Array
             m_employees = new ArrayList<>();
@@ -55,10 +55,6 @@ public class MainEmployee extends AppCompatActivity {
             });
         });
 
-
-
-
-
         //connect the back button
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
@@ -70,14 +66,13 @@ public class MainEmployee extends AppCompatActivity {
                         for(int i= 0; i < EmployeeCount; i++) {
                             if(Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())) != 0)
                             {
-                                EntityEmployee employee = new EntityEmployee(id, Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())));
+                                EntityEmployee employee = new EntityEmployee(id, Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())), "George");
                                 myViewModelGame.udpateEmployee(employee);
                             }
                         }
                         //get the money from the adapter and register the new money amount
+                preferences.edit().putString("NewMoney",String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
                 Log.i("Money",String.valueOf(m_myAdapter.getViewHolder().getMoney()));
-                        Save save = new Save(id, m_myAdapter.getViewHolder().getMoney());
-                        myViewModelGame.updateSave(save);
                     });
             startActivity(secondIntent);
         });
@@ -110,6 +105,5 @@ public class MainEmployee extends AppCompatActivity {
                 }
             });
         });
-
     }
-}
+  }
