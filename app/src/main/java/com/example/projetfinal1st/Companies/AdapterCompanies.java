@@ -32,7 +32,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
     private static Context context;
     private static int m_money;
     private static int m_position;
-    private static MyViewModelCompanies myViewModelCompanies;
+    public static MyViewModelCompanies myViewModelCompanies;
     private static String m_id;
     private static Activity m_activity;
     private static ViewHolder m_viewHolder;

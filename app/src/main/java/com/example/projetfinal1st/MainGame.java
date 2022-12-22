@@ -1,12 +1,16 @@
 package com.example.projetfinal1st;
 
+import static com.example.projetfinal1st.Companies.AdapterCompanies.myViewModelCompanies;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import com.example.projetfinal1st.Companies.AdapterCompanies;
+import com.example.projetfinal1st.Companies.EntityCompanies;
+import com.example.projetfinal1st.Companies.MainCompanies;
+import com.example.projetfinal1st.Companies.MyViewModelCompanies;
 import com.example.projetfinal1st.MenuFeatures.Settings;
 
 import java.io.Serializable;
@@ -27,11 +35,13 @@ import java.util.concurrent.Executors;
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
     private MyViewModelGame myViewModelGame;
+    private MyViewModelCompanies myViewModelCompanies;
     private Score score;
     private String username;
     private ArrayList<EntityEmployee> arrayEmployee;
     private ArrayList<EntityUpgrade> arrayUpgrade;
     private ArrayList<EntityCompanies> arrayCompanies;
+    private TextView noMoreEmployee;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,8 @@ public class MainGame extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
+        myViewModelCompanies = new ViewModelProvider(this).get(MyViewModelCompanies.class);
+        noMoreEmployee = findViewById(R.id.textViewMainError);
         // ArrayList of employees
          arrayEmployee = new ArrayList<>();
          arrayUpgrade = new ArrayList<>();
@@ -60,15 +72,6 @@ public class MainGame extends AppCompatActivity {
                         for (int i = 0; i < employees.size(); i++) {
                             arrayEmployee.add(employees.get(i));
                            // new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
-                        }
-                        ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
-                        if (getIntent().hasExtra("secondArrayList")) {
-                            tempArrayList.addAll((Collection<? extends EntityEmployee>) getIntent().getSerializableExtra("secondArrayList"));
-                            for (int i = 0; i < arrayEmployee.size(); i++) {
-                                if (arrayEmployee.get(i).getName().equals(tempArrayList.get(i).getName())) {
-                                    arrayEmployee.get(i).setQuantity(tempArrayList.get(i).getQuantity());
-                                }
-                            }
                         }
                         //verify if the user is opening the app or is coming back from the employee tab
                         if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
