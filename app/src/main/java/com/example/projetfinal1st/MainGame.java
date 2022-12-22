@@ -57,7 +57,7 @@ public class MainGame extends AppCompatActivity {
                         for (int i = 0; i < employees.size(); i++) {
                             EntityEmployee employee = employees.get(i);
                             arrayEmployee.add(employee);
-                            new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                           // new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
                         }
                         //verify if the user is opening the app or is coming back from the employee tab
                         if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
@@ -160,7 +160,7 @@ public class MainGame extends AppCompatActivity {
                 arrayList.add("Aurevoir");
 
                 // Sends ArrayList to adapter
-                AdapterUpgrade adapterUpgrade = new AdapterUpgrade(arrayList);
+                //AdapterUpgrade adapterUpgrade = new AdapterUpgrade(arrayList);
 
                 // Sends strings to activity
                 Bundle bundle = new Bundle();
@@ -182,7 +182,7 @@ public class MainGame extends AppCompatActivity {
                 arrayList.add("yo");
 
                 // Send ArrayList to adapter
-                AdapterCompanies adapterCompanies = new AdapterCompanies(arrayList);
+                //AdapterCompanies adapterCompanies = new AdapterCompanies(arrayList);
 
                 // Send strings to activity
                 Bundle bundle = new Bundle();
