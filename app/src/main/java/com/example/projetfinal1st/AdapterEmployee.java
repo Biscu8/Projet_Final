@@ -119,6 +119,7 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
             //employeeCountNumberTextView.setText(m_newEmployeeCountNumber);
             employeeImageView = view.findViewById(R.id.employeeImageView);
             employeeDescriptionButton = view.findViewById(R.id.employeeDescriptionButton);
+            employeeDescriptionButton.setOnClickListener(this);
             employeeBuyButton = view.findViewById(R.id.employeeBuyButton);
             employeeBuyButton.setOnClickListener(this);
             missingMoney = view.findViewById(R.id.missingMoney);

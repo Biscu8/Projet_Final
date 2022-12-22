@@ -1,10 +1,13 @@
-package com.example.projetfinal1st;
+package com.example.projetfinal1st.Companies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,10 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.projetfinal1st.MainGame;
+import com.example.projetfinal1st.MyViewModelGame;
+import com.example.projetfinal1st.R;
+
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class MainCompanies extends AppCompatActivity {
 
+    MyViewModelCompanies myViewModelCompanies;
+    MyViewModelGame myViewModelGame;
+    AdapterCompanies adapterCompanies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +38,27 @@ public class MainCompanies extends AppCompatActivity {
         // Get Intent
         Intent intent = getIntent();
 
+        //initate view models
+        myViewModelCompanies = new ViewModelProvider(this).get(MyViewModelCompanies.class);
+        myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // Retrieve recycler view
         RecyclerView recyclerView = findViewById(R.id.reyclerViewCompanies);
+
+        //retrieve name
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = preferences.getString("Username", "");
 
         // Retrieve ArrayList
         ArrayList<EntityCompanies> dataSet = (ArrayList<EntityCompanies>) getIntent().getSerializableExtra("arrayList");
 
         // Initiate recycler view
-        AdapterCompanies adapterCompanies = new AdapterCompanies(dataSet, this);
-        recyclerView.setAdapter(adapterCompanies);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Executors.newSingleThreadExecutor().execute(() -> {
+                     adapterCompanies = new AdapterCompanies(dataSet,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(id), id, this);
+            runOnUiThread(() -> {
+                recyclerView.setAdapter(adapterCompanies);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            });
+        });
 
         // Open info popup
         Button buttonInfo = findViewById(R.id.buttonCompaniesInfo);
@@ -73,7 +95,7 @@ public class MainCompanies extends AppCompatActivity {
 
             // Set intent to return info to main game
             Intent secondIntent = new Intent(this, MainGame.class);
-
+            preferences.edit().putString("NewMoneyCompanies", String.valueOf(adapterCompanies.getViewHolder().getMoney())).apply();
             startActivity(secondIntent);
         });
 

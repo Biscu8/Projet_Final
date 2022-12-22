@@ -44,7 +44,7 @@ public class Save {
      */
     public Save(String username) {
         this.username = username;
-        this.score = 0;
+        this.score = 100;
     }
 
     public Save(String username, int scores, int money) {

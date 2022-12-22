@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ProjetFinal1st"
         tools:targetApi="31">
         <activity
-            android:name=".MainCompanies"
+            android:name=".Companies.MainCompanies"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
