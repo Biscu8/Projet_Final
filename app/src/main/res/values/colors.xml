@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text">#242424</color>
     <color name="background">#FFFFFFFF</color>
+    <color name="background_popup">#9C9C9C</color>
 </resources>

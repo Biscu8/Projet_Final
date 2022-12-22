@@ -43,6 +43,10 @@
     <string name="upgrades">Amélioration</string>
     <string name="title_activity_settings">Settings</string>
     <string name="companies">Compagnies</string>
+    <string name="employee_popup">Ici, vous pouvez acheter des managers qui vont renvoyer des employés en dessous d\'eux.</string>
+    <string name="upgrade_popup">Ici, vous pouvez acheter des améliorations qui permettent d\'augmenter votre revenu.</string>
+    <string name="companies_popup">Ici, vous pouvez acheter d\'autres compagnies pour renvoyer plus d\'employés.</string>
+    <string name="main_error">Vous n\'avez plus d\'employés à renvoyer. Achetez de nouvelles compagnies pour en renvoyer plus.</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
