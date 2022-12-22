@@ -81,6 +81,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                         {
                             //make a red text appear that tel the user that he dont have enough money
                             AdapterCompanies.m_activity.runOnUiThread(()-> {
+                                missingMoney.setTextColor(Color.RED);
                                 missingMoney.setVisibility(View.VISIBLE);
                             });
                         }
