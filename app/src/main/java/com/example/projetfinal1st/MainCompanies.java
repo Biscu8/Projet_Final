@@ -31,11 +31,10 @@ public class MainCompanies extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.reyclerViewCompanies);
 
         // Retrieve ArrayList
-        Bundle bundle = intent.getBundleExtra("bundle");
-        ArrayList<EntityCompanies> dataSet = (ArrayList<EntityCompanies>) bundle.getSerializable("arrayList");
+        ArrayList<EntityCompanies> dataSet = (ArrayList<EntityCompanies>) getIntent().getSerializableExtra("arrayList");
 
         // Initiate recycler view
-        AdapterCompanies adapterCompanies = new AdapterCompanies(dataSet);
+        AdapterCompanies adapterCompanies = new AdapterCompanies(dataSet, this);
         recyclerView.setAdapter(adapterCompanies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
