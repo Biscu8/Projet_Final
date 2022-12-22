@@ -31,6 +31,7 @@ public class MainGame extends AppCompatActivity {
     private String username;
     private ArrayList<EntityEmployee> arrayEmployee;
     private ArrayList<EntityUpgrade> arrayUpgrade;
+    private ArrayList<EntityCompanies> arrayCompanies;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MainGame extends AppCompatActivity {
         // ArrayList of employees
          arrayEmployee = new ArrayList<>();
          arrayUpgrade = new ArrayList<>();
+         arrayCompanies = new ArrayList<>();
 
         // Initiate the score of the user
 
@@ -110,7 +112,9 @@ public class MainGame extends AppCompatActivity {
                         arrayEmployee.add(employee6);
                         arrayEmployee.add(employee7);
                         arrayEmployee.add(employee8);
-
+                        //initialise companies
+                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "depanneur", false, 1000, 10000, R.drawable.couchetard);
+                        arrayCompanies.add(entityCompanies1);
                         EntityUpgrade upgrade = new EntityUpgrade(username, "name", false, "desc", 0, 0);
                         arrayUpgrade.add(upgrade);
 
@@ -189,21 +193,11 @@ public class MainGame extends AppCompatActivity {
             findViewById(R.id.buttonCompanies).setOnClickListener(view -> {
                 Intent intent = new Intent(this, MainCompanies.class);
 
-                // ArrayList of strings TODO change it for companies or smt
-                ArrayList<String> arrayList = new ArrayList<>();
-                arrayList.add("hello");
-                arrayList.add("yo");
-
                 // Send ArrayList to adapter
-                //AdapterCompanies adapterCompanies = new AdapterCompanies(arrayList);
-
-                // Send strings to activity
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("bundle", (Serializable) arrayList);
+                AdapterCompanies adapterCompanies = new AdapterCompanies(arrayCompanies, this);
 
                 // Put extras in intent
-                intent.putExtra("arrayList", arrayList);
-                intent.putExtra("bundle", bundle);
+                intent.putExtra("arrayList", arrayCompanies);
 
                 startActivity(intent);
             });
