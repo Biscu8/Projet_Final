@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
+import java.util.stream.LongStream;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -54,96 +55,104 @@ public class MainGame extends AppCompatActivity {
             TextView moneyAmount = findViewById(R.id.moneyAmount);
             if (myViewModelGame.getSave(username) != null) {
 
-                        //Update UI with text database clickAmount
-                        Log.i("Passe par ici", "1");
-                        int clickAmount = myViewModelGame.getSave(username).getScore();
-                        clickAmountView.setText(String.valueOf(clickAmount));
-                        // Update employees
-                        List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(username);
-                        arrayEmployee = new ArrayList<>();
-                        for (int i = 0; i < employees.size(); i++) {
-                            arrayEmployee.add(employees.get(i));
-                           // new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
-                        }
-                        ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
-                        if (getIntent().hasExtra("secondArrayList")) {
-                            tempArrayList.addAll((Collection<? extends EntityEmployee>) getIntent().getSerializableExtra("secondArrayList"));
-                            for (int i = 0; i < arrayEmployee.size(); i++) {
-                                if (arrayEmployee.get(i).getName().equals(tempArrayList.get(i).getName())) {
-                                    arrayEmployee.get(i).setQuantity(tempArrayList.get(i).getQuantity());
-                                }
+                //Update UI with text database clickAmount
+                Log.i("Passe par ici", "1");
+                int clickAmount = myViewModelGame.getSave(username).getScore();
+                clickAmountView.setText(String.valueOf(clickAmount));
+                // Update employees
+                List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(username);
+                arrayEmployee = new ArrayList<>();
+                for (int i = 0; i < employees.size(); i++) {
+                    arrayEmployee.add(employees.get(i));
+                    // new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                }
+                ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
+                if (getIntent().hasExtra("secondArrayList")) {
+                    tempArrayList.addAll((Collection<? extends EntityEmployee>) getIntent().getSerializableExtra("secondArrayList"));
+                    Log.i("size", String.valueOf(tempArrayList.size()));
+                    for (int i = 0; i < tempArrayList.size(); i++) {
+                        for (int j = 0; j < arrayEmployee.size(); j++) {
+                            if (tempArrayList.get(i).getName().equals(arrayEmployee.get(j).getName())) {
+                                arrayEmployee.get(j).setQuantity(tempArrayList.get(i).getQuantity());
+                                Log.i("employee?", String.valueOf(arrayEmployee.get(0).getQuantity()));
+                                myViewModelGame.udpateEmployee(arrayEmployee.get(j));
+                                Executors.newSingleThreadExecutor().execute(() -> {
+                                });
+                                Log.i("employee", String.valueOf(myViewModelGame.getAllEmployeeWithSameId(username).get(0).getQuantity()));
                             }
                         }
-                        //verify if the user is opening the app or is coming back from the employee tab
-                        if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
-                            Log.i("Passe par ici", "2");
-                            runOnUiThread(() -> {
-                                //update UI with MoneyAmount
-                                moneyAmount.setText(preferences.getString("NewMoney", ""));
-                                //remove Extra data
-                                preferences.edit().remove("NewMoney").apply();
-                            });
+                    }
+                }
+                //verify if the user is opening the app or is coming back from the employee tab
+                if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
+                    Log.i("Passe par ici", "2");
+                    runOnUiThread(() -> {
+                        //update UI with MoneyAmount
+                        moneyAmount.setText(preferences.getString("NewMoney", ""));
+                        //remove Extra data
+                        preferences.edit().remove("NewMoney").apply();
+                    });
 
-                        } else {
-                            //Update UI with database data
-                            Log.i("Passe par ici", "3");
-                            int money = myViewModelGame.getMoneyAmount(username);
-                            Score score = myViewModelGame.getSave(username);
-                            runOnUiThread(() -> {
-                                moneyAmount.setText(String.valueOf(money));
-                            });
-                        }
+                } else {
+                    //Update UI with database data
+                    Log.i("Passe par ici", "3");
+                    int money = myViewModelGame.getMoneyAmount(username);
+                    Score score = myViewModelGame.getSave(username);
+                    runOnUiThread(() -> {
+                        moneyAmount.setText(String.valueOf(money));
+                    });
+                }
+
             } else {
 //Initiate the employees with default stats
                 Log.i("Passe par ici", "4");
-                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 1,R.drawable.george);;
-                        EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 2000,R.drawable.sigma);
-                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 3000,R.drawable.orion);
-                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",8 , 4000,R.drawable.steve);
-                        EntityEmployee employee5 = new EntityEmployee(0,"Vecna",username ,"desc",10 , 5000,R.drawable.vecna);
-                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",12 , 6000,R.drawable.homer);
-                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",14 , 7000,R.drawable.elonmusk);
-                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",16 , 8000,R.drawable.chtulu);
-                        arrayEmployee.add(employee1);
-                        arrayEmployee.add(employee2);
-                        arrayEmployee.add(employee3);
-                        arrayEmployee.add(employee4);
-                        arrayEmployee.add(employee5);
-                        arrayEmployee.add(employee6);
-                        arrayEmployee.add(employee7);
-                        arrayEmployee.add(employee8);
-                        //initialise companies
-                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "depanneur", false, 1000, 10000, R.drawable.couchetard);
-                        arrayCompanies.add(entityCompanies1);
-                        EntityUpgrade upgrade = new EntityUpgrade(username, "name", false, "desc", 0, 0);
-                        arrayUpgrade.add(upgrade);
+                EntityEmployee employee1 = new EntityEmployee(2, "George", username, "desc", 2, 1, R.drawable.george);
+                EntityEmployee employee2 = new EntityEmployee(0, "Sigma", username, "desc", 4, 2000, R.drawable.sigma);
+                EntityEmployee employee3 = new EntityEmployee(0, "Orion", username, "desc", 6, 3000, R.drawable.orion);
+                EntityEmployee employee4 = new EntityEmployee(0, "Steve", username, "desc", 8, 4000, R.drawable.steve);
+                EntityEmployee employee5 = new EntityEmployee(0, "Vecna", username, "desc", 10, 5000, R.drawable.vecna);
+                EntityEmployee employee6 = new EntityEmployee(0, "Homer", username, "desc", 12, 6000, R.drawable.homer);
+                EntityEmployee employee7 = new EntityEmployee(0, "Elon Musk", username, "desc", 14, 7000, R.drawable.elonmusk);
+                EntityEmployee employee8 = new EntityEmployee(0, "Chtulu", username, "desc", 16, 8000, R.drawable.chtulu);
+                arrayEmployee.add(employee1);
+                arrayEmployee.add(employee2);
+                arrayEmployee.add(employee3);
+                arrayEmployee.add(employee4);
+                arrayEmployee.add(employee5);
+                arrayEmployee.add(employee6);
+                arrayEmployee.add(employee7);
+                arrayEmployee.add(employee8);
+                //initialise companies
+                EntityCompanies entityCompanies1 = new EntityCompanies(username, "depanneur", false, 1000, 10000, R.drawable.couchetard);
+                arrayCompanies.add(entityCompanies1);
+                EntityUpgrade upgrade = new EntityUpgrade(username, "name", false, "desc", 0, 0);
+                arrayUpgrade.add(upgrade);
 
-                        //put all preferences to default
-                        //if there is no user initiate score to 0 and create a new save
-                        Save save = new Save(username);
-                        myViewModelGame.setSave(save);
-                        //Use the same id to create each employee in the employee tab
-                        for (int i = 0; i < arrayEmployee.size(); i++) {
+                //put all preferences to default
+                //if there is no user initiate score to 0 and create a new save
+                Save save = new Save(username);
+                myViewModelGame.setSave(save);
+                //Use the same id to create each employee in the employee tab
+                for (int i = 0; i < arrayEmployee.size(); i++) {
 
-                            // Set employees
-                            String name = arrayEmployee.get(i).getName();
-                            int image = arrayEmployee.get(i).getImage();
-                            int rate = arrayEmployee.get(i).getRate();
-                            String desc = arrayEmployee.get(i).getDescription();
-                            int price = arrayEmployee.get(i).getPrice();
-                            int quantity = arrayEmployee.get(i).getQuantity();
-                            //register name in database with the id and the amount of 0 employee
-                            EntityEmployee employee = new EntityEmployee(quantity, name, username, desc, rate, price, image);
-                            myViewModelGame.insert(employee);
-                        }
-                    }
+                    // Set employees
+                    String name = arrayEmployee.get(i).getName();
+                    int image = arrayEmployee.get(i).getImage();
+                    int rate = arrayEmployee.get(i).getRate();
+                    String desc = arrayEmployee.get(i).getDescription();
+                    int price = arrayEmployee.get(i).getPrice();
+                    int quantity = arrayEmployee.get(i).getQuantity();
+                    //register name in database with the id and the amount of 0 employee
+                    EntityEmployee employee = new EntityEmployee(quantity, name, username, desc, rate, price, image);
+                    myViewModelGame.insert(employee);
+                }
+            }
             saveGameInDatabase();
         });
 
 
             // Normal, hand clicker
             findViewById(R.id.ClickButton).setOnClickListener(view -> {
-                Log.i("Passe par ici", "6");
                 //Update clickAmount view + 1
                 TextView clickAmount = findViewById(R.id.clickAmount);
                 int m_score = Integer.parseInt(clickAmount.getText().toString()) + 1;

@@ -87,7 +87,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
         viewHolder.getTextView().setText(localDataSet.get(position).getName());
         viewHolder.getImageView().setImageResource(localDataSet.get(position).getImage());
         viewHolder.getTextViewNb().setText(String.valueOf(localDataSet.get(position).getNbEmployees()));
-        String buy = activity.getResources().getString(R.string.companies_button_buy);
+        String buy = context.getResources().getString(R.string.companies_button_buy);
         viewHolder.getButton().setText(buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
     }
 

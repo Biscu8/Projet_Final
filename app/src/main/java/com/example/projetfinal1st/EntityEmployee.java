@@ -7,8 +7,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Employee")
-public class EntityEmployee {
+public class EntityEmployee implements Serializable {
 
         @PrimaryKey(autoGenerate = true)
         @NonNull
