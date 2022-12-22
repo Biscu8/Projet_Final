@@ -61,36 +61,8 @@ public class MainEmployee extends AppCompatActivity {
         //connect the back button
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
-            Log.i("emplouyee tesxt", String.valueOf(m_myAdapter.getViewHolder().getEmployeeTextView().getText()));
-            Log.i("emplp9oyee quantity", String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText()));
-            Intent secondIntent = new Intent(this, MainGame.class);
-            ArrayList<EntityEmployee> arrayList = new ArrayList<>();
-            AtomicInteger change = new AtomicInteger();
-            AtomicInteger employeeCount = new AtomicInteger();
-            Executors.newSingleThreadExecutor().execute(() -> {
-                //get all the employee textviews and register them in the database
-                employeeCount.set(myViewModelGame.getAllEmployeeWithSameId(id).size());
-                Log.i("size 2", String.valueOf(myViewModelGame.getAllEmployeeWithSameId(id).size()));
-                for (int i = 0; i < employeeCount.get(); i++) {
-                    int finalLooker = i;
-                    change.set(myViewModelGame.getAllEmployeeWithSameId(id).get(finalLooker).getQuantity());
-                    if (Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())) != change.get()) { // PROBELm
-                        Log.i("do it", "?");
-                        arrayList.add(new EntityEmployee(Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())),
-                                m_myAdapter.getViewHolder().getEmployeeTextView().getText().toString()));//, id, m_myAdapter.getViewHolder().getDescription(), );
-                    }
-                }
-                preferences.edit().putString("NewMoney", String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
-                secondIntent.putExtra("secondArrayList", arrayList);
-
-                startActivity(secondIntent);
-            });
-            Log.i("passe ici", "6");
-
-
-
-            //get the money from the adapter and register the new money amount
-
+            preferences.edit().putString("NewMoney", String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
+            finish();
         });
 
         // open info popup window
