@@ -34,8 +34,7 @@ public class MainUpgrade extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewUpgrade);
 
         // Retrieve ArrayList
-        Bundle bundle = intent.getBundleExtra("bundle");
-        ArrayList<EntityUpgrade> dataSet = (ArrayList<EntityUpgrade>) bundle.getSerializable("arrayList");
+        ArrayList<EntityUpgrade> dataSet = (ArrayList<EntityUpgrade>) intent.getSerializableExtra("arrayList");
 
         // Initiate recycler view
         AdapterUpgrade adapterUpgrade = new AdapterUpgrade(dataSet);

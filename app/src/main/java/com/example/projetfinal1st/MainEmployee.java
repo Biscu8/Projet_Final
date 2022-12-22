@@ -3,7 +3,6 @@ package com.example.projetfinal1st;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainEmployee extends AppCompatActivity {
     MyViewModelGame myViewModelGame;
@@ -59,21 +58,23 @@ public class MainEmployee extends AppCompatActivity {
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
+            ArrayList<EntityEmployee> arrayList = new ArrayList<>();
+            AtomicInteger employeeCount = new AtomicInteger();
             Executors.newSingleThreadExecutor().execute(() -> {
-                        //get all the employee textviews and register them in the database
+                //get all the employee textviews and register them in the database
+                employeeCount.set(myViewModelGame.getAllEmployeeWithSameId(id).size());
+            });
+                for (int i = 0; i < employeeCount.get(); i++) {
+                    if (Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())) != 0) {
 
-                        int EmployeeCount = myViewModelGame.getAllEmployeeWithSameId(id).size();
-                        for(int i= 0; i < EmployeeCount; i++) {
-                            if(Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())) != 0)
-                            {
-                                EntityEmployee employee = new EntityEmployee(id, Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())), "George");
-                                myViewModelGame.udpateEmployee(employee);
-                            }
-                        }
-                        //get the money from the adapter and register the new money amount
-                preferences.edit().putString("NewMoney",String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
-                Log.i("Money",String.valueOf(m_myAdapter.getViewHolder().getMoney()));
-                    });
+                        arrayList.add(new EntityEmployee(id, Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())),
+                                m_myAdapter.getViewHolder().getEmployeeTextView().getText().toString()));
+                    }
+                }
+                //get the money from the adapter and register the new money amount
+                preferences.edit().putString("NewMoney", String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
+            secondIntent.putExtra("secondArrayList", arrayList);
+
             startActivity(secondIntent);
         });
 

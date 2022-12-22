@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +28,8 @@ public class MainGame extends AppCompatActivity {
     private MyViewModelGame myViewModelGame;
     private Score score;
     private String username;
-    private  ArrayList<EntityEmployee> arrayEmployee;
+    private ArrayList<EntityEmployee> arrayEmployee;
+    private ArrayList<EntityUpgrade> arrayUpgrade;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainGame extends AppCompatActivity {
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // ArrayList of employees
          arrayEmployee = new ArrayList<>();
+         arrayUpgrade = new ArrayList<>();
 
         // Initiate the score of the user
 
@@ -47,6 +50,7 @@ public class MainGame extends AppCompatActivity {
             TextView clickAmountView = findViewById(R.id.clickAmount);
             TextView moneyAmount = findViewById(R.id.moneyAmount);
             if (myViewModelGame.getSave(username) != null) {
+
                         //Update UI with text database clickAmount
                         Log.i("Passe par ici", "1");
                         int clickAmount = myViewModelGame.getSave(username).getScore();
@@ -55,9 +59,17 @@ public class MainGame extends AppCompatActivity {
                         List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(username);
                         arrayEmployee = new ArrayList<>();
                         for (int i = 0; i < employees.size(); i++) {
-                            EntityEmployee employee = employees.get(i);
-                            arrayEmployee.add(employee);
+                            arrayEmployee.add(employees.get(i));
                            // new AutoClicker(this, myViewModelGame.getSave(username).getScore(), arrayEmployee.get(i).getRate());
+                        }
+                        ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
+                        if (getIntent().hasExtra("secondArrayList")) {
+                            tempArrayList.addAll((Collection<? extends EntityEmployee>) getIntent().getSerializableExtra("secondArrayList"));
+                            for (int i = 0; i < arrayEmployee.size(); i++) {
+                                if (arrayEmployee.get(i).getName().equals(tempArrayList.get(i).getName())) {
+                                    arrayEmployee.get(i).setQuantity(tempArrayList.get(i).getQuantity());
+                                }
+                            }
                         }
                         //verify if the user is opening the app or is coming back from the employee tab
                         if (!String.valueOf(preferences.getString("NewMoney", "")).isEmpty()) {
@@ -97,6 +109,10 @@ public class MainGame extends AppCompatActivity {
                         arrayEmployee.add(employee6);
                         arrayEmployee.add(employee7);
                         arrayEmployee.add(employee8);
+
+                        EntityUpgrade upgrade = new EntityUpgrade(username, "name", false, "desc", 0, 0);
+                        arrayUpgrade.add(upgrade);
+
                         //put all preferences to default
                         //if there is no user initiate score to 0 and create a new save
                         Save save = new Save(username);
@@ -154,21 +170,17 @@ public class MainGame extends AppCompatActivity {
             findViewById(R.id.buttonUpgrade).setOnClickListener(view -> {
                 Intent intent = new Intent(this, MainUpgrade.class);
 
-                // ArrayList of strings TODO change it for upgrades or smt
-                ArrayList<String> arrayList = new ArrayList<>();
-                arrayList.add("Hello");
-                arrayList.add("Aurevoir");
+                ArrayList<EntityUpgrade> tempArrayList = new ArrayList<>();
+                tempArrayList.addAll(arrayUpgrade);
 
-                // Sends ArrayList to adapter
-                //AdapterUpgrade adapterUpgrade = new AdapterUpgrade(arrayList);
-
-                // Sends strings to activity
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("bundle", (Serializable) arrayList);
+                for (int i = 0; i < tempArrayList.size(); i++) {
+                    if (tempArrayList.get(i).getBought()) {
+                        tempArrayList.remove(i);
+                    }
+                }
 
                 // Put extas in intent
-                intent.putExtra("arrayList", arrayList);
-                intent.putExtra("bundle", bundle);
+                intent.putExtra("arrayList", (Serializable) tempArrayList);
 
                 startActivity(intent);
             });

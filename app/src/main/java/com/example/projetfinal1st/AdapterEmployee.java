@@ -5,12 +5,16 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +61,7 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                 List<EntityEmployee> employees = getMyViewModelGame().getAllEmployeeWithSameId(getId());
                 m_money = AdapterEmployee.m_money;
                 int price = employees.get(m_position).getPrice();
-                // m_position = AdapterEmployee.m_position;
+                m_position = AdapterEmployee.m_position;
                 if (view.getId() == employeeBuyButton.getId()) {
                     if (m_money < price) {
                         //change UI to print a buy error
@@ -78,6 +82,31 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
 
                         Log.i("moneyCount", String.valueOf(AdapterEmployee.m_money));
                     }
+                }
+                if (view.getId() == employeeDescriptionButton.getId()) {
+                    // Inflate the layout of the popup
+                    LayoutInflater inflater = (LayoutInflater) m_Activity.getSystemService(m_Activity.LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.popup_window, null);
+                    TextView textView = popupView.findViewById(R.id.textViewPopup);
+                    textView.setText(localDataSet.get(m_position).getDescription());
+
+                    // Create the popup
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // Exit the popup by tapping outside
+                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                    // Show popup
+                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                    // Exit when tapped
+                    popupView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            popupWindow.dismiss();
+                            return true;
+                        }
+                    });
                 }
             });
         }
@@ -106,6 +135,10 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         public TextView getEmployeeCountNumberTextView() {
 
             return employeeCountNumberTextView;
+        }
+
+        public String getDescription() {
+            return localDataSet.get(m_position).getDescription();
         }
 
         public Button getEmployeeBuyButton() {

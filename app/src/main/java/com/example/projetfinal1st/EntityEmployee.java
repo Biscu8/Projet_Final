@@ -48,6 +48,12 @@ public class EntityEmployee {
             this.setPrice(price);
             this.setRate(rate);
         }
+
+    public EntityEmployee(int quantity, String name) {
+        this.quantity = quantity;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
