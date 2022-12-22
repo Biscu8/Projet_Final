@@ -3,12 +3,10 @@ package com.example.projetfinal1st;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
-import com.example.projetfinal1st.Companies.AdapterCompanies;
-import com.example.projetfinal1st.Companies.EntityCompanies;
-import com.example.projetfinal1st.Companies.MainCompanies;
-import com.example.projetfinal1st.Companies.MyViewModelCompanies;
 import com.example.projetfinal1st.MenuFeatures.Settings;
 
 import java.io.Serializable;
@@ -38,8 +32,6 @@ public class MainGame extends AppCompatActivity {
     private ArrayList<EntityEmployee> arrayEmployee;
     private ArrayList<EntityUpgrade> arrayUpgrade;
     private ArrayList<EntityCompanies> arrayCompanies;
-    private MyViewModelCompanies myViewModelCompanies;
-    private TextView noMoreEmployee;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +40,6 @@ public class MainGame extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
-        myViewModelCompanies = new ViewModelProvider(this).get(MyViewModelCompanies.class);
-        noMoreEmployee = findViewById(R.id.textViewMainError);
         // ArrayList of employees
          arrayEmployee = new ArrayList<>();
          arrayUpgrade = new ArrayList<>();

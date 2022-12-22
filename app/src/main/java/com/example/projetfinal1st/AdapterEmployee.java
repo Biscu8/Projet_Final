@@ -3,6 +3,7 @@ package com.example.projetfinal1st;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHolder> {
 
@@ -63,27 +64,48 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                 int price = employees.get(m_position).getPrice();
                 m_position = AdapterEmployee.m_position;
                 if (view.getId() == employeeBuyButton.getId()) {
+                    Log.i("1stview", String.valueOf(view.getId()));
+                    Log.i("1stviewbutton", String.valueOf(employeeBuyButton.getId()));
                     if (m_money < price) {
                         //change UI to print a buy error
-                        AdapterEmployee.m_Activity.runOnUiThread(()-> {
-                                    getMissingMoney().setVisibility(View.VISIBLE);
-                                });
+                        AdapterEmployee.m_Activity.runOnUiThread(() -> {
+                            getMissingMoney().setVisibility(View.VISIBLE);
+                        });
                         Log.i("Not enough money", String.valueOf(m_money));
                     } else {
                         //change Ui
-                        AdapterEmployee.m_Activity.runOnUiThread(()-> {
-                                    getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
-                            localDataSet.get(m_position).setQuantity(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())));
-                            Log.i("getQuantity",String.valueOf(localDataSet.get(m_position).getQuantity()));
-                                });
+                        ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
+                        ArrayList<EntityEmployee> arrayEmployee = new ArrayList<>();
+                        arrayEmployee.addAll(myViewModelGame.getAllEmployeeWithSameId(id));
+                        getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
+                        Log.i("how man1", String.valueOf(employeeCountNumberTextView.getText()));
+                        localDataSet.get(m_position).setQuantity(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())));
+                        localDataSet.get(m_position).setName(String.valueOf(employeeTextView.getText()));
+                        Log.i("how man2", String.valueOf(localDataSet.get(m_position).getQuantity()));
+                        tempArrayList.add(new EntityEmployee(localDataSet.get(m_position).getQuantity(), localDataSet.get(m_position).getName()));
+                        Log.i("how man3", String.valueOf(localDataSet.get(m_position).getQuantity()));
+                        for (int i = 0; i < tempArrayList.size(); i++) {
+                            for (int j = 0; j < arrayEmployee.size(); j++) {
+                                if (tempArrayList.get(i).getName().equals(arrayEmployee.get(j).getName())) {
+                                    arrayEmployee.get(j).setQuantity(tempArrayList.get(i).getQuantity());
+                                    Log.i("how many", String.valueOf(arrayEmployee.get(j).getQuantity()));
+                                    Log.i("getNAme", arrayEmployee.get(j).getName());
+                                    myViewModelGame.udpateEmployee(arrayEmployee.get(j));
+                                    Executors.newSingleThreadExecutor().execute(() -> {
+                                    });
+                                }
+                            }
+                        }
                         //save the moneyCount
                         AdapterEmployee.m_money -= price;
                         setMoney(AdapterEmployee.m_money);
-
                         Log.i("moneyCount", String.valueOf(AdapterEmployee.m_money));
                     }
                 }
-                if (view.getId() == employeeDescriptionButton.getId()) {
+                else if (view.getId() == employeeDescriptionButton.getId()) {
+                    Log.i("2stview", String.valueOf(view.getId()));
+                    Log.i("2stviewbutton", String.valueOf(employeeDescriptionButton.getId()));
+
                     // Inflate the layout of the popup
                     LayoutInflater inflater = (LayoutInflater) m_Activity.getSystemService(m_Activity.LAYOUT_INFLATER_SERVICE);
                     View popupView = inflater.inflate(R.layout.popup_window, null);
@@ -97,7 +119,16 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
                     // Show popup
-                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    m_Activity.runOnUiThread(() -> {
+                        int[] loc_int = new int[2];
+                        view.getLocationOnScreen(loc_int);
+                        Rect location = new Rect();
+                        location.left = loc_int[0];
+                        location.top = loc_int[1];
+                        location.right = location.left + view.getWidth();
+                        popupWindow.showAtLocation(view, Gravity.TOP|Gravity.LEFT, location.left, location.top);
+                    });
+
 
                     // Exit when tapped
                     popupView.setOnTouchListener(new View.OnTouchListener() {
