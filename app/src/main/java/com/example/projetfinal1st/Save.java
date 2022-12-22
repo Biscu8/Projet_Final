@@ -21,10 +21,10 @@ public class Save {
     public String username;
 
     @ColumnInfo(name = "score")
-    public Score score;
+    public int score;
 
     @ColumnInfo(name = "money")
-    public String money;
+    public int money;
 
     @ColumnInfo(name ="EmployeeIdlink")
     public String entitytab;
@@ -44,17 +44,22 @@ public class Save {
      */
     public Save(String username) {
         this.username = username;
-        this.score = new Score(0);
+        this.score = 0;
     }
 
-    public Save(String username, int scores, String money) {
+    public Save(String username, int scores, int money) {
         this.username = username;
-        this.score = new Score(scores);
+        this.score = scores;
         this.money = money;
     }
     public Save(String username, String id)
     {
         this.username = username;
         this.entitytab = id;
+    }
+    public Save(String username, int money)
+    {
+        this.username = username;
+        this.money = money;
     }
 }

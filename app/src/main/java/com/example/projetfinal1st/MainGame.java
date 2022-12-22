@@ -36,29 +36,12 @@ public class MainGame extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
-
         // ArrayList of employees
          arrayEmployee = new ArrayList<>();
 
         // Initiate the score of the user
 
-                    //Initiate the employees with default stats
-                    EntityEmployee employee1 = new EntityEmployee(0,"charlo",username ,"desc",2 , 1,R.drawable.george);;
-                    EntityEmployee employee2 = new EntityEmployee(0,"noob",username ,"desc",4 , 2000,R.drawable.george);
-                    EntityEmployee employee3 = new EntityEmployee(0,"jay",username ,"desc",6 , 3000,R.drawable.george);
-                    EntityEmployee employee4 = new EntityEmployee(0,"cody",username ,"desc",8 , 4000,R.drawable.george);
-                    EntityEmployee employee5 = new EntityEmployee(0,"brrr",username ,"desc",10 , 5000,R.drawable.george);
-                    EntityEmployee employee6 = new EntityEmployee(0,"sims",username ,"desc",12 , 6000,R.drawable.george);
-                    EntityEmployee employee7 = new EntityEmployee(0,"qqw",username ,"desc",14 , 7000,R.drawable.george);
-                    EntityEmployee employee8 = new EntityEmployee(0,"qwerty",username ,"desc",16 , 4000,R.drawable.george);
-                    arrayEmployee.add(employee1);
-                    arrayEmployee.add(employee2);
-                    arrayEmployee.add(employee3);
-                    arrayEmployee.add(employee4);
-                    arrayEmployee.add(employee5);
-                    arrayEmployee.add(employee6);
-                    arrayEmployee.add(employee7);
-                    arrayEmployee.add(employee8);
+
         Executors.newSingleThreadExecutor().execute(() -> {
                     // Verify is user has save
                     if (myViewModelGame.getSave(username) != null) {
@@ -88,9 +71,9 @@ public class MainGame extends AppCompatActivity {
                             saveGameInDatabase();
                         } else {
                             //Update UI with database data
-                            String money = myViewModelGame.getMoneyAmount(username);
+                            int money = myViewModelGame.getMoneyAmount(username);
                             runOnUiThread(() -> {
-                                moneyAmount.setText(money);
+                                moneyAmount.setText(String.valueOf(money));
                             });
                         }
                         // Verify if user is coming back from upgrade tab
@@ -111,7 +94,23 @@ public class MainGame extends AppCompatActivity {
                         }
 
                     } else {
-
+//Initiate the employees with default stats
+                        EntityEmployee employee1 = new EntityEmployee(0,"charlo",username ,"desc",2 , 1,R.drawable.george);;
+                        EntityEmployee employee2 = new EntityEmployee(0,"noob",username ,"desc",4 , 2000,R.drawable.george);
+                        EntityEmployee employee3 = new EntityEmployee(0,"jay",username ,"desc",6 , 3000,R.drawable.george);
+                        EntityEmployee employee4 = new EntityEmployee(0,"cody",username ,"desc",8 , 4000,R.drawable.george);
+                        EntityEmployee employee5 = new EntityEmployee(0,"brrr",username ,"desc",10 , 5000,R.drawable.george);
+                        EntityEmployee employee6 = new EntityEmployee(0,"sims",username ,"desc",12 , 6000,R.drawable.george);
+                        EntityEmployee employee7 = new EntityEmployee(0,"qqw",username ,"desc",14 , 7000,R.drawable.george);
+                        EntityEmployee employee8 = new EntityEmployee(0,"qwerty",username ,"desc",16 , 4000,R.drawable.george);
+                        arrayEmployee.add(employee1);
+                        arrayEmployee.add(employee2);
+                        arrayEmployee.add(employee3);
+                        arrayEmployee.add(employee4);
+                        arrayEmployee.add(employee5);
+                        arrayEmployee.add(employee6);
+                        arrayEmployee.add(employee7);
+                        arrayEmployee.add(employee8);
                         //put all preferences to default
                       //  preferences.getAll().clear();//pas sur
                         //if there is no user initiate score to 0 and create a new save
@@ -155,7 +154,7 @@ public class MainGame extends AppCompatActivity {
                     Executors.newSingleThreadExecutor().execute(() -> {
 
                         //update database with the new data
-                        Save save = new Save(username, Integer.parseInt(String.valueOf(clickAmount.getText())), String.valueOf(moneyAmount.getText()));
+                        Save save = new Save(username, Integer.parseInt(String.valueOf(clickAmount.getText())), Integer.parseInt(String.valueOf(moneyAmount.getText())));
                         myViewModelGame.updateSave(save);
                     });
                 }
@@ -165,7 +164,7 @@ public class MainGame extends AppCompatActivity {
             findViewById(R.id.buttonEmployee).setOnClickListener(view -> {
                 Intent intent = new Intent(this, MainEmployee.class);
                 TextView money = findViewById(R.id.moneyAmount);
-                intent.putExtra("Money", String.valueOf(money.getText()));
+                intent.putExtra("Money", Integer.parseInt(String.valueOf(money.getText())));
 
                 //put money in database
                 saveGameInDatabase();
@@ -233,7 +232,7 @@ public class MainGame extends AppCompatActivity {
                                 }
                             });
                             clickAmount.setText(String.valueOf(m_score));
-                            moneyAmount.setText(String.valueOf(m_score) + "$");
+                            moneyAmount.setText(String.valueOf(m_score));
                         }
                     });
                 }
@@ -246,7 +245,7 @@ public class MainGame extends AppCompatActivity {
             TextView viewScore = findViewById(R.id.clickAmount);
             String stringScore = (String) viewScore.getText();
             TextView viewAmount = findViewById(R.id.moneyAmount);
-            String moneyAmount = (String) viewAmount.getText();
+            int moneyAmount = Integer.parseInt((String) viewAmount.getText());
             Save save = new Save(preferences.getString("Username", ""), Integer.parseInt(stringScore), moneyAmount);
             Executors.newSingleThreadExecutor().execute(() -> {
                 myViewModelGame.updateSave(save);

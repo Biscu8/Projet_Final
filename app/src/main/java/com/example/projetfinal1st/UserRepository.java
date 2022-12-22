@@ -33,7 +33,7 @@ public class UserRepository {
     public Score getSave(String username) {
             return userDao.getSave(username);
 }
-    public String getMoneyAmount(String username)
+    public int getMoneyAmount(String username)
     {
         return userDao.getMoneyAmount(username);
     }

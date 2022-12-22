@@ -13,9 +13,9 @@ public class TypeConverter {
      * @return player score as a string
      */
     @androidx.room.TypeConverter
-    public String ScoreToString(Score score)
+    public String ScoreToInt(Score score)
     {
-        return new Gson().toJson(score.getScore());
+        return new Gson().toJson(Integer.valueOf(score.getScore()));
     }
 
     /**
@@ -24,9 +24,9 @@ public class TypeConverter {
      * @return player score
      */
     @androidx.room.TypeConverter
-    public Score StringToScore(String score)
+    public Score IntToScore(int score)
     {
-            return new Gson().fromJson(score, Score.class);
+            return new Gson().fromJson(String.valueOf(score), Score.class);
     }
     @androidx.room.TypeConverter
     public String ArrayListEmployeeToString(ArrayList<EntityEmployee> EmployeeArrayList){

@@ -30,6 +30,11 @@ public class EntityEmployee {
             //this.name = "";
             this.setQuantity(0);
         }
+        public EntityEmployee(String username, int quantity)
+        {
+            this.Userid = username;
+            this.setQuantity(quantity);
+        }
         //public EntityEmployee()
         public EntityEmployee(int quantity, String name, String username, String description, int rate, int price, int image)
         {
@@ -43,7 +48,6 @@ public class EntityEmployee {
             this.setRate(rate);
         }
     public String getName() {
-        Log.i("FCKING name", name);
         return name;
     }
 

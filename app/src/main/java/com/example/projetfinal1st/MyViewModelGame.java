@@ -28,7 +28,7 @@ public class MyViewModelGame extends AndroidViewModel {
     {
             return userRepository.getSave(username);
     }
-    public String getMoneyAmount(String username)
+    public int getMoneyAmount(String username)
     {
         return userRepository.getMoneyAmount(username);
     }

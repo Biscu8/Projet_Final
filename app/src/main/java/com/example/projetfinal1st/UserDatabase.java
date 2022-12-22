@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
  * Database of usernames and passwords
  */
 @TypeConverters(TypeConverter.class)
-@Database(entities = {User.class, Save.class, EntityEmployee.class}, version = 12)//update database if we change it
+@Database(entities = {User.class, Save.class, EntityEmployee.class}, version = 14)//update database if we change it
 public abstract class UserDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     private static UserDatabase instance;

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainEmployee extends AppCompatActivity {
     MyViewModelGame myViewModelGame;
     public ArrayList<EntityEmployee> m_employees;
+    public AdapterEmployee m_myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,41 +35,49 @@ public class MainEmployee extends AppCompatActivity {
 
         //retrieve recyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEmployee);
-
         // Retrieve arrayList
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = preferences.getString("Username", "");
+        // Initiate recycler view
         //link the database when page is open
+
         Executors.newSingleThreadExecutor().execute(() -> {
                 //get the employee tab that fits the user into an Array
-                for(int i = 0; i < myViewModelGame.getAllEmployeeWithSameId(id).size(); i++) {
-                    m_employees.add(new EntityEmployee());
-                }
+            m_employees = new ArrayList<>();
+            List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
+            m_employees.addAll(employees);
+            //get the employee count number from database
+            m_myAdapter = new AdapterEmployee(m_employees, myViewModelGame.getMoneyAmount(id), myViewModelGame, id, this);
+            runOnUiThread(() -> {
+                recyclerView.setAdapter(m_myAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            });
         });
-        // Initiate recycler view
-        String money = (String) getIntent().getStringExtra("Money");
 
-        //get the employee count number from database
-        AdapterEmployee myAdapter = new AdapterEmployee(m_employees, money, myViewModelGame, id);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
 
         //connect the back button
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
             Intent secondIntent = new Intent(this, MainGame.class);
-            //Executors.newSingleThreadExecutor().execute(() -> {
-               // ArrayList<Employee> dataSet2 = (ArrayList<Employee>) args.getSerializable("arrayList");
-               // List<EntityEmployee> employees = myViewModelGame.getAllEmployeeWithSameId(id);
-              //  for (int i = 0; i < employees.size(); i++) {
-                //    Employee employee = employees.get(i);
-                  //  myViewModelGame.udpateEmployee(new EntityEmployee(employee.getQuantity(), employee.getName(), getIntent().getStringExtra("Username"),
-                    //        employee.getDescription(), employee.getRate(), employee.getPrice(), employee.getImage()));
-               // }
-            //});
-            //secondIntent.putExtra("MoneyMinusBuy", myAdapter.getMoney());
-           // secondIntent.putExtra("nbEmployer", myAdapter.getEmployeeCountNumber());
+            Executors.newSingleThreadExecutor().execute(() -> {
+                        //get all the employee textviews and register them in the database
 
+                        int EmployeeCount = myViewModelGame.getAllEmployeeWithSameId(id).size();
+                        for(int i= 0; i < EmployeeCount; i++) {
+                            if(Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())) != 0)
+                            {
+                                EntityEmployee employee = new EntityEmployee(id, Integer.parseInt(String.valueOf(m_myAdapter.getViewHolder().getEmployeeCountNumberTextView().getText())));
+                                myViewModelGame.udpateEmployee(employee);
+                            }
+                        }
+                        //get the money from the adapter and register the new money amount
+                Log.i("Money",String.valueOf(m_myAdapter.getViewHolder().getMoney()));
+                        Save save = new Save(id, m_myAdapter.getViewHolder().getMoney());
+                        myViewModelGame.updateSave(save);
+                    });
             startActivity(secondIntent);
         });
 
