@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.ViewHolder> {
 
     private final ArrayList<EntityCompanies> localDataSet;
+    private final Context context;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -60,8 +62,9 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
      * @param dataSet String[] containing the data to populate views to be used
      *                by RecyclerView
      */
-    public AdapterCompanies(ArrayList<EntityCompanies> dataSet) {
+    public AdapterCompanies(ArrayList<EntityCompanies> dataSet, Context context) {
         localDataSet = dataSet;
+        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -84,7 +87,8 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
         viewHolder.getTextView().setText(localDataSet.get(position).getName());
         viewHolder.getImageView().setImageResource(localDataSet.get(position).getImage());
         viewHolder.getTextViewNb().setText(String.valueOf(localDataSet.get(position).getNbEmployees()));
-        viewHolder.getButton().setText(R.string.companies_button_buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
+        String buy = activity.getResources().getString(R.string.companies_button_buy);
+        viewHolder.getButton().setText(buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
     }
 
     // Return the size of your dataset (invoked by the layout manager)
