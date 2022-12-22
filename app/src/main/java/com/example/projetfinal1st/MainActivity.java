@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //activation du darkMode si les settings on ete changer auparavant
+        //activate dark mode if it was set before //not for one user//all the time because its better to work with that
         preference = PreferenceManager.getDefaultSharedPreferences(this);
         if (preference.getBoolean("DarkMode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -37,15 +37,18 @@ public class MainActivity extends AppCompatActivity {
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
         // Connects login button to game page
         findViewById(R.id.loginButton).setOnClickListener(view -> { // Listener on the login button
+            //get the username and password texts
             EditText usernameText = findViewById(R.id.editTextUsername);
             String username = usernameText.getText().toString();
             EditText passwordText = findViewById(R.id.editTextPassword);
             String password = passwordText.getText().toString();
             Executors.newSingleThreadExecutor().execute(() -> {
+                //search in database if the username is use
                 if (myViewModel.userInDatabase(username) != null) {
+                    //if the username is use, it looks if the password is correct
                     if (myViewModel.loginFromUserPassword(username,password) != null) {
                         preference.edit().putString("Username", username).apply();
-                        openPageJeu();
+                        openGamePage();
                     }
                 } else {
                     runOnUiThread(() -> {
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             if(myViewModel.userInDatabase(username) == null) {
                 myViewModel.registerUser(username, password);
                 preference.edit().putString("Username", username).apply();
-                openPageJeu();
+                openGamePage();
             }
             else
             {
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * open the game page
      */
-   public void openPageJeu()
+   public void openGamePage()
    {
    Intent intent = new Intent(this, MainGame.class);
    startActivity(intent);

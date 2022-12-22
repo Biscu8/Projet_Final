@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name=".MenuFeatures.Settings"
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainGame">
@@ -36,16 +36,16 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".About"
+            android:name=".MenuFeatures.About"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ConditionsUtilisations"
+            android:name=".MenuFeatures.ConditionsUtilisations"
             android:exported="false"
-            android:parentActivityName=".Settings">
+            android:parentActivityName=".MenuFeatures.Settings">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -53,7 +53,7 @@
         <activity
             android:name=".PolitiqueConfidentalite"
             android:exported="false"
-            android:parentActivityName=".Settings">
+            android:parentActivityName=".MenuFeatures.Settings">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
