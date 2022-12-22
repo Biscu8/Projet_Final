@@ -1,17 +1,12 @@
-package com.example.projetfinal1st;
+package com.example.projetfinal1st.MenuFeatures;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
-import android.widget.SeekBar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -20,7 +15,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
-import androidx.preference.SwitchPreference;
+
+import com.example.projetfinal1st.PolitiqueConfidentalite;
+import com.example.projetfinal1st.R;
 
 import java.util.Locale;
 //Orde a faire : finir ce qui a été déja commmencer, puis faire cette liste en ordre

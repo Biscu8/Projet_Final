@@ -1,7 +1,6 @@
 package com.example.projetfinal1st;
 
 import android.annotation.SuppressLint;
-import android.content.Entity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
+
+import com.example.projetfinal1st.MenuFeatures.Settings;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -93,14 +94,14 @@ public class MainGame extends AppCompatActivity {
             } else {
 //Initiate the employees with default stats
                 Log.i("Passe par ici", "4");
-                        EntityEmployee employee1 = new EntityEmployee(0,"charlo",username ,"desc",2 , 1,R.drawable.george);;
-                        EntityEmployee employee2 = new EntityEmployee(0,"noob",username ,"desc",4 , 2000,R.drawable.george);
-                        EntityEmployee employee3 = new EntityEmployee(0,"jay",username ,"desc",6 , 3000,R.drawable.george);
-                        EntityEmployee employee4 = new EntityEmployee(0,"cody",username ,"desc",8 , 4000,R.drawable.george);
-                        EntityEmployee employee5 = new EntityEmployee(0,"brrr",username ,"desc",10 , 5000,R.drawable.george);
-                        EntityEmployee employee6 = new EntityEmployee(0,"sims",username ,"desc",12 , 6000,R.drawable.george);
-                        EntityEmployee employee7 = new EntityEmployee(0,"qqw",username ,"desc",14 , 7000,R.drawable.george);
-                        EntityEmployee employee8 = new EntityEmployee(0,"qwerty",username ,"desc",16 , 4000,R.drawable.george);
+                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 1,R.drawable.george);;
+                        EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 2000,R.drawable.sigma);
+                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 3000,R.drawable.orion);
+                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",8 , 4000,R.drawable.steve);
+                        EntityEmployee employee5 = new EntityEmployee(0,"Vecna",username ,"desc",10 , 5000,R.drawable.vecna);
+                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",12 , 6000,R.drawable.homer);
+                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",14 , 7000,R.drawable.elonmusk);
+                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",16 , 8000,R.drawable.chtulu);
                         arrayEmployee.add(employee1);
                         arrayEmployee.add(employee2);
                         arrayEmployee.add(employee3);
@@ -238,7 +239,6 @@ public class MainGame extends AppCompatActivity {
             String stringScore = (String) viewScore.getText();
             TextView viewAmount = findViewById(R.id.moneyAmount);
             int moneyAmount = Integer.parseInt((String) viewAmount.getText());
-            Log.i("Avant datzbase", String.valueOf(viewAmount.getText()));
             Save save = new Save(preferences.getString("Username", ""), Integer.parseInt(stringScore), moneyAmount);
             Executors.newSingleThreadExecutor().execute(() -> {
                 myViewModelGame.updateSave(save);
