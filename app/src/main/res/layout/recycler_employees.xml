@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/employeeLinearLayout"
         android:layout_width="0dp"
-        android:layout_height="128dp"
+        android:layout_height="125dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,86 +18,74 @@
 
         <ImageView
             android:id="@+id/employeeImageView"
-            android:layout_width="255dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cardView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/employeeCountNumber"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                style="@style/TEXT"
-                android:gravity="center"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/employeeBuyButton"
-                app:layout_constraintTop_toBottomOf="@+id/employeeCountTextView" />
-
-            <TextView
-                android:id="@+id/employeeCountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/employee_count"
-                style="@style/TEXT"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/employeeBuyButton"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1.1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/employeeTextView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="@string/employee_text_view"
                 style="@style/TEXT"
-                app:layout_constraintBottom_toTopOf="@+id/employeeDescriptionButton"
-                app:layout_constraintEnd_toStartOf="@+id/employeeBuyButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/employeeBuyButton"
-                style="@style/BUTTON"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Acheter \n 1000$"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/employeeCountNumber"
-                app:layout_constraintStart_toEndOf="@+id/employeeTextView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/employee_text_view" />
 
             <ImageButton
                 android:id="@+id/employeeDescriptionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/employeeBuyButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/employeeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_dialog_info"
                 tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/employeeCountTextView"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/employee_count" />
 
             <TextView
                 android:id="@+id/missingMoney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="Pas assez dargent"
                 android:textColor="#FF0000"
-                android:visibility="invisible"
-                tools:layout_editor_absoluteX="94dp"
-                tools:layout_editor_absoluteY="109dp" />
+                android:visibility="invisible" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/employeeCountNumber"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/employeeBuyButton"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/employee_button_buy" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

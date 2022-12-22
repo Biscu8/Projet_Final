@@ -7,52 +7,55 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Employee")
-public class EntityEmployee {
+public class EntityEmployee implements Serializable {
 
-        @PrimaryKey(autoGenerate = true)
-        @NonNull
-        public int Employeeid;
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    public int Employeeid;
 
-        @ColumnInfo(name="Userid")
-        public String Userid;
-        @ColumnInfo(name="Employee name")
-        public String name;
+    @ColumnInfo(name = "Userid")
+    public String Userid;
+    @ColumnInfo(name = "Employee name")
+    public String name;
 
-         private String description;
-         private int image;
-          private int quantity;
-        private int rate;
-         private int price;
+    private String description;
+    private int image;
+    private int quantity;
+    private int rate;
+    private int price;
 
-        public EntityEmployee()
-        {
-            //this.name = "";
-            this.setQuantity(0);
-        }
-        public EntityEmployee(String username, int quantity)
-        {
-            this.Userid = username;
-            this.setQuantity(quantity);
-        }
-        //public EntityEmployee()
-        public EntityEmployee(int quantity, String name, String username, String description, int rate, int price, int image)
-        {
-            this.name = name;
-            this.Userid = username;
-            this.setName(name);
-            this.setQuantity(quantity);
-            this.setDescription(description);
-            this.setImage(image);
-            this.setPrice(price);
-            this.setRate(rate);
-        }
+    public EntityEmployee() {
+        this.name = "";
+        this.setQuantity(0);
+    }
+
+    public EntityEmployee(String username, int quantity) {
+        this.Userid = username;
+        this.setQuantity(quantity);
+    }
+
+    //public EntityEmployee()
+    public EntityEmployee(int quantity, String name, String username, String description, int rate, int price, int image) {
+        this.name = name;
+        this.Userid = username;
+        this.setName(name);
+        this.setQuantity(quantity);
+        this.setDescription(description);
+        this.setImage(image);
+        this.setPrice(price);
+        this.setRate(rate);
+    }
+
     public String getName() {
         return name;
     }
 
     /**
      * Setter of the name of the employee
+     *
      * @param name String of the name of the employee
      */
     public void setName(String name) {
@@ -61,6 +64,7 @@ public class EntityEmployee {
 
     /**
      * Getter of the description of the employee
+     *
      * @return String of the description of the employee
      */
     public String getDescription() {
@@ -69,6 +73,7 @@ public class EntityEmployee {
 
     /**
      * Setter of the description of the employee
+     *
      * @param description String of the description of the employee
      */
     public void setDescription(String description) {
@@ -77,6 +82,7 @@ public class EntityEmployee {
 
     /**
      * Getter of the image of the employee
+     *
      * @return Int of the R.drawable.image of the employee
      */
     public int getImage() {
@@ -85,6 +91,7 @@ public class EntityEmployee {
 
     /**
      * Setter of the image of the employee
+     *
      * @param image Int of the R.drawable.image of the employee
      */
     public void setImage(int image) {
@@ -93,6 +100,7 @@ public class EntityEmployee {
 
     /**
      * Getter of the quantity of employees
+     *
      * @return Int of the quantity of employees
      */
     public int getQuantity() {
@@ -101,6 +109,7 @@ public class EntityEmployee {
 
     /**
      * Setter of the quantity of employees
+     *
      * @param quantity Int of the quantity of employees
      */
     public void setQuantity(int quantity) {
@@ -109,6 +118,7 @@ public class EntityEmployee {
 
     /**
      * Getter of the rate of the employee
+     *
      * @return Int of the rate in clicks per operation
      */
     public int getRate() {
@@ -117,6 +127,7 @@ public class EntityEmployee {
 
     /**
      * Setter of the rate of the employee
+     *
      * @param rate Int of the rate in clicks per operation
      */
     public void setRate(int rate) {
@@ -125,6 +136,7 @@ public class EntityEmployee {
 
     /**
      * Getter of the price of the employee
+     *
      * @return Int of the price of the employee
      */
     public int getPrice() {
@@ -133,10 +145,11 @@ public class EntityEmployee {
 
     /**
      * Setter of the price of the employee
+     *
      * @param price Int of the price of the employee
      */
     public void setPrice(int price) {
         this.price = price;
     }
 
-    }
+}

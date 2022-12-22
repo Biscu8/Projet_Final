@@ -47,6 +47,12 @@
     <string name="upgrade_popup">Ici, vous pouvez acheter des améliorations qui permettent d\'augmenter votre revenu.</string>
     <string name="companies_popup">Ici, vous pouvez acheter d\'autres compagnies pour renvoyer plus d\'employés.</string>
     <string name="main_error">Vous n\'avez plus d\'employés à renvoyer. Achetez de nouvelles compagnies pour en renvoyer plus.</string>
+    <string name="upgrade_button_info">Description</string>
+    <string name="upgrade_button_buy">Acheter\n</string>
+    <string name="companies_button_buy">Acheter\n</string>
+    <string name="companies_text_employees">Employés</string>
+    <string name="employees_button_buy">Acheter\n</string>
+    <string name="main_textview_employees">Employés</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

@@ -1,9 +1,13 @@
 package com.example.projetfinal1st;
 
 import android.app.Activity;
+import android.view.View;
+
+import androidx.lifecycle.ViewModel;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
 
 /**
  * Class to create an auto clicker with parameters
@@ -11,18 +15,20 @@ import java.util.TimerTask;
 public class AutoClicker {
 
     private transient Activity activity;
-    private transient int score;
+    private MyViewModelGame viewModel;
+    private transient String username;
     private int rate;
 
     /**
      * Constructor for an auto clicker
      * @param activity Activity
-     * @param score Score
+     * @param username String of username for database
      * @param rate Int rate at which the score increases
      */
-    public AutoClicker(Activity activity, int score, int rate) {
+    public AutoClicker(Activity activity, MyViewModelGame viewModel, String username, int rate) {
         this.activity = activity;
-        this.score = score;
+        this.viewModel = viewModel;
+        this.username = username;
         this.rate = rate;
         start();
     }
@@ -48,11 +54,9 @@ public class AutoClicker {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //incrementScore(score, rate);
-                    }
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    viewModel.getSave(username).setScore(viewModel.getSave(username).getScore() - rate);
+                    //viewModel.setMoneyAmount(username, viewModel.getMoneyAmount(username) + 1);
                 });
             }
         };

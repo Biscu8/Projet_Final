@@ -7,24 +7,53 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageViewUpgrade"
-            android:layout_width="150dp"
+            android:id="@+id/imageViewCompanies"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_weight="1"
             app:srcCompat="@android:drawable/arrow_up_float" />
 
-        <TextView
-            android:id="@+id/textViewUpgrade"
-            style="@style/TEXT"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewCompanies"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+            <Button
+                android:id="@+id/buttonUpgradeDesc"
+                style="@style/BUTTON"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/upgrade_button_info" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonCompaniesBuy"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/upgrade_button_buy" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
