@@ -53,7 +53,7 @@ public class MainCompanies extends AppCompatActivity {
 
         // Initiate recycler view
         Executors.newSingleThreadExecutor().execute(() -> {
-                     adapterCompanies = new AdapterCompanies(dataSet,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(id), id, this);
+                     adapterCompanies = new AdapterCompanies(dataSet,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(id), id, this, myViewModelGame);
             runOnUiThread(() -> {
                 recyclerView.setAdapter(adapterCompanies);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -17,7 +17,10 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projetfinal1st.AdapterEmployee;
+import com.example.projetfinal1st.MyViewModelGame;
 import com.example.projetfinal1st.R;
+import com.example.projetfinal1st.Save;
+import com.example.projetfinal1st.Score;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.w3c.dom.Text;
@@ -33,6 +36,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
     private static int m_money;
     private static int m_position;
     public static MyViewModelCompanies myViewModelCompanies;
+    public static MyViewModelGame myViewModelGame;
     private static String m_id;
     private static Activity m_activity;
     private static ViewHolder m_viewHolder;
@@ -70,15 +74,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                 m_price = companies.get(m_position).getPrice();
                 if (view.getId() == button.getId()) {
                 //verify if the companie is arleady bought
-                    if(companies.get(m_position).isBought())
-                    {
-                        //set a snackbar message that they have selected this company
-                        m_activity.runOnUiThread(()-> {
-                            Snackbar.make(view, companies.get(m_position).getName() + " Selected", Snackbar.LENGTH_SHORT).show();
-                        });
-                        preferences.edit().putString("ChoosenCompany", String.valueOf(m_position)).apply();
-                    }
-                    else
+                    if(!companies.get(m_position).isBought())
                     {
                         //verify if the user has enough money
                         if(m_money < m_price)
@@ -102,7 +98,9 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                             EntityCompanies newCompanie = companies.get(m_position);
                             newCompanie.setBought(true);
                             myViewModelCompanies.udpate(newCompanie);
-                            preferences.edit().putString("ChoosenCompany", String.valueOf(m_position)).apply();
+                            //register score in database
+                            Save save = new Save(m_id,newCompanie.getNbEmployees() + myViewModelGame.getSave(m_id).getScore(), m_money);
+                            myViewModelGame.updateSave(save);
                         }
                     }
                 }
@@ -151,13 +149,14 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
      * @param dataSet String[] containing the data to populate views to be used
      *                by RecyclerView
      */
-    public AdapterCompanies(ArrayList<EntityCompanies> dataSet,MyViewModelCompanies myViewModelCompanies, Context context, int money, String id,Activity activity) {
+    public AdapterCompanies(ArrayList<EntityCompanies> dataSet, MyViewModelCompanies myViewModelCompanies, Context context, int money, String id, Activity activity, MyViewModelGame myViewModelGame) {
         localDataSet = dataSet;
         this.context = context;
         m_money = money;
         this.myViewModelCompanies = myViewModelCompanies;
         m_id = id;
         m_activity = activity;
+        this. myViewModelGame = myViewModelGame;
     }
 
     // Create new views (invoked by the layout manager)

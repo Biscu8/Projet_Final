@@ -82,7 +82,6 @@ public class MainGame extends AppCompatActivity {
                                 //remove Extra data
                                 preferences.edit().remove("NewMoney").apply();
                             });
-
                         } else {
                             //Update UI with database data
                             int money = myViewModelGame.getMoneyAmount(username);
@@ -97,12 +96,11 @@ public class MainGame extends AppCompatActivity {
                             //comming back from the tab
                             //get the new companie employees and set the view with is employees left
                             List<EntityCompanies> employeestab = myViewModelCompanies.getAllCompanies(username);
-                            int choosenCompany = Integer.parseInt(preferences.getString("ChoosenCompany", ""));
-                            int employeesLeft = employeestab.get(choosenCompany).getNbEmployees();
+                           int nbEmployee = myViewModelGame.getSave(username).getScore();
                             runOnUiThread(() -> {
                                 moneyAmount.setText(preferences.getString("NewMoneyCompanies", ""));
                                 preferences.edit().remove("NewMoneyCompanies").apply();
-                                clickAmountView.setText(String.valueOf(employeesLeft));
+                                clickAmountView.setText(String.valueOf(nbEmployee));
                             });
                         }
                         else
@@ -132,7 +130,7 @@ public class MainGame extends AppCompatActivity {
                         arrayEmployee.add(employee7);
                         arrayEmployee.add(employee8);
                         //initialise companies
-                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "depanneur", false, 1000, 100, R.drawable.couchetard);
+                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "depanneur", false, 1000, 1, R.drawable.couchetard);
                         EntityCompanies entityCompanies2 = new EntityCompanies(username, "Autre", false, 1000, 100, R.drawable.couchetard);
                         arrayCompanies.add(entityCompanies1);
                         arrayCompanies.add(entityCompanies2);
@@ -174,7 +172,6 @@ public class MainGame extends AppCompatActivity {
                 if (!"0".equals(String.valueOf(clickAmount.getText()))) {
                     int m_score = Integer.parseInt(clickAmount.getText().toString()) - 1;
                     clickAmount.setText(String.valueOf(m_score));
-                    Log.i("diminue", String.valueOf(m_score));
                     if (!preferences.getBoolean("InfiniteMoney", false)) {
 
                         TextView newMoneyAmount = findViewById(R.id.moneyAmount);
@@ -229,7 +226,7 @@ public class MainGame extends AppCompatActivity {
 
                 // Send ArrayList to adapter
                 Executors.newSingleThreadExecutor().execute(()-> {
-                    AdapterCompanies adapterCompanies = new AdapterCompanies(arrayCompanies,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(username), username, this);
+                    AdapterCompanies adapterCompanies = new AdapterCompanies(arrayCompanies,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(username), username, this, myViewModelGame);
                         });
                 // Put extras in intent
                 intent.putExtra("arrayList", arrayCompanies);
