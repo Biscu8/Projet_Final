@@ -61,8 +61,9 @@ public class MainEmployee extends AppCompatActivity {
         //connect the back button
         Button buttonEmployeeBack = findViewById(R.id.buttonEmployeeBack);
         buttonEmployeeBack.setOnClickListener(view -> {
+            Intent secondIntent = new Intent(this, MainGame.class);
             preferences.edit().putString("NewMoney", String.valueOf(m_myAdapter.getViewHolder().getMoney())).apply();
-            finish();
+            startActivity(secondIntent);
         });
 
         // open info popup window
