@@ -16,15 +16,41 @@
 
         <ImageView
             android:id="@+id/imageViewCompanies"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_weight="1"
             app:srcCompat="@android:drawable/arrow_up_float" />
 
-        <TextView
-            android:id="@+id/textViewCompanies"
-            style="@style/TEXT"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewCompanies"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textViewCompaniesNbEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/companies_text_employees" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonCompaniesBuy"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/companies_button_buy" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

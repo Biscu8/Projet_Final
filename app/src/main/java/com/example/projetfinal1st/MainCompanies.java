@@ -32,7 +32,7 @@ public class MainCompanies extends AppCompatActivity {
 
         // Retrieve ArrayList
         Bundle bundle = intent.getBundleExtra("bundle");
-        ArrayList<String> dataSet = (ArrayList<String>) bundle.getSerializable("arrayList");
+        ArrayList<EntityCompanies> dataSet = (ArrayList<EntityCompanies>) bundle.getSerializable("arrayList");
 
         // Initiate recycler view
         AdapterCompanies adapterCompanies = new AdapterCompanies(dataSet);
