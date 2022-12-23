@@ -67,6 +67,12 @@ public class MyViewModelGame extends AndroidViewModel {
             Save save = new Save(username, getSave(username).getScore() - rate, getMoneyAmount(username) + rate);
             updateSave(save);
         }
+        else
+        {
+            int scoreBeforeUpdate = getSave(username).getScore();
+            Save save = new Save(username, 0, getMoneyAmount(username) +scoreBeforeUpdate);
+            updateSave(save);
+        }
     }
 }
 

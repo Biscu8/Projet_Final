@@ -24,13 +24,6 @@
             android:text="@string/Politique" />
 
         <Button
-            android:id="@+id/Credit"
-            style="@style/BUTTON"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Credit" />
-
-        <Button
             android:id="@+id/Conditions"
             style="@style/BUTTON"
             android:layout_width="match_parent"

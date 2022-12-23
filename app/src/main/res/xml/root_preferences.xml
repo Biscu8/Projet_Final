@@ -10,13 +10,6 @@
                 android:title="@string/darkMode" />
         </PreferenceCategory>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/DevMod">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="ModeDev"
-            android:title="@string/DevMod" />
-    </PreferenceCategory>
     <PreferenceCategory
         style="@style/TEXT"
         android:title="@string/DevModeSetting"

@@ -131,14 +131,14 @@ public class MainGame extends AppCompatActivity {
                         arrayUpgrade.addAll(upgrades);
             } else {
                         //Initiate the employees with default stats
-                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 1,R.drawable.george);;
-                        EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 2000,R.drawable.sigma);
-                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 3000,R.drawable.orion);
-                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",8 , 4000,R.drawable.steve);
+                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 500,R.drawable.george);;
+                        EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 1000,R.drawable.sigma);
+                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 2000,R.drawable.orion);
+                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",8 , 3500,R.drawable.steve);
                         EntityEmployee employee5 = new EntityEmployee(0,"Vecna",username ,"desc",10 , 5000,R.drawable.vecna);
-                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",12 , 6000,R.drawable.homer);
-                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",14 , 7000,R.drawable.elonmusk);
-                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",16 , 8000,R.drawable.chtulu);
+                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",12 , 6500,R.drawable.homer);
+                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",14 , 8000,R.drawable.elonmusk);
+                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",16 , 10000,R.drawable.chtulu);
                         arrayEmployee.add(employee1);
                         arrayEmployee.add(employee2);
                         arrayEmployee.add(employee3);
@@ -148,9 +148,9 @@ public class MainGame extends AppCompatActivity {
                         arrayEmployee.add(employee7);
                         arrayEmployee.add(employee8);
                         //initialise companies
-                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "Petite startup", false, 1000, 100, R.drawable.startup);
-                        EntityCompanies entityCompanies2 = new EntityCompanies(username, "Petit commerce local", false, 5000, 1000, R.drawable.commercelocal);
-                        EntityCompanies entityCompanies3 = new EntityCompanies(username, "resto chinois", false, 10000, 5000, R.drawable.restochinois);
+                        EntityCompanies entityCompanies1 = new EntityCompanies(username, "Petite startup", false, 1250, 50, R.drawable.startup);
+                        EntityCompanies entityCompanies2 = new EntityCompanies(username, "Petit commerce local", false, 7500, 1000, R.drawable.commercelocal);
+                        EntityCompanies entityCompanies3 = new EntityCompanies(username, "resto chinois", false, 15000, 5000, R.drawable.restochinois);
                         EntityCompanies entityCompanies4 = new EntityCompanies(username, "Coco Frutti", false, 20000, 7500, R.drawable.cocofrutti);
                         EntityCompanies entityCompanies5 = new EntityCompanies(username, "Esso", false, 50000, 12500, R.drawable.esso);
                         EntityCompanies entityCompanies6 = new EntityCompanies(username, "Seven Eleven", false, 75000, 30000, R.drawable.seveneleven);
@@ -305,18 +305,41 @@ public class MainGame extends AppCompatActivity {
                             AtomicInteger click = new AtomicInteger();
                             AtomicInteger money = new AtomicInteger();
                             Executors.newSingleThreadExecutor().execute(() -> {
+                                if(!"0".equals(clickAmount.getText())) {
                                     click.set(myViewModelGame.getSave(username).getScore());
                                     money.set(myViewModelGame.getMoneyAmount(username));
                                     runOnUiThread(() -> {
                                         clickAmount.setText(String.valueOf(click.get()));
                                         moneyAmount.setText(String.valueOf(money.get()));
                                     });
+                                }
+                                else
+                                {
+                                   List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
+                                   boolean gameOver = false;
+                                    for(int i = 0; i < companies.size(); i++)
+                                    {
+                                        if(!companies.get(i).isBought())
+                                        {
+                                            if(companies.get(i).getPrice() <= Integer.parseInt(String.valueOf(moneyAmount.getText())))
+                                            {
+                                                gameOver = true;
+                                            }
+                                        }
+                                    }
+                                    if(!gameOver)
+                                    {
+                                        //its game Over
+                                           // Intent intent = new Intent(this, GameOver.class);
+                                           // startActivity(intent);
+                                    }
+                                }
                             });
                         }
                     });
                 }
             };
-            timer.scheduleAtFixedRate(timerTask, 0, 1000);
+            timer.scheduleAtFixedRate(timerTask, 0, 500);
     }
 
     @Override

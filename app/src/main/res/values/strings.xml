@@ -50,7 +50,7 @@
     <string name="upgrade_button_info">Description</string>
     <string name="upgrade_button_buy">Acheter\n</string>
     <string name="companies_button_buy">Acheter\n</string>
-    <string name="companies_text_employees">Employés</string>
+    <string name="companies_text_employees">Gestionnaires</string>
     <string name="employees_button_buy">Acheter\n</string>
     <string name="main_textview_employees">Employés</string>
 

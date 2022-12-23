@@ -21,6 +21,7 @@ import com.example.projetfinal1st.MyViewModelGame;
 import com.example.projetfinal1st.R;
 import com.example.projetfinal1st.Save;
 import com.example.projetfinal1st.Score;
+import com.example.projetfinal1st.Upgrade.AdapterUpgrade;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.w3c.dom.Text;
@@ -91,7 +92,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                             AdapterCompanies.m_money -= m_price;
                             //set the button text to sold out in red and enable it
                             AdapterCompanies.m_activity.runOnUiThread(()-> {
-                                button.setText("Own");
+                                button.setText("Owned");
                                 button.setTextColor(Color.GREEN);
                                 button.animate().rotationX(360);
                             });
@@ -99,8 +100,9 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                             EntityCompanies newCompanie = companies.get(m_position);
                             newCompanie.setBought(true);
                             myViewModelCompanies.udpate(newCompanie);
+
                             //register score in database
-                            Save save = new Save(m_id,newCompanie.getNbEmployees() + myViewModelGame.getSave(m_id).getScore(), m_money);
+                            Save save = new Save(m_id,newCompanie.getNbEmployees() + myViewModelGame.getSave(m_id).getScore(), AdapterCompanies.m_money);
                             myViewModelGame.updateSave(save);
                         }
                     }
@@ -184,7 +186,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
             if (!AdapterCompanies.myViewModelCompanies.getAllCompanies(m_id).get(position).isBought()) {
                 AdapterCompanies.m_activity.runOnUiThread(()-> {
                     String buy = context.getResources().getString(R.string.companies_button_buy);
-                    viewHolder.getButton().setTextColor(Color.GRAY);
+                    viewHolder.getButton().setTextColor(Color.WHITE);
                     viewHolder.getButton().setText(buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
                 });
             } else {

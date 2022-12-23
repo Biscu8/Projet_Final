@@ -20,9 +20,8 @@ import com.example.projetfinal1st.PolitiqueConfidentalite;
 import com.example.projetfinal1st.R;
 
 import java.util.Locale;
-//Orde a faire : finir ce qui a été déja commmencer, puis faire cette liste en ordre
-//TODO trouver une meilleur musique pour le jeu
-//TODO faire les soundeffects
+
+
 
 public class Settings extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private LocaleListCompat appLocale;
@@ -71,16 +70,6 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             Intent intent = new Intent(this, ConditionsUtilisations.class);
             startActivity(intent);
         });
-        /**
-         * open a popup for the credentials
-         */
-        //TODO faire fonctionner le popup et mettre un bouton ok sur le popup
-        findViewById(R.id.Credit).setOnClickListener(view -> {
-            AlertDialog.Builder creditpopup = new AlertDialog.Builder(new Settings());
-            creditpopup.setTitle("Credit");
-            creditpopup.setMessage("Programmeur \nCharle-Antoine Boudreault\nCody Bilodeau\nJérémy Lagueux");
-            creditpopup.show();
-        });
         // language change
 /**
  * Res go search the resource file form application
@@ -113,8 +102,6 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
             }
         });
     }
-    //TODO faire les options du DevMode
-
     @Override
     /**
      * is call when the page is resume
@@ -148,14 +135,6 @@ public class Settings extends AppCompatActivity implements SharedPreferences.OnS
      */
     public void onSharedPreferenceChanged(SharedPreferences preference, String key) {
         switch (key) {
-            //Devlopper mode
-            case "ModeDev":
-                if (preference.getBoolean(key, false)) {
-                    settings.findPreference("SettingDev").setVisible(true);
-                } else {
-                    settings.findPreference("SettingDev").setVisible(false);
-                }
-                break;
                 //dark mode
             case "DarkMode":
                 if (preference.getBoolean(key, false)) {

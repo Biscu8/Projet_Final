@@ -53,6 +53,7 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
         private int m_price;
         private SharedPreferences preferences;
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
         //retrieve money amount from adapter
@@ -70,13 +71,13 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
                     if (!upgrades.get(m_position).getBought()) {
                         //verify if the user has enough money
                         if (m_money < m_price) {
-                            //make a red text appear that tel the user that he dont have enough money
+                            //TODO make a red text appear that tel the user that he dont have enough money
                         } else {
                             //substract money
                             AdapterUpgrade.m_money -= m_price;
                             //set the button text to sold out in red and enable it
                             AdapterUpgrade.m_activity.runOnUiThread(() -> {
-                                buttonBuy.setText("Own");
+                                buttonBuy.setText("Sold out");
                                 buttonBuy.setTextColor(Color.GREEN);
                                 buttonBuy.animate().rotationX(360);
                             });
@@ -166,7 +167,7 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
                 AdapterUpgrade.m_activity.runOnUiThread(()-> {
                     String buy = context.getResources().getString(R.string.companies_button_buy);
                     viewHolder.getButtonBuy().setTextColor(Color.GRAY);
-                    viewHolder.getButtonBuy().setText(R.string.upgrade_button_buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
+                    viewHolder.getButtonBuy().setText(buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
                 });
             }
             else

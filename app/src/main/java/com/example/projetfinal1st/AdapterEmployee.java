@@ -89,12 +89,10 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                             }
                         }
                         //save the moneyCount
-                        Log.i("money", String.valueOf(AdapterEmployee.m_money));
                         AdapterEmployee.m_money -= price;
                         setMoney(AdapterEmployee.m_money);
                         Save save = new Save(m_username, myViewModelGame.getSave(m_username).getScore(), m_money);
                         myViewModelGame.updateSave(save);
-                        Log.i("moneyCount123123", String.valueOf(AdapterEmployee.m_money));
                     }
                 }
                 else if (view.getId() == employeeDescriptionButton.getId()) {
