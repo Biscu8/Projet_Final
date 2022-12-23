@@ -94,6 +94,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
                                 button.setText("Own");
                                 button.setTextColor(Color.GREEN);
                                 button.animate().rotationX(360);
+                                Log.i("own bug", String.valueOf((m_position)));
                             });
                             //register in database
                             EntityCompanies newCompanie = companies.get(m_position);

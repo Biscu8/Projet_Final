@@ -61,12 +61,10 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
             Executors.newSingleThreadExecutor().execute(()-> {
                 List<EntityEmployee> employees = getMyViewModelGame().getAllEmployeeWithSameId(getId());
                 m_money = AdapterEmployee.m_money;
-                int price = employees.get(m_position).getPrice();
+                int price = employees.get(getAdapterPosition()).getPrice();
                 Log.i("price", String.valueOf(price));
                 m_position = AdapterEmployee.m_position;
                 if (view.getId() == employeeBuyButton.getId()) {
-                    Log.i("1stview", String.valueOf(view.getId()));
-                    Log.i("1stviewbutton", String.valueOf(employeeBuyButton.getId()));
                     if (m_money < price) {
                         //change UI to print a buy error
                         AdapterEmployee.m_Activity.runOnUiThread(() -> {
@@ -76,21 +74,15 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                     } else {
                         //change Ui
                         ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
-                        ArrayList<EntityEmployee> arrayEmployee = new ArrayList<>();
-                        arrayEmployee.addAll(myViewModelGame.getAllEmployeeWithSameId(id));
+                        ArrayList<EntityEmployee> arrayEmployee = new ArrayList<>(myViewModelGame.getAllEmployeeWithSameId(id));
                         getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
-                        Log.i("how man1", String.valueOf(employeeCountNumberTextView.getText()));
                         localDataSet.get(m_position).setQuantity(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())));
                         localDataSet.get(m_position).setName(String.valueOf(employeeTextView.getText()));
-                        Log.i("how man2", String.valueOf(localDataSet.get(m_position).getQuantity()));
                         tempArrayList.add(new EntityEmployee(localDataSet.get(m_position).getQuantity(), localDataSet.get(m_position).getName()));
-                        Log.i("how man3", String.valueOf(localDataSet.get(m_position).getQuantity()));
                         for (int i = 0; i < tempArrayList.size(); i++) {
                             for (int j = 0; j < arrayEmployee.size(); j++) {
                                 if (tempArrayList.get(i).getName().equals(arrayEmployee.get(j).getName())) {
                                     arrayEmployee.get(j).setQuantity(tempArrayList.get(i).getQuantity());
-                                    Log.i("how many", String.valueOf(arrayEmployee.get(j).getQuantity()));
-                                    Log.i("get NAme", arrayEmployee.get(j).getName());
                                     myViewModelGame.udpateEmployee(arrayEmployee.get(j));
                                 }
                             }
@@ -101,12 +93,10 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                         setMoney(AdapterEmployee.m_money);
                         Save save = new Save(m_username, myViewModelGame.getSave(m_username).getScore(), m_money);
                         myViewModelGame.updateSave(save);
-                        Log.i("moneyCount", String.valueOf(AdapterEmployee.m_money));
+                        Log.i("moneyCount123123", String.valueOf(AdapterEmployee.m_money));
                     }
                 }
                 else if (view.getId() == employeeDescriptionButton.getId()) {
-                    Log.i("2stview", String.valueOf(view.getId()));
-                    Log.i("2stviewbutton", String.valueOf(employeeDescriptionButton.getId()));
 
                     // Inflate the layout of the popup
                     LayoutInflater inflater = (LayoutInflater) m_Activity.getSystemService(m_Activity.LAYOUT_INFLATER_SERVICE);
