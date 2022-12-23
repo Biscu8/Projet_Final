@@ -135,14 +135,14 @@ public class MainGame extends AppCompatActivity {
                         //TODO set here what all the upgrades does
             } else {
                         //Initiate the employees with default stats
-                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 500,R.drawable.george);;
+                        EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",1 , 5,R.drawable.george);;
                         EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 1000,R.drawable.sigma);
-                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 2000,R.drawable.orion);
-                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",8 , 3500,R.drawable.steve);
-                        EntityEmployee employee5 = new EntityEmployee(0,"Vecna",username ,"desc",10 , 5000,R.drawable.vecna);
-                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",12 , 6500,R.drawable.homer);
-                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",14 , 8000,R.drawable.elonmusk);
-                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",16 , 10000,R.drawable.chtulu);
+                        EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 5000,R.drawable.orion);
+                        EntityEmployee employee4 = new EntityEmployee(0,"Steve",username ,"desc",13 , 10000,R.drawable.steve);
+                        EntityEmployee employee5 = new EntityEmployee(0,"Vecna",username ,"desc",20 , 15000,R.drawable.vecna);
+                        EntityEmployee employee6 = new EntityEmployee(0,"Homer",username ,"desc",37 , 25000,R.drawable.homer);
+                        EntityEmployee employee7 = new EntityEmployee(0,"Elon Musk",username ,"desc",52 , 35000,R.drawable.elonmusk);
+                        EntityEmployee employee8 = new EntityEmployee(0,"Chtulu",username ,"desc",100 , 50000,R.drawable.chtulu);
                         arrayEmployee.add(employee1);
                         arrayEmployee.add(employee2);
                         arrayEmployee.add(employee3);
@@ -164,30 +164,30 @@ public class MainGame extends AppCompatActivity {
                         EntityCompanies entityCompanies10 = new EntityCompanies(username, "Starbucks", false, 350000, 150000, R.drawable.starbucks);
                         EntityCompanies entityCompanies11 = new EntityCompanies(username, "Dunkin Donuts", false, 400000, 200000, R.drawable.dunkindonut);
                         EntityCompanies entityCompanies12= new EntityCompanies(username, "Subway", false, 500000, 300000, R.drawable.subway);
-                        EntityCompanies entityCompanies13 = new EntityCompanies(username, "Mcdonald", false, 1000000, 500000, R.drawable.mcdonalds);
-                        EntityCompanies entityCompanies14 = new EntityCompanies(username, "Amazone", false, 2500000, 1000000, R.drawable.amazone);
+                        EntityCompanies entityCompanies13 = new EntityCompanies(username, "Mcdonald", false, 1000000, 400000, R.drawable.mcdonalds);
+                        EntityCompanies entityCompanies14 = new EntityCompanies(username, "Amazone", false, 2500000, 750000, R.drawable.amazone);
                         EntityCompanies entityCompanies15 = new EntityCompanies(username, "Facebook", false, 5500000, 2000000, R.drawable.facebook);
                         EntityCompanies entityCompanies16 = new EntityCompanies(username, "Apple", false, 7500000, 3000000, R.drawable.apple);
                         EntityCompanies entityCompanies17 = new EntityCompanies(username, "Google", false, 10000000, 5000000, R.drawable.google);
                         EntityCompanies entityCompanies18 = new EntityCompanies(username, "Tesla", false, 15000000, 7500000, R.drawable.tesla);
                         arrayCompanies.add(entityCompanies1);
-                        arrayCompanies.add(entityCompanies2);
-                        arrayCompanies.add(entityCompanies3);
-                        arrayCompanies.add(entityCompanies4);
-                        arrayCompanies.add(entityCompanies5);
-                        arrayCompanies.add(entityCompanies6);
-                        arrayCompanies.add(entityCompanies7);
-                        arrayCompanies.add(entityCompanies8);
-                        arrayCompanies.add(entityCompanies9);
-                        arrayCompanies.add(entityCompanies10);
-                        arrayCompanies.add(entityCompanies11);
-                        arrayCompanies.add(entityCompanies12);
-                        arrayCompanies.add(entityCompanies13);
-                        arrayCompanies.add(entityCompanies14);
-                        arrayCompanies.add(entityCompanies15);
-                        arrayCompanies.add(entityCompanies16);
-                        arrayCompanies.add(entityCompanies17);
-                        arrayCompanies.add(entityCompanies18);
+                       // arrayCompanies.add(entityCompanies2);
+                       // arrayCompanies.add(entityCompanies3);
+                      //  arrayCompanies.add(entityCompanies4);
+                       // arrayCompanies.add(entityCompanies5);
+                       // arrayCompanies.add(entityCompanies6);
+                       // arrayCompanies.add(entityCompanies7);
+                       // arrayCompanies.add(entityCompanies8);
+                      //  arrayCompanies.add(entityCompanies9);
+                      //  arrayCompanies.add(entityCompanies10);
+                      //  arrayCompanies.add(entityCompanies11);
+                      //  arrayCompanies.add(entityCompanies12);
+                      //  arrayCompanies.add(entityCompanies13);
+                       // arrayCompanies.add(entityCompanies14);
+                       // arrayCompanies.add(entityCompanies15);
+                       // arrayCompanies.add(entityCompanies16);
+                       // arrayCompanies.add(entityCompanies17);
+                       // arrayCompanies.add(entityCompanies18);
                         //initate upgrade
                         EntityUpgrade upgrade1 = new EntityUpgrade(username, "Rate upgrade", false, "Make the rate go faster", 10, R.drawable.rate);
                         arrayUpgrade.add(upgrade1);
@@ -318,43 +318,45 @@ public class MainGame extends AppCompatActivity {
                                         moneyAmount.setText(String.valueOf(money.get()));
                                     });
                                 }
-                                else
-                                {
+                                else {
                                     //retrieve all the companies
-                                   List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
-                                   boolean gameOver = false;
-                                   boolean gameWin = true;
-                                    for(int i = 0; i < companies.size(); i++)
-                                    {
-                                        if(!companies.get(i).isBought()) //verify which one is not bought
-                                        {
-                                            //if the player has enough money to buy one or more companies the game continue
-                                            if(companies.get(i).getPrice() <= Integer.parseInt(String.valueOf(moneyAmount.getText())))
+                                    List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
+                                    boolean gameOver = false;
+                                    boolean gameWin = true;
+                                        for (int i = 0; i < companies.size(); i++) {
+                                            if (!companies.get(i).isBought()) //verify which one is not bought
                                             {
-                                                gameOver = true;
+                                                //if the player has enough money to buy one or more companies the game continue
+                                                if (companies.get(i).getPrice() <= Integer.parseInt(String.valueOf(moneyAmount.getText()))) {
+                                                    gameOver = true;
+                                                }
+                                            } else {
+                                                gameWin = false;
                                             }
                                         }
-                                        else
-                                        {
-                                            gameWin = false;
+                                        if (gameWin) {
+                                            if (!gameOver) // if the user have 0 employee to fire and dont have enough money to buy a company its game over
+                                            {
+                                                //its game Over
+                                                runOnUiThread(() -> {
+                                                    Intent intent = new Intent(context, GameOver.class);
+                                                    timer.cancel();
+                                                    startActivity(intent);
+                                                });
+                                            } else {
+                                                click.set(score);
+                                                money.set(myViewModelGame.getMoneyAmount(username));
+                                                runOnUiThread(() -> {
+                                                    clickAmount.setText(String.valueOf(click.get()));
+                                                    moneyAmount.setText(String.valueOf(money.get()));
+                                                });
+                                            }
+                                        } else {
+                                            Intent intent = new Intent(context, GameWon.class);
+                                            timer.cancel();
+                                            startActivity(intent);
                                         }
                                     }
-                                    if(!gameWin) {
-                                        if (!gameOver) // if the user have 0 employee to fire and dont have enough money to buy a company its game over
-                                        {
-                                            //its game Over
-                                            runOnUiThread(() -> {
-                                                Intent intent = new Intent(context, GameOver.class);
-                                                startActivity(intent);
-                                            });
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(context, GameWon.class);
-                                        startActivity(intent);
-                                    }
-                                }
                             });
                         }
                     });

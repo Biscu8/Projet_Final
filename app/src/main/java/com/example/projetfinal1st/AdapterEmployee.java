@@ -63,9 +63,9 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
             Executors.newSingleThreadExecutor().execute(()-> {
                 List<EntityEmployee> employees = getMyViewModelGame().getAllEmployeeWithSameId(getId());
                 m_money = AdapterEmployee.m_money;
-                int price = employees.get(getAdapterPosition()).getPrice();
+                int price = employees.get(AdapterEmployee.m_position).getPrice();
                 Log.i("price", String.valueOf(price));
-                m_position = AdapterEmployee.m_position;
+                m_position = getAdapterPosition();
                 if (view.getId() == employeeBuyButton.getId()) {
                     if (m_money < price) {
                         //change UI to print a buy error
@@ -77,13 +77,16 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                         ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();
                         ArrayList<EntityEmployee> arrayEmployee = new ArrayList<>(myViewModelGame.getAllEmployeeWithSameId(id));
                         getEmployeeCountNumberTextView().setText(String.valueOf(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())) + 1));
+                        getEmployeeBuyButton().setText(String.valueOf(Integer.valueOf(String.valueOf(getEmployeeBuyButton().getText()).substring(0,Integer.valueOf((String.valueOf(getEmployeeBuyButton().getText()).length()))-1))*120/100) + "$");
                         localDataSet.get(m_position).setQuantity(Integer.parseInt(String.valueOf(employeeCountNumberTextView.getText())));
                         localDataSet.get(m_position).setName(String.valueOf(employeeTextView.getText()));
-                        tempArrayList.add(new EntityEmployee(localDataSet.get(m_position).getQuantity(), localDataSet.get(m_position).getName()));
+                        localDataSet.get(m_position).setPrice(Integer.valueOf(String.valueOf(getEmployeeBuyButton().getText()).substring(0,Integer.valueOf((String.valueOf(getEmployeeBuyButton().getText()).length()))-1))*120/100);
+                        tempArrayList.add(new EntityEmployee(localDataSet.get(m_position).getQuantity(), localDataSet.get(m_position).getName(), localDataSet.get(m_position).getPrice()));
                         for (int i = 0; i < tempArrayList.size(); i++) {
                             for (int j = 0; j < arrayEmployee.size(); j++) {
                                 if (tempArrayList.get(i).getName().equals(arrayEmployee.get(j).getName())) {
                                     arrayEmployee.get(j).setQuantity(tempArrayList.get(i).getQuantity());
+                                    arrayEmployee.get(i).setPrice(tempArrayList.get(i).getPrice());
                                     myViewModelGame.udpateEmployee(arrayEmployee.get(j));
                                 }
                             }

@@ -55,6 +55,11 @@ public class EntityEmployee implements Serializable {
         this.quantity = quantity;
         this.name = name;
     }
+    public EntityEmployee(int quantity, String name, int price) {
+        this.quantity = quantity;
+        this.name = name;
+        this.setPrice(price);
+    }
 
     public String getName() {
         return name;
