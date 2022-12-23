@@ -166,8 +166,8 @@ public class MainGame extends AppCompatActivity {
                         EntityCompanies entityCompanies12= new EntityCompanies(username, "Subway", false, 500000, 300000, R.drawable.subway);
                         EntityCompanies entityCompanies13 = new EntityCompanies(username, "Mcdonald", false, 1000000, 500000, R.drawable.mcdonalds);
                         EntityCompanies entityCompanies14 = new EntityCompanies(username, "Amazone", false, 2500000, 1000000, R.drawable.amazone);
-                        EntityCompanies entityCompanies15 = new EntityCompanies(username, "Facebook", false, 5000000, 2000000, R.drawable.facebook);
-                        EntityCompanies entityCompanies16 = new EntityCompanies(username, "Apple", false, 7500000, 4000000, R.drawable.apple);
+                        EntityCompanies entityCompanies15 = new EntityCompanies(username, "Facebook", false, 5500000, 2000000, R.drawable.facebook);
+                        EntityCompanies entityCompanies16 = new EntityCompanies(username, "Apple", false, 7500000, 3000000, R.drawable.apple);
                         EntityCompanies entityCompanies17 = new EntityCompanies(username, "Google", false, 10000000, 5000000, R.drawable.google);
                         EntityCompanies entityCompanies18 = new EntityCompanies(username, "Tesla", false, 15000000, 7500000, R.drawable.tesla);
                         arrayCompanies.add(entityCompanies1);
