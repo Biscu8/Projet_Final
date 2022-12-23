@@ -116,6 +116,7 @@ public class MainGame extends AppCompatActivity {
 
                         //put data from companies database in the arrayCompanies
                         List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
+                        //sort companies by price
                         arrayCompanies.addAll(companies);
 
             } else {
