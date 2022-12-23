@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -46,6 +47,7 @@ public class MainGame extends AppCompatActivity {
     private TextView noMoreEmployee;
     private ArrayList<AutoClicker> arrayAuto;
     private int nbEmployee;
+    private Context context;
     @SuppressLint({"SetTextI18n", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class MainGame extends AppCompatActivity {
         myViewModelUpgrade = new ViewModelProvider(this).get(MyViewModelUpgrade.class);
         noMoreEmployee = findViewById(R.id.textViewMainError);
         noMoreEmployee.setVisibility(View.INVISIBLE);
+        context = this;
         // ArrayLists
          arrayEmployee = new ArrayList<>();
          arrayUpgrade = new ArrayList<>();
@@ -305,8 +308,9 @@ public class MainGame extends AppCompatActivity {
                             AtomicInteger click = new AtomicInteger();
                             AtomicInteger money = new AtomicInteger();
                             Executors.newSingleThreadExecutor().execute(() -> {
-                                if(!"0".equals(clickAmount.getText())) {
-                                    click.set(myViewModelGame.getSave(username).getScore());
+                                int score = myViewModelGame.getSave(username).getScore();
+                                if(score != 0) {
+                                    click.set(score);
                                     money.set(myViewModelGame.getMoneyAmount(username));
                                     runOnUiThread(() -> {
                                         clickAmount.setText(String.valueOf(click.get()));
@@ -315,23 +319,27 @@ public class MainGame extends AppCompatActivity {
                                 }
                                 else
                                 {
+                                    //retrieve all the companies
                                    List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
                                    boolean gameOver = false;
                                     for(int i = 0; i < companies.size(); i++)
                                     {
-                                        if(!companies.get(i).isBought())
+                                        if(!companies.get(i).isBought()) //verify which one is not bought
                                         {
+                                            //if the player has enough money to buy one or more companies the game continue
                                             if(companies.get(i).getPrice() <= Integer.parseInt(String.valueOf(moneyAmount.getText())))
                                             {
                                                 gameOver = true;
                                             }
                                         }
                                     }
-                                    if(!gameOver)
+                                    if(!gameOver) // if the user have 0 employee to fire and dont have enough money to buy a company its game over
                                     {
                                         //its game Over
-                                           // Intent intent = new Intent(this, GameOver.class);
-                                           // startActivity(intent);
+                                        runOnUiThread(()-> {
+                                            Intent intent = new Intent(context,GameOver.class);
+                                            startActivity(intent);
+                                        });
                                     }
                                 }
                             });
