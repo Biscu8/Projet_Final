@@ -323,6 +323,7 @@ public class MainGame extends AppCompatActivity {
                                     //retrieve all the companies
                                    List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
                                    boolean gameOver = false;
+                                   boolean gameWin = true;
                                     for(int i = 0; i < companies.size(); i++)
                                     {
                                         if(!companies.get(i).isBought()) //verify which one is not bought
@@ -333,14 +334,25 @@ public class MainGame extends AppCompatActivity {
                                                 gameOver = true;
                                             }
                                         }
+                                        else
+                                        {
+                                            gameWin = false;
+                                        }
                                     }
-                                    if(!gameOver) // if the user have 0 employee to fire and dont have enough money to buy a company its game over
+                                    if(!gameWin) {
+                                        if (!gameOver) // if the user have 0 employee to fire and dont have enough money to buy a company its game over
+                                        {
+                                            //its game Over
+                                            runOnUiThread(() -> {
+                                                Intent intent = new Intent(context, GameOver.class);
+                                                startActivity(intent);
+                                            });
+                                        }
+                                    }
+                                    else
                                     {
-                                        //its game Over
-                                        runOnUiThread(()-> {
-                                            Intent intent = new Intent(context,GameOver.class);
-                                            startActivity(intent);
-                                        });
+                                        Intent intent = new Intent(context, GameWon.class);
+                                        startActivity(intent);
                                     }
                                 }
                             });

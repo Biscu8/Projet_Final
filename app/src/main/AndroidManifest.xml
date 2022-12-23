@@ -13,6 +13,13 @@
         android:theme="@style/Theme.ProjetFinal1st"
         tools:targetApi="31">
         <activity
+            android:name=".GameWon"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".GameOver"
             android:exported="false">
             <meta-data
