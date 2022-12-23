@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,7 +14,6 @@ import kotlinx.coroutines.flow.Flow;
 
 public class MyViewModelGame extends AndroidViewModel {
     UserRepository userRepository;
-    Score score;
     public MyViewModelGame(@NonNull Application application) {
         super(application);
         userRepository = new UserRepository(application);
@@ -62,6 +62,14 @@ public class MyViewModelGame extends AndroidViewModel {
     public void udpateEmployee(EntityEmployee employee)
     {
         userRepository.udpateEmployee(employee);
+    }
+
+    public synchronized void increment(String username, int rate) {
+        Log.i("scorebefore", String.valueOf(getSave(username).getScore()));
+
+        Save save = new Save(username, getSave(username).getScore() - rate,getMoneyAmount(username) + rate);
+        updateSave(save);
+        Log.i("scoreafter", String.valueOf(getSave(username).getScore()));
     }
 }
 

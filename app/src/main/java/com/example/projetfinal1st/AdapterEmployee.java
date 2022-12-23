@@ -62,6 +62,7 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                 List<EntityEmployee> employees = getMyViewModelGame().getAllEmployeeWithSameId(getId());
                 m_money = AdapterEmployee.m_money;
                 int price = employees.get(m_position).getPrice();
+                Log.i("price", String.valueOf(price));
                 m_position = AdapterEmployee.m_position;
                 if (view.getId() == employeeBuyButton.getId()) {
                     Log.i("1stview", String.valueOf(view.getId()));
@@ -89,16 +90,17 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                                 if (tempArrayList.get(i).getName().equals(arrayEmployee.get(j).getName())) {
                                     arrayEmployee.get(j).setQuantity(tempArrayList.get(i).getQuantity());
                                     Log.i("how many", String.valueOf(arrayEmployee.get(j).getQuantity()));
-                                    Log.i("getNAme", arrayEmployee.get(j).getName());
+                                    Log.i("get NAme", arrayEmployee.get(j).getName());
                                     myViewModelGame.udpateEmployee(arrayEmployee.get(j));
-                                    Executors.newSingleThreadExecutor().execute(() -> {
-                                    });
                                 }
                             }
                         }
                         //save the moneyCount
+                        Log.i("money", String.valueOf(AdapterEmployee.m_money));
                         AdapterEmployee.m_money -= price;
                         setMoney(AdapterEmployee.m_money);
+                        Save save = new Save(m_username, myViewModelGame.getSave(m_username).getScore(), m_money);
+                        myViewModelGame.updateSave(save);
                         Log.i("moneyCount", String.valueOf(AdapterEmployee.m_money));
                     }
                 }

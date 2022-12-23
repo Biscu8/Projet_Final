@@ -56,9 +56,7 @@ public class UserRepository {
         });
     }
     public void update(Save save) {
-        Executors.newSingleThreadExecutor().execute(() -> {
             userDao.update(save);
-        });
     }
     /**
      * login the player with the username and the password

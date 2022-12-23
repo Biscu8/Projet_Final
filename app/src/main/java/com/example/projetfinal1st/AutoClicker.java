@@ -1,6 +1,7 @@
 package com.example.projetfinal1st;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModel;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Class to create an auto clicker with parameters
@@ -18,6 +20,7 @@ public class AutoClicker {
     private MyViewModelGame viewModel;
     private transient String username;
     private int rate;
+    private Timer timer;
 
     /**
      * Constructor for an auto clicker
@@ -41,26 +44,26 @@ public class AutoClicker {
         this.rate = rate;
     }
 
-    public void incrementScore(Score score, int rate) {
-        //score.setScore(rate + score.getScore());
-        //TODO regler cette fonction qui fait crash(setScore)
-    }
 
     /**
      * Function to start the timer after creating an auto clicker
      */
     public void start() {
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 Executors.newSingleThreadExecutor().execute(() -> {
-                    viewModel.getSave(username).setScore(viewModel.getSave(username).getScore() - rate);
-                    //viewModel.setMoneyAmount(username, viewModel.getMoneyAmount(username) + 1);
+                    viewModel.increment(username, rate);
+
                 });
             }
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
+    }
+
+    public void cancel() {
+        timer.cancel();
     }
 
 }
