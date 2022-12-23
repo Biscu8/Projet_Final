@@ -55,7 +55,6 @@ public class AutoClicker {
             public void run() {
                 Executors.newSingleThreadExecutor().execute(() -> {
                     viewModel.increment(username, rate);
-
                 });
             }
         };
