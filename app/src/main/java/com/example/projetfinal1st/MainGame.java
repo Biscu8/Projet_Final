@@ -25,6 +25,7 @@ import com.example.projetfinal1st.MenuFeatures.Settings;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,9 +117,7 @@ public class MainGame extends AppCompatActivity {
 
                         //put data from companies database in the arrayCompanies
                         List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
-                        //sort companies by price
                         arrayCompanies.addAll(companies);
-
             } else {
 //Initiate the employees with default stats
                         EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 1,R.drawable.george);;
@@ -183,7 +182,14 @@ public class MainGame extends AppCompatActivity {
                         myViewModelGame.setSave(save);
                         //initialize a save of the compagnies in database
                         for(int i = 0; i < arrayCompanies.size(); i++) {
-                            myViewModelCompanies.insert(arrayCompanies.get(i));
+                            //set companies
+                            String name = arrayCompanies.get(i).getName();
+                            boolean bought = arrayCompanies.get(i).isBought();
+                            int nbEmployees = arrayCompanies.get(i).getNbEmployees();
+                            int price = arrayCompanies.get(i).getPrice();
+                            int image = arrayCompanies.get(i).getImage();
+                            EntityCompanies companies = new EntityCompanies(username, name,bought, nbEmployees,price, image);
+                            myViewModelCompanies.insert(companies);
                         }
                         //Use the same id to create each employee in the employee tab
                         for (int i = 0; i < arrayEmployee.size(); i++) {
@@ -289,13 +295,12 @@ public class MainGame extends AppCompatActivity {
                             AtomicInteger click = new AtomicInteger();
                             AtomicInteger money = new AtomicInteger();
                             Executors.newSingleThreadExecutor().execute(() -> {
-                                click.set(myViewModelGame.getSave(username).getScore());
-                                money.set(myViewModelGame.getMoneyAmount(username));
-                                Log.i("moneyCount", String.valueOf(money.get()));
-                                runOnUiThread(() -> {
-                                    clickAmount.setText(String.valueOf(click.get()));
-                                    moneyAmount.setText(String.valueOf(money.get()));
-                                });
+                                    click.set(myViewModelGame.getSave(username).getScore());
+                                    money.set(myViewModelGame.getMoneyAmount(username));
+                                    runOnUiThread(() -> {
+                                        clickAmount.setText(String.valueOf(click.get()));
+                                        moneyAmount.setText(String.valueOf(money.get()));
+                                    });
                             });
                         }
                     });

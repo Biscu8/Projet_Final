@@ -186,6 +186,7 @@ public class AdapterCompanies extends RecyclerView.Adapter<AdapterCompanies.View
             if (!AdapterCompanies.myViewModelCompanies.getAllCompanies(m_id).get(position).isBought()) {
                 AdapterCompanies.m_activity.runOnUiThread(()-> {
                     String buy = context.getResources().getString(R.string.companies_button_buy);
+                    viewHolder.getButton().setTextColor(Color.GRAY);
                     viewHolder.getButton().setText(buy + String.valueOf(localDataSet.get(position).getPrice()) + "$");
                 });
             } else {

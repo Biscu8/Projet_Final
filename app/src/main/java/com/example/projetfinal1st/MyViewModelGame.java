@@ -48,9 +48,7 @@ public class MyViewModelGame extends AndroidViewModel {
         return userRepository.getUserCount();
     }
 
-    public String getid(String username) {
-        return userRepository.getid(username);
-    }
+
     public void insert(EntityEmployee employee)
     {
         userRepository.insert(employee);
@@ -65,11 +63,10 @@ public class MyViewModelGame extends AndroidViewModel {
     }
 
     public synchronized void increment(String username, int rate) {
-        Log.i("scorebefore", String.valueOf(getSave(username).getScore()));
-
-        Save save = new Save(username, getSave(username).getScore() - rate,getMoneyAmount(username) + rate);
-        updateSave(save);
-        Log.i("scoreafter", String.valueOf(getSave(username).getScore()));
+        if(getSave(username).getScore() - rate >= rate) {
+            Save save = new Save(username, getSave(username).getScore() - rate, getMoneyAmount(username) + rate);
+            updateSave(save);
+        }
     }
 }
 

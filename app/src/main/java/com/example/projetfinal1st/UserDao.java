@@ -62,8 +62,7 @@ public interface UserDao {
     public static ArrayList<Save> getAllUser() {
         return null;
     }
-    @Query("SELECT EmployeeIdlink FROM 'Save' WHERE username =:username")
-    public String getid(String username);
+
     @Query("SELECT * FROM 'Employee' WHERE Userid =:id")
     public List<EntityEmployee> getAllEmployeeWithSameId(String id);
     @Update

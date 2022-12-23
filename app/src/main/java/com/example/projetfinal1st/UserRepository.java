@@ -82,10 +82,6 @@ public class UserRepository {
         ArrayList<Save> userList = UserDao.getAllUser();//???
         return userList.size();
     }
-    public String getid(String username)
-    {
-        return userDao.getid(username);
-    }
     public void insert(EntityEmployee employee)
     {
         userDao.insert(employee);

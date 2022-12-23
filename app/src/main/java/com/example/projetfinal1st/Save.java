@@ -26,9 +26,6 @@ public class Save {
     @ColumnInfo(name = "money")
     public int money;
 
-    @ColumnInfo(name ="EmployeeIdlink")
-    public String entitytab;
-
 
     /**
      * Default constructor
@@ -51,11 +48,6 @@ public class Save {
         this.username = username;
         this.score = scores;
         this.money = money;
-    }
-    public Save(String username, String id)
-    {
-        this.username = username;
-        this.entitytab = id;
     }
     public Save(String username, int money)
     {
