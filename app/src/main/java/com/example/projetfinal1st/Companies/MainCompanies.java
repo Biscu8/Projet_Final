@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,12 +54,11 @@ public class MainCompanies extends AppCompatActivity {
 
         // Initiate recycler view
         Executors.newSingleThreadExecutor().execute(() -> {
-                     adapterCompanies = new AdapterCompanies(dataSet,myViewModelCompanies, this, myViewModelGame.getMoneyAmount(id), id, this, myViewModelGame);
-            runOnUiThread(() -> {
-                recyclerView.setAdapter(adapterCompanies);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            });
-        });
+                     adapterCompanies = new AdapterCompanies(dataSet, myViewModelCompanies, this, myViewModelGame.getMoneyAmount(id), id, this, myViewModelGame);
+                    recyclerView.setAdapter(adapterCompanies);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                });
+
 
         // Open info popup
         Button buttonInfo = findViewById(R.id.buttonCompaniesInfo);

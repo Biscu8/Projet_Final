@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,21 +20,24 @@ import com.example.projetfinal1st.Companies.EntityCompanies;
 import com.example.projetfinal1st.Companies.MainCompanies;
 import com.example.projetfinal1st.Companies.MyViewModelCompanies;
 import com.example.projetfinal1st.MenuFeatures.Settings;
+import com.example.projetfinal1st.Upgrade.AdapterUpgrade;
+import com.example.projetfinal1st.Upgrade.EntityUpgrade;
+import com.example.projetfinal1st.Upgrade.MainUpgrade;
+import com.example.projetfinal1st.Upgrade.MyViewModelUpgrade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MainGame extends AppCompatActivity {
     private SharedPreferences preferences;
     private MyViewModelGame myViewModelGame;
     private MyViewModelCompanies myViewModelCompanies;
+    private MyViewModelUpgrade myViewModelUpgrade;
     private Score score;
     private String username;
     private ArrayList<EntityEmployee> arrayEmployee;
@@ -54,7 +55,9 @@ public class MainGame extends AppCompatActivity {
         username = preferences.getString("Username", "");
         myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         myViewModelCompanies = new ViewModelProvider(this).get(MyViewModelCompanies.class);
+        myViewModelUpgrade = new ViewModelProvider(this).get(MyViewModelUpgrade.class);
         noMoreEmployee = findViewById(R.id.textViewMainError);
+        noMoreEmployee.setVisibility(View.INVISIBLE);
         // ArrayLists
          arrayEmployee = new ArrayList<>();
          arrayUpgrade = new ArrayList<>();
@@ -102,24 +105,32 @@ public class MainGame extends AppCompatActivity {
                                 moneyAmount.setText(String.valueOf(money));
                             });
                         }
-                        //verify if the user is comming back from the companie tab
+                        //verify if the user is comming back from the companies tab
                         if(!String.valueOf(preferences.getString("NewMoneyCompanies", "")).isEmpty())
                         {
                             //comming back from the tab
-                            //get the new companie employees and set the view with is employees left
-                            List<EntityCompanies> employeestab = myViewModelCompanies.getAllCompanies(username);
-                           int nbEmployee = myViewModelGame.getSave(username).getScore();
                             runOnUiThread(() -> {
                                 moneyAmount.setText(preferences.getString("NewMoneyCompanies", ""));
                                 preferences.edit().remove("NewMoneyCompanies").apply();
                             });
                         }
-
+                        //verify if the user is comming back from the upgrade tab
+                        if(!String.valueOf(preferences.getString("NewMoneyUpgrades", "")).isEmpty())
+                        {
+                            //update money with new money
+                            runOnUiThread(() -> {
+                                moneyAmount.setText(preferences.getString("NewMoneyUpgrades", ""));
+                                preferences.edit().remove("NewMoneyUpgrades").apply();
+                            });
+                        }
                         //put data from companies database in the arrayCompanies
                         List<EntityCompanies> companies = myViewModelCompanies.getAllCompanies(username);
                         arrayCompanies.addAll(companies);
+                        //put data from upgrade database in the arrayUpgrade
+                        List<EntityUpgrade> upgrades = myViewModelUpgrade.getAllUpgrades(username);
+                        arrayUpgrade.addAll(upgrades);
             } else {
-//Initiate the employees with default stats
+                        //Initiate the employees with default stats
                         EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 1,R.drawable.george);;
                         EntityEmployee employee2 = new EntityEmployee(0,"Sigma",username ,"desc",4 , 2000,R.drawable.sigma);
                         EntityEmployee employee3 = new EntityEmployee(0,"Orion",username ,"desc",6 , 3000,R.drawable.orion);
@@ -173,8 +184,9 @@ public class MainGame extends AppCompatActivity {
                         arrayCompanies.add(entityCompanies16);
                         arrayCompanies.add(entityCompanies17);
                         arrayCompanies.add(entityCompanies18);
-                        EntityUpgrade upgrade = new EntityUpgrade(username, "name", false, "desc", 0, 0);
-                        arrayUpgrade.add(upgrade);
+                        //initate upgrade
+                        EntityUpgrade upgrade1 = new EntityUpgrade(username, "Rate upgrade", false, "Make the rate go faster", 10, R.drawable.rate);
+                        arrayUpgrade.add(upgrade1);
                         //for the new user intiate click amount at 100
                         clickAmountView.setText("100");
                         //if there is no user initiate score to 0 and create a new save
@@ -204,6 +216,11 @@ public class MainGame extends AppCompatActivity {
                             //register name in database with the id and the amount of 0 employee
                             EntityEmployee employee = new EntityEmployee(quantity, name, username, desc, rate, price, image);
                             myViewModelGame.insert(employee);
+                        }
+                        //initialize upgrades
+                        for(int i = 0; i < arrayUpgrade.size(); i++)
+                        {
+                            myViewModelUpgrade.insert(arrayUpgrade.get(i));
                         }
                         noMoreEmployee.setTextColor(0);
             }
@@ -252,18 +269,11 @@ public class MainGame extends AppCompatActivity {
             findViewById(R.id.buttonUpgrade).setOnClickListener(view -> {
                 Intent intent = new Intent(this, MainUpgrade.class);
 
-                ArrayList<EntityUpgrade> tempArrayList = new ArrayList<>();
-                tempArrayList.addAll(arrayUpgrade);
-
-                for (int i = 0; i < tempArrayList.size(); i++) {
-                    if (tempArrayList.get(i).getBought()) {
-                        tempArrayList.remove(i);
-                    }
-                }
-
-                // Put extas in intent
-                intent.putExtra("arrayList", (Serializable) tempArrayList);
-
+                //Send ArrayList to adater
+                Executors.newSingleThreadExecutor().execute(()-> {
+                    AdapterUpgrade adapterUpgrade = new AdapterUpgrade(arrayUpgrade, myViewModelUpgrade,this, myViewModelGame.getMoneyAmount(username), username, this, myViewModelGame);
+                });
+                intent.putExtra("arrayListUpgrades", arrayUpgrade);
                 startActivity(intent);
             });
 

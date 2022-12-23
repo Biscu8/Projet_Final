@@ -1,4 +1,4 @@
-package com.example.projetfinal1st;
+package com.example.projetfinal1st.Upgrade;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

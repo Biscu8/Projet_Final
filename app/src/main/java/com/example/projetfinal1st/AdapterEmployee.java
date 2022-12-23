@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -70,7 +72,6 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
                         AdapterEmployee.m_Activity.runOnUiThread(() -> {
                             getMissingMoney().setVisibility(View.VISIBLE);
                         });
-                        Log.i("Not enough money", String.valueOf(m_money));
                     } else {
                         //change Ui
                         ArrayList<EntityEmployee> tempArrayList = new ArrayList<>();

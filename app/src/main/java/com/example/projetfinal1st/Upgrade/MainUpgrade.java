@@ -1,7 +1,8 @@
-package com.example.projetfinal1st;
+package com.example.projetfinal1st.Upgrade;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,13 +15,24 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projetfinal1st.Companies.AdapterCompanies;
+import com.example.projetfinal1st.MainGame;
+import com.example.projetfinal1st.MyViewModelGame;
+import com.example.projetfinal1st.R;
+
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class MainUpgrade extends AppCompatActivity {
 
+    MyViewModelUpgrade myViewModelUpgrade;
+    MyViewModelGame myViewModelGame;
+    AdapterUpgrade adapterUpgrade;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +42,25 @@ public class MainUpgrade extends AppCompatActivity {
         // Get Intent
         Intent intent = getIntent();
 
+        //initate view models
+        myViewModelUpgrade = new ViewModelProvider(this).get(MyViewModelUpgrade.class);
+        myViewModelGame = new ViewModelProvider(this).get(MyViewModelGame.class);
         // Retrieve recycler view
         RecyclerView recyclerView = findViewById(R.id.recyclerViewUpgrade);
 
+        //retrieve name
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = preferences.getString("Username", "");
+
         // Retrieve ArrayList
-        ArrayList<EntityUpgrade> dataSet = (ArrayList<EntityUpgrade>) intent.getSerializableExtra("arrayList");
+        ArrayList<EntityUpgrade> dataSet = (ArrayList<EntityUpgrade>) intent.getSerializableExtra("arrayListUpgrades");
 
         // Initiate recycler view
-        AdapterUpgrade adapterUpgrade = new AdapterUpgrade(dataSet);
+        Executors.newSingleThreadExecutor().execute(() -> {
+            adapterUpgrade = new AdapterUpgrade(dataSet, myViewModelUpgrade, this, myViewModelGame.getMoneyAmount(id),id, this, myViewModelGame);
         recyclerView.setAdapter(adapterUpgrade);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        });
 
         // open info popup
         Button buttonInfo = findViewById(R.id.buttonUpgradeInfo);
@@ -76,7 +97,7 @@ public class MainUpgrade extends AppCompatActivity {
 
             // Intent to return data to main game
             Intent secondIntent = new Intent(this, MainGame.class);
-
+            preferences.edit().putString("NewMoneyUpgrades", String.valueOf(adapterUpgrade.getViewHolder().getMoney())).apply();
             startActivity(secondIntent);
         });
 
