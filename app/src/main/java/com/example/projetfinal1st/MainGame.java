@@ -132,6 +132,7 @@ public class MainGame extends AppCompatActivity {
                         //put data from upgrade database in the arrayUpgrade
                         List<EntityUpgrade> upgrades = myViewModelUpgrade.getAllUpgrades(username);
                         arrayUpgrade.addAll(upgrades);
+                        //TODO set here what all the upgrades does
             } else {
                         //Initiate the employees with default stats
                         EntityEmployee employee1 = new EntityEmployee(0,"George",username ,"desc",2 , 500,R.drawable.george);;
@@ -389,7 +390,6 @@ public class MainGame extends AppCompatActivity {
                     startActivity(intentMainPage);
                     break;
                 case R.id.menu_setting:
-                    //TODO menu Settings
                     Intent intent = new Intent(this, Settings.class);
                     startActivity(intent);
                     break;

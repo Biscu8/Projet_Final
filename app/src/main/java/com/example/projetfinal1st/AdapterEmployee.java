@@ -248,8 +248,6 @@ public class AdapterEmployee extends RecyclerView.Adapter<AdapterEmployee.ViewHo
         viewHolder.getEmployeeImageView().setImageResource(localDataSet.get(position).getImage());
         viewHolder.getEmployeeBuyButton().setText((localDataSet.get(position).getPrice()) + "$");
         AdapterEmployee.m_viewHolder = viewHolder;
-        
-        // TODO ?? view.Holder.getEmployeeDescriptionButton().set
     }
 
     // Get position?

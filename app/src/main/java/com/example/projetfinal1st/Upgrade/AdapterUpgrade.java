@@ -184,7 +184,7 @@ public class AdapterUpgrade extends RecyclerView.Adapter<AdapterUpgrade.ViewHold
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.size(); //TODO FIX THIS TOO
+        return localDataSet.size();
     }
 
     public ViewHolder getViewHolder()
